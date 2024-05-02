@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^(.*)$ /index.php/$1 [L]
+RewriteRule ^(.*)/public/front/(.*)$ public/front/$2
+RewriteRule ^(.*)/public/(.*)$ public/$2
+#RewriteRule ^(.*)/uploads/(.*)$ uploads/$2
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    # If we don't have mod_rewrite installed, all 404's
+    # can be sent to index.php, and everything works as normal.
+    # Submitted by: ElliotHaughin
+
+    ErrorDocument 404 /index.php
+</IfModule>
+
+#php_value upload_max_filesize 500M
+#php_value post_max_size 500M

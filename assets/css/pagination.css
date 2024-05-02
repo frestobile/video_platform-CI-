@@ -1,0 +1,61 @@
+div.dataTables_paginate {
+    margin: 0px;
+    white-space: nowrap;
+    text-align: right;
+}
+.pagination {
+    display: inline-block;
+    padding-left: 0px;
+    margin: 20px 0px;
+    border-radius: 4px;
+}
+.pagination > li {
+    display: inline;
+    text-align: center;
+}
+
+div.pagination {
+    padding: 1px 1px 20px;
+    margin: 1px;
+}
+
+div.pagination a {
+    padding: 6px 10px 6px 10px;
+    margin: 1px;
+    border: 1px solid #438eff;;
+
+    text-decoration: none; /* no underline */
+    color: #438eff;;
+}
+div.pagination a:hover, div.pagination a:active {
+    border: 1px solid #438eff;;
+    color: #000;
+}
+div.pagination span.current {
+    padding: 6px 10px 6px 10px;
+    margin: 1px;
+    border: 1px solid #438eff;;
+
+    font-weight: bold;
+    background-color: #438eff;;
+    color: #FFF;
+    border-radius: 2px;
+}
+
+div.pagination span.ellipsis {
+    padding: 6px 10px 6px 10px;
+    margin: 1px;
+    border: 1px solid lightgrey;
+
+    font-weight: bold;
+    /*background-color: lightgrey;*/
+    color: #000;
+    border-radius: 2px;
+}
+div.pagination span.disabled {
+    padding: 6px 10px 6px 10px;
+    margin: 1px;
+    border: 1px solid #EEE;
+
+    color: #DDD;
+}
