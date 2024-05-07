@@ -111,23 +111,28 @@ class Backend1 extends CI_Controller{
         $result = $this->LoginModel->device_login($deviceID, $password);
         $update_data = array();
         if($result['status'] == 'success'){
+            $company_data = $this->General->get_row("vis_companies", array("company_id" => $result["device_company_id"]));
             $data['error'] = false;
             $data['state'] = 200;
             $data['msg'] = "Logged In successfully!";
+            $data["url"] = $company_data->company_picture;
             $update_data['device_login_num'] = $result['device_login_num'] + 1;
             $this->DeviceModel->loginUpdate($update_data,$result['device_id']);
         }else if($result['status'] == 'block'){
             $data['error'] = true;
             $data['state'] =  100;
             $data['msg'] = "This Device was Blocked!";
+            $data['url'] = null;
         }else if($result['status'] == 'password'){
             $data['error'] = true;
             $data['state'] =  300;
             $data['msg'] = "Password is Incorrect!";
+            $data['url'] = null;
         }else{
             $data['error'] = true;
             $data['state'] = 500;
             $data['msg'] = "This Device doesn't exist!";
+            $data['url'] = null;
         }
 
         echo json_encode($data);
@@ -141,10 +146,12 @@ class Backend1 extends CI_Controller{
             $response["error"] = true;
             $response['state'] = 400;
             $response["msg"] = "Device ID doesn't exist anymore!";
+            $response['url'] = null;
         } else {
             $response["error"] = false;
             $response['state'] = 200;
             $response["msg"] = "OK";
+            $response['url'] = "";
         }
         echo json_encode($response);
     }
