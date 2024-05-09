@@ -2,11 +2,6 @@
 
 
 class Backend1 extends CI_Controller{
-    // private $_version = '1.6.3';
-    // private $_url = 'https://api.jwplatform.com/v1';
-    // private $_library;
-
-    // private $_key, $_secret;
 
     public function __construct(){
         parent::__construct();
@@ -16,14 +11,6 @@ class Backend1 extends CI_Controller{
         $this->load->model('GlobalModel');
         $this->load->model('TimeModel');
         $this->load->helper(array('form', 'url'));
-
-        // $this->_key = 'g6XTybmR';
-        // $this->_secret = '2gU3E3vT6AKm9bClOxm483h5';
-        // if (function_exists('curl_init')) {
-        //     $this->_library = 'curl';
-        // } else {
-        //     $this->_library = 'fopen';
-        // }
     }
 
     public function index() {
@@ -61,16 +48,22 @@ class Backend1 extends CI_Controller{
                 $tempFile = $_FILES['videoFile']['tmp_name'];
                 $targetFile = $config['upload_path'] . $_FILES['videoFile']['name'];
                 $fileName = $_FILES['videoFile']['name'];
-    
+
                 // Validate the file type
                 $fileParts = pathinfo($_FILES['videoFile']['name']);
                 if (in_array(strtolower($fileParts['extension']), explode('|', $config['allowed_types']))) {
+                    $this->General->update(
+                        'vis_videos', 
+                        array('video_uploaded' => 1), 
+                        array('video_id'=>$video_data->video_id)
+                    ); // video upload started!
+
                     if (move_uploaded_file($tempFile, $targetFile)) {
                         
                         $data = array();
                         $cond['video_id'] = $video_data->video_id;
                 
-                        $data['video_uploaded'] = 2;
+                        $data['video_uploaded'] = 2;  // video upload completed!
                         $data['video_url'] = $fileName;
                         $data['video_upload_time'] = $this->TimeModel->getting_datetime();
                         $data['video_device_id'] = $device_data->device_id;
@@ -83,9 +76,13 @@ class Backend1 extends CI_Controller{
 
                         $this->get_thumbnail($targetFile, $video_data->video_serial, $response);
     
-                       
-    
                     } else {
+                        $this->General->update(
+                            'vis_videos', 
+                            array('video_uploaded' => 0), 
+                            array('video_id'=>$video_data->video_id)
+                        ); // video upload failed!
+
                         $response['error'] = true;
                         $response['msg'] = 'Failed to move uploaded file.';
                         echo json_encode($response);
@@ -122,17 +119,17 @@ class Backend1 extends CI_Controller{
             $data['error'] = true;
             $data['state'] =  100;
             $data['msg'] = "This Device was Blocked!";
-            $data['url'] = null;
+            $data['url'] = "";
         }else if($result['status'] == 'password'){
             $data['error'] = true;
             $data['state'] =  300;
             $data['msg'] = "Password is Incorrect!";
-            $data['url'] = null;
+            $data['url'] = "";
         }else{
             $data['error'] = true;
             $data['state'] = 500;
             $data['msg'] = "This Device doesn't exist!";
-            $data['url'] = null;
+            $data['url'] = "";
         }
 
         echo json_encode($data);
@@ -146,7 +143,7 @@ class Backend1 extends CI_Controller{
             $response["error"] = true;
             $response['state'] = 400;
             $response["msg"] = "Device ID doesn't exist anymore!";
-            $response['url'] = null;
+            $response['url'] = "";
         } else {
             $response["error"] = false;
             $response['state'] = 200;
@@ -200,57 +197,6 @@ class Backend1 extends CI_Controller{
         echo json_encode($response);
     }
 
-    public function check_status(){
-        $this->load->model('front/VideoModel');
-        $param['video_is_show'] = 0; // done the video uploading..
-        $param['video_company_id'] = $this->input->post('company_id');
-        $result = $this->VideoModel->getFindWhere($param);
-        log_message('info', 'check_status() VideoModel->getFindWhere:');
-        log_message('info', json_encode($result));
-        $res = array();
-        if($result) {
-            foreach ($result as $key=>$rows) {
-                if ($rows['video_uploaded'] == 1) {
-                    $res[$key]['status'] = 1;
-                    $res[$key]['video_id'] = $rows['video_id'];
-                } elseif ($rows['video_uploaded'] == 2) {
-                    $jw_result = $this->call('/videos/conversions/list', array('video_key' => $rows['video_url']));
-                    $response = json_decode(trim($jw_result), TRUE);
-
-                    log_message('info', '[Backend] check_status() /videos/conversions/list $jw_result:');
-                    log_message('info', json_encode($jw_result));
-
-                    if ($response['conversions'][3]['status'] == "Ready" &&
-                        $response['conversions'][3]['height'] >= 720 &&
-                        $response['conversions'][3]['width'] >= 1280 &&
-                        $response['conversions'][3]['filesize'] > 0) {
-                        $data['video_is_show'] = 1;
-                        $data['video_uploaded'] = 3;  // video ready in the jwplayer server
-                        $cond['video_id'] = $rows['video_id'];
-                        if ($this->General->update('vis_videos', $data, $cond)) {
-                            $res[$key]['status'] = 2;
-                            $res[$key]['video_id'] = $rows['video_id'];
-                        } else {
-                            $res[$key]['status'] = 0;
-                            $res[$key]['video_id'] = null;
-                        }
-                    }  else {
-                        $res[$key]['status'] = 2;
-                        $res[$key]['video_id'] = $rows['video_id'];
-                    }
-                } else {
-                    $res[$key]['status'] = 0;
-                    $res[$key]['video_id'] = null;
-                }
-
-            }
-        } else {
-            $res[0]['status'] = 0;
-            $res[0]['video_id'] = null;
-        }
-        echo json_encode($res);
-    }
-
     public function remove_data() {
         $response = array();
         $video_id = $this->input->post('video_id');
@@ -277,12 +223,8 @@ class Backend1 extends CI_Controller{
         $cmd = "ffmpeg -i $videoFilePath -ss 00:00:02.000 -vframes 1 -vf scale=$width:$height $full_path &";
         $resp['command'] = $cmd;
         shell_exec($cmd);
-        // if(shell_exec($cmd) == null) {
-        //     echo json_encode($resp);
-        // } else {
-        //     $resp['msg'] = 'File Upload done,but failed to get thumbnail';
-            echo json_encode($resp);
-        // }
+        echo json_encode($resp);
+    
 
         
     }
