@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2024 at 02:50 PM
+-- Generation Time: May 11, 2024 at 09:21 PM
 -- Server version: 8.0.36-0ubuntu0.20.04.1
--- PHP Version: 8.3.4
+-- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +46,7 @@ CREATE TABLE `vis_admin` (
 --
 
 INSERT INTO `vis_admin` (`admin_id`, `admin_username`, `admin_password`, `admin_login_time`, `admin_update_at`, `admin_login_num`, `admin_is_super`, `admin_phone`, `admin_picture`, `admin_menu`, `admin_active`) VALUES
-(1, 'kaido', '66a86177a43043f728e1196c292a2192', '2024-04-12 06:37:56', '2024-04-08 11:02:02', 443, 1, '18106537557', '', NULL, 1),
+(1, 'kaido', '66a86177a43043f728e1196c292a2192', '2024-04-25 07:46:31', '2024-04-08 11:02:02', 445, 1, '18106537557', '', NULL, 1),
 (2, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', '2020-12-02 04:11:37', '2020-01-07 17:17:16', 387, 1, '18106537555', '', NULL, 1);
 
 -- --------------------------------------------------------
@@ -83,7 +83,7 @@ INSERT INTO `vis_companies` (`company_id`, `company_name`, `company_email`, `com
 (190397, 'Toyotaabi', 'info@toyotaabi.ee', '827ccb0eea8a706c4c34a16891f84e7b', 'Pärnu mnt. 154, 11317, Tallinn', '+372 53 000 376', 'VIService', 'VIService', 'toyotaabi.png', 'Screen_Shot_2021-04-12_at_1_04_53_PM.png', 1, NULL, '2020-01-23 13:23:55', '2021-04-29 15:23:45', 144, '2020-12-02 04:04:11', 1),
 (190398, 'Carstop', 'info@carstop.ee', 'e10adc3949ba59abbe56e057f20f883e', 'Paldsiki mnt', '1231231', 'VIService', 'VIService', 'carstop1.png', NULL, 0, NULL, '2020-03-04 18:22:46', '2020-06-05 14:33:48', 1, '2020-03-04 18:23:23', 1),
 (190399, 'HR-Service OÜ', 'info@hr-service.ee', 'ffa13f5f5dfbb2fccc8474bada634e36', 'Keila Paldiski mnt.33', '+372 5190 9103', 'VIService', 'VIService', 'HR-Service_online.png', NULL, 0, NULL, '2020-06-03 21:35:21', '2022-09-04 15:53:39', 55, '2024-04-04 06:50:12', 1),
-(190400, 'Hiteh Autoteenindus', 'autoteenindus@hiteh.ee', '2e069272508e7024efc78ac97ea653c1', 'Lehtri 4, 11625 TALLINN', '6711600', 'HITEH', 'HITEH', 'hiteh_online.png', 'hiteh_preview.png', 1, NULL, '2020-11-07 11:58:50', '2024-04-10 09:47:18', 124, '2024-04-15 15:48:39', 1),
+(190400, 'Hiteh Autoteenindus', 'autoteenindus@hiteh.ee', '2e069272508e7024efc78ac97ea653c1', 'Lehtri 4, 11625 TALLINN', '6711600', 'HITEH', 'HITEH', 'hiteh_online.png', 'hiteh_preview.png', 1, NULL, '2020-11-07 11:58:50', '2024-05-04 12:10:09', 139, '2024-05-09 07:08:04', 1),
 (190401, 'Forss', 'tood@forss.ee', 'cc1371e2ba4194241310fb916318cc97', 'Mooni 30, Tallinn', '6651 001', 'Forss', 'Forss', 'forss_online.png', 'forss_preview.png', 1, NULL, '2021-04-20 10:13:06', '2021-06-13 23:53:26', 30, '2022-12-17 12:32:50', 1),
 (190402, 'Automed OÜ', 'pakkumised@automed.ee', '7abeb07ae447df34987e1f8a9dfd5284', 'Suur-Paala 1, Tallinn', '5502227', 'Automed', 'Automed', 'automed_online.png', 'automed_preview.png', 1, NULL, '2024-03-29 13:45:55', '2024-03-29 13:47:07', 1, '2024-03-29 13:51:35', 1);
 
@@ -600,7 +600,18 @@ INSERT INTO `vis_customers` (`customer_id`, `customer_name`, `customer_phone`, `
 (582, '', '53317909', 'klampkaido@gmail.com', '', '451bdn', '2024-03-26 08:29:16', NULL, 190400, NULL),
 (583, 'Kaido', '53317909', 'klampkaido@gmail.com', '', '523AAB', '2024-03-29 20:32:48', NULL, 190402, NULL),
 (584, '', '53317909', 'klampkaido@gmail.com', '', '6565', '2024-03-29 20:58:08', NULL, 190402, NULL),
-(585, '', '434343', '', '', '74747', '2024-04-09 16:34:05', NULL, 190400, NULL);
+(585, '', '434343', '', '', '74747', '2024-04-09 16:34:05', NULL, 190400, NULL),
+(586, '', '53317909', '', '', 'ttt', '2024-05-01 10:54:29', NULL, 190400, NULL),
+(587, '', '32423423', '', '', 'video1', '2024-05-01 15:40:46', NULL, 190400, NULL),
+(588, '', '6235659968', '', '', '7474', '2024-05-02 09:30:40', NULL, 190400, NULL),
+(589, '', '34535345', '', '', '3434', '2024-05-03 07:03:46', NULL, 190400, NULL),
+(590, '', '545', '', '', '5353', '2024-05-03 07:18:10', NULL, 190400, NULL),
+(591, '', '9987', '', '', 'ggg2', '2024-05-03 19:02:48', NULL, 190400, NULL),
+(592, '', '123', '', '', '123', '2024-05-03 20:55:37', NULL, 190400, NULL),
+(593, '', '555', '', '', '222', '2024-05-03 20:57:17', NULL, 190400, NULL),
+(594, '', '564556', '', '', '5151', '2024-05-04 12:46:53', NULL, 190400, NULL),
+(595, '', '1111', '', '', '1111', '2024-05-07 12:34:33', NULL, 190400, NULL),
+(596, '', '46546', '', '', '1234', '2024-05-07 17:33:22', NULL, 190400, NULL);
 
 -- --------------------------------------------------------
 
@@ -627,7 +638,7 @@ CREATE TABLE `vis_devices` (
 INSERT INTO `vis_devices` (`device_id`, `deviceid`, `device_password`, `device_company_id`, `device_name`, `device_serial_number`, `device_login_num`, `device_registered_at`, `device_is_allow`) VALUES
 (8, '333', '222', 190397, 'IOS2', '444444', 98, '2020-02-08 13:02:16', 1),
 (11, '111', '222', 190399, 'iphone6', '1234567', 10, '2020-06-03 21:58:26', 1),
-(12, '3433', '2122', 190400, 'IP6', 'LED', 20, '2020-11-07 12:46:21', 1),
+(12, '3433', '2122', 190400, 'IP6', 'LED', 36, '2020-11-07 12:46:21', 1),
 (13, '3434', '5711', 190400, 'IP6_Raul', 'LED', 6, '2021-04-06 10:00:31', 1),
 (14, '22341', '34511', 190401, 'Forss1', '3467221', 14, '2021-04-20 10:17:12', 1),
 (15, '45722', '63827', 190399, 'VIS4', '643321771', 3, '2021-06-24 14:03:28', 1),
@@ -973,7 +984,18 @@ INSERT INTO `vis_videos` (`video_id`, `video_name`, `video_case_number`, `video_
 (589, '', '451bdn', 190400, 12, 582, 'Aleks', NULL, '2024-03-26 08:31:42', '2024-03-31 11:55:42', '2024-03-26 08:36:05', '2024-03-31 11:55:42', 0, 'n214dM5F', '582viPDPRU', 'ccc', 2, 3, '2024-03-26 08:29:16', 0, 0, 0),
 (590, '', '523AAB', 190402, 16, 583, '', NULL, '2024-03-29 20:59:44', '2024-03-29 21:22:18', '2024-03-29 21:20:33', '2024-03-29 21:22:18', 1, '7HJx2eiu', '583vGTdOqO', '', 2, 3, '2024-03-29 20:32:48', 0, 0, 0),
 (591, '', '6565', 190402, 16, 584, 'hoot', NULL, '2024-03-29 21:01:31', NULL, NULL, NULL, 2, 'XQuj2RJO', '584vI8ZaJd', '', 1, 3, '2024-03-29 20:58:08', 0, 0, 0),
-(592, '', '74747', 190400, NULL, 585, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, '585vN3WXTl', '', 0, 0, '2024-04-09 16:34:05', 0, 0, 0);
+(592, '', '74747', 190400, 12, 585, '', NULL, '2024-04-30 13:26:43', NULL, NULL, NULL, 2, 'Video_20240430_032340.mp4', '585vN3WXTl', '', 1, 2, '2024-04-09 16:34:05', 0, 0, 0),
+(593, '', 'ttt', 190400, 12, 586, '', NULL, '2024-05-01 10:56:34', NULL, NULL, NULL, 2, 'Video_20240501_105619.mp4', '586vUrQpYM', '', 1, 2, '2024-05-01 10:54:29', 0, 0, 0),
+(594, '', 'video1', 190400, 12, 587, '', NULL, '2024-05-01 15:47:52', NULL, NULL, NULL, 2, 'Video_20240501_154512.mp4', '587vamx1Ur', '', 1, 2, '2024-05-01 15:40:46', 0, 0, 0),
+(595, '', '7474', 190400, 12, 588, '', NULL, '2024-05-02 17:09:34', '2024-05-03 07:04:19', NULL, NULL, 2, 'Video_20240502_070610.mp4', '588vgfrhfo', '', 2, 2, '2024-05-02 09:30:40', 0, 0, 1),
+(596, '', '3434', 190400, 12, 589, '', NULL, '2024-05-03 07:14:01', NULL, NULL, NULL, 2, 'Video_20240502_210903.mp4', '589vuDpn5s', '', 1, 2, '2024-05-03 07:03:46', 0, 0, 0),
+(597, '', '5353', 190400, 12, 590, '', NULL, '2024-05-03 17:27:43', NULL, NULL, NULL, 2, '5353_hE8C5qCMhGm3e7rarnRw.mp4', '590vUIm5q4', '', 1, 2, '2024-05-03 07:18:10', 0, 0, 0),
+(598, '', 'ggg2', 190400, 12, 591, '', NULL, '2024-05-03 19:05:20', NULL, NULL, NULL, 2, 'ggg2_eFgEOKMgugjjbDHHjof3.mp4', '591vLFxO3o', '', 1, 2, '2024-05-03 19:02:48', 0, 0, 0),
+(599, '', '123', 190400, 12, 592, '', NULL, '2024-05-03 20:56:53', NULL, NULL, NULL, 2, '123_2jpwS4sLU81DwWxnsWRL.mp4', '592v09qKT4', '', 1, 2, '2024-05-03 20:55:37', 0, 0, 0),
+(600, '', '222', 190400, 12, 593, '', NULL, '2024-05-04 12:42:17', NULL, NULL, NULL, 2, '222_Y7i1Srr0OO7lsilSlzFk.mp4', '593vyg4GXt', '', 1, 2, '2024-05-03 20:57:17', 0, 0, 0),
+(601, '', '5151', 190400, 12, 594, 'Tester', NULL, '2024-05-07 04:56:28', NULL, NULL, NULL, 2, '5151_3KtQCByLIGF0WRPuRHD1.mp4', '594vCUA97Z', '', 1, 2, '2024-05-04 12:46:53', 0, 0, 0),
+(602, '', '1111', 190400, 12, 595, '', NULL, '2024-05-07 12:39:51', NULL, NULL, NULL, 2, '1111_b8InWEMv13KFPyIbdPPO.mp4', '595vtEdMBK', '', 1, 2, '2024-05-07 12:34:33', 0, 0, 0),
+(603, '', '1234', 190400, NULL, 596, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, '596vd4oy4P', '', 0, 0, '2024-05-07 17:33:22', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -3484,7 +3506,8 @@ INSERT INTO `vis_video_log` (`vl_id`, `vl_video_id`, `vl_company_id`, `vl_device
 (2097, 588, 190400, 12, '2024-04-10 08:35:11', NULL, '195.8.204.11'),
 (2098, 588, 190400, 12, '2024-04-10 09:43:15', NULL, '195.8.204.11'),
 (2099, 499, 190400, 12, '2024-04-10 09:46:58', NULL, '83.234.227.26'),
-(2100, 589, 190400, 12, '2024-04-12 15:24:13', NULL, '108.170.33.178');
+(2100, 589, 190400, 12, '2024-04-12 15:24:13', NULL, '108.170.33.178'),
+(2101, 585, 190400, 12, '2024-05-01 21:33:34', NULL, '108.170.33.178');
 
 --
 -- Indexes for dumped tables
@@ -3580,7 +3603,7 @@ ALTER TABLE `vis_config`
 -- AUTO_INCREMENT for table `vis_customers`
 --
 ALTER TABLE `vis_customers`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=586;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=597;
 
 --
 -- AUTO_INCREMENT for table `vis_devices`
@@ -3592,7 +3615,7 @@ ALTER TABLE `vis_devices`
 -- AUTO_INCREMENT for table `vis_videos`
 --
 ALTER TABLE `vis_videos`
-  MODIFY `video_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=593;
+  MODIFY `video_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=604;
 
 --
 -- AUTO_INCREMENT for table `vis_video_link`
@@ -3604,7 +3627,7 @@ ALTER TABLE `vis_video_link`
 -- AUTO_INCREMENT for table `vis_video_log`
 --
 ALTER TABLE `vis_video_log`
-  MODIFY `vl_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2101;
+  MODIFY `vl_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2102;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -218,7 +218,7 @@ class Backend1 extends CI_Controller{
         $width = 320;
         $height = 180;
         $videoFilePath = realpath($video_path);
-        $thumbnail_path = realpath("./uploads/videos/");
+        $thumbnail_path = realpath("./uploads/thumbnails/");
         $full_path = $thumbnail_path.'/'.$thumb_name.'.jpg';
         $cmd = "ffmpeg -i $videoFilePath -ss 00:00:02.000 -vframes 1 -vf scale=$width:$height $full_path &";
         $resp['command'] = $cmd;

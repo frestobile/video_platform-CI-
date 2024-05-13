@@ -135,16 +135,29 @@
 <script type="text/javascript">
 var _server_url = 'http://'+location.host+'/';
 $(document).ready(function() {
-    swal({
-        title: "404 NOT FOUND!",
-        text: "We can't find the video for you.  Please check the video ID again.",
-        icon: "error",
-    })
-    .then(function(value) {
-        if (value) {
+    // swal({
+    //     title: "404 NOT FOUND!",
+    //     text: "We can't find the video for you.  Please check the video ID again.",
+    //     icon: "error",
+    // })
+    // .then(function(value) {
+    //     if (value) {
+    //         location.href =_server_url;
+    //     }
+    // }).done();
+        Swal.fire({
+            title: "404 NOT FOUND!",
+            text: "We can't find the video for you.  Please check the video ID again.",
+            icon: "error",
+                customClass: {
+                    confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                },
+                buttonsStyling: !1,
+                showCloseButton: !0
+            });
+        .then(function(value) {
             location.href =_server_url;
-        }
-    }).done();
+        });
 });
 </script>
 </body>

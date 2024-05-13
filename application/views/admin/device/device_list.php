@@ -181,29 +181,55 @@ function enableDeviceShow(obj, idx) {
             $(obj).html(state_str1);
             $(obj).parent('td').parent('tr').find('td').eq(8).html(state_str2);
         }else{
-            swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+            
+            Swal.fire({
+                title: "<?php echo $failed;?>",
+                text: "<?php echo $alert_content[6];?>",
+                icon: "warning",
+                customClass: {
+                    confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                },
+                buttonsStyling: !1,
+                showCloseButton: !0
+            });
         }
     });
 }
 
 function deleteDeviceData(obj, idx) {
-    swal({
+    Swal.fire({
         title: "<?php echo $warning;?>",
         text: "<?php echo $alert_content[8];?>",
         icon: "warning",
-        buttons: ["<?php echo $determine[0];?>", "<?php echo $determine[1];?>"],
-    })
-    .then(function(value) {
-        if (value) {
+        showCancelButton: !0,
+        customClass: {
+            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+            cancelButton: "btn btn-danger w-xs mt-2"
+        },
+        confirmButtonText: "<?php echo $determine[1];?>",
+        cancelButtonText: "<?php echo $determine[0];?>",
+        buttonsStyling: !1,
+        showCloseButton: !0     
+    }).then(function(t) {
+        if (t.isConfirmed) {
             $.post(_server_url + 'admin/data/deviceDelete', {'device_id': idx},
                 function (data) {
                     if(data != "FAIL") {
                         $(obj).parent('td').parent('tr').remove();
                         location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     }else
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                 });
-        }
+        } 
     });
 }
 

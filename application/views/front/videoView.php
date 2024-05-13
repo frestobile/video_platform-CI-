@@ -141,38 +141,63 @@ else $image = "../../public/img/logo.png";
 
         function removeData() {
             var video_id = $('#video_id').val();
-            swal({
-                title: "<?php echo $warning;?>",
-                text: "<?php echo $alert_content[20];?>",
-                icon: "warning",
-                buttons: ["<?php echo $determine[0];?>", "<?php echo $determine[1];?>"],
-            }).then(value => {
-                if (value) {
-                    $(".preloader").show();
-                    $(".preloader img").show();
-                    return $.post(_server_url + 'backend/remove_data', {'video_id': video_id},
-                        function (data) {
-                            var response = JSON.parse(data);
-                            $(".preloader").hide();
-                            $(".preloader img").hide();
-                            if(response.status === "success") {
-                                swal({
-                                    title: "<?php echo $success;?>",
-                                    text: "Andmed eemaldatud",
-                                    icon: "success"
-                                }).then(function() {
-                                    window.location.href = "https://viservice.eu/";
-                                });
 
-                            } else {
-                                swal("<?php echo $failed;?>", "Proovige hiljem uuesti.", "warning");
+            Swal.fire({
+                    title: "<?php echo $warning;?>",
+                    text: "<?php echo $alert_content[20];?>",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    customClass: {
+                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                        cancelButton: "btn btn-danger w-xs mt-2"
+                    },
+                    confirmButtonText: "<?php echo $determine[1];?>",
+                    cancelButtonText: "<?php echo $determine[0];?>",
+                    buttonsStyling: !1,
+                    showCloseButton: !0     
+                }).then(function(t) {
+                    if (t.isConfirmed) {
+                        $(".preloader").show();
+                        $(".preloader img").show();
+                        return $.post(_server_url + 'backend/remove_data', {'video_id': video_id},
+                            function (data) {
+                                var response = JSON.parse(data);
+                                $(".preloader").hide();
+                                $(".preloader img").hide();
+                                if(response.status === "success") {
+                                    Swal.fire({
+                                            title: "<?php echo $success;?>",
+                                            text: "Andmed eemaldatud",
+                                            icon: "success",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                            },
+                                            buttonsStyling: !1,
+                                            showCloseButton: !0
+                                        })
+                                    .then(function(value) {
+                                        window.location.href = "https://viservice.eu/";
+                                    });
+
+                                } else {
+                                    
+                                    Swal.fire({
+                                            title: "<?php echo $failed;?>",
+                                            text: "Proovige hiljem uuesti.",
+                                            icon: "warning",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                            },
+                                            buttonsStyling: !1,
+                                            showCloseButton: !0
+                                        });
+                                }
                             }
-                        }
-                    ); 
-                } 
-                return false;
-                
-            })
+                        ); 
+                    } 
+                });
+
+
             
         }
     </script> 

@@ -8,6 +8,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="device_id"  value="<?php if(isset($device_data['device_id'])) echo $device_data['device_id']; else echo '';?>">
             <div class="card-body">
                 <form id="form_profile">
                     <div class="form-group row">
@@ -94,7 +95,7 @@
                     <div class="form-actions form-group row" style="margin-top: 40px;">
                         <div class="col-lg-3 hidden-xs text-lg-right"></div>
                         <div class="col-lg-3 col-xs-6">
-                            <input type="button" value="<?php echo $devices[6]?>" class="btn btn-primary onclick="deviceAdd();" style="width: 100%">
+                            <input type="button" value="<?php echo $devices[6]?>" class="btn btn-primary" onclick="deviceAdd();" style="width: 100%">
                         </div>
                         <div class="col-lg-3 col-xs-6">
                             <input type="button" value="<?php echo $devices[5]?>" class="btn btn-dark" onclick="deviceListRedirect();" style="width: 100%">
@@ -149,19 +150,34 @@ function deviceAdd() {
                 'device_company_id': $('#company_select option:selected').val(),
             },
             function (data) {
+                console.log(data);
                 if(data !== "FAIL") {
-                    swal({
-                        title: "<?php echo $success;?>",
-                        text: "<?php echo $alert_content[12];?>",
-                        icon: "success",
-                    })
+
+                    Swal.fire({
+                            title: "<?php echo $success;?>",
+                            text: "<?php echo $alert_content[12];?>",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        })
                     .then(function(value) {
-                        if (value) {
-                            location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
-                        }
+                        location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     });
                 }else {
-                    swal("<?php echo $failed;?>", "<?php echo $alert_content[14];?>", "warning");
+                    Swal.fire({
+                        title: "<?php echo $failed;?>",
+                        text: "<?php echo $alert_content[14];?>",
+                        icon: "warning",
+                        customClass: {
+                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                        },
+                        buttonsStyling: !1,
+                        showCloseButton: !0
+                    });
+                    
                 }
             });
         }else{
@@ -180,7 +196,17 @@ function deviceAdd() {
                     if(data !== "FAIL") {
                         location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     }else {
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                        
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                     }
                 });
             } else {
@@ -196,7 +222,17 @@ function deviceAdd() {
                     if(data !== "FAIL") {
                         location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     }else {
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[14];?>", "warning");
+                       
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[14];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                     }
                 });
             }

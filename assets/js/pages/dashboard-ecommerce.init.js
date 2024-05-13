@@ -257,87 +257,87 @@ function currentTime() {
       , r = (new Date).getMinutes() < 10 ? "0" + (new Date).getMinutes() : (new Date).getMinutes();
     return t < 10 ? "0" + t + ":" + r + " " + e : t + ":" + r + " " + e
 }
-chartRadialbarMultipleColors && (options = {
-    series: [44, 55, 67, 83],
-    chart: {
-        height: 350,
-        type: "radialBar"
-    },
-    plotOptions: {
-        radialBar: {
-            dataLabels: {
-                name: {
-                    fontSize: "22px"
-                },
-                value: {
-                    fontSize: "16px"
-                },
-                total: {
-                    show: !0,
-                    label: "Total",
-                    formatter: function(e) {
-                        return 249
-                    }
-                }
-            }
-        }
-    },
-    labels: ["Fashion", "Electronics", "Groceries", "Others"],
-    colors: chartRadialbarMultipleColors,
-    legend: {
-        show: !0,
-        fontSize: "16px",
-        position: "bottom",
-        labels: {
-            useSeriesColors: !0
-        },
-        markers: {
-            size: 0
-        }
-    }
-},
-(chart = new ApexCharts(document.querySelector("#multiple_radialbar"),options)).render()),
-document.querySelectorAll(".chat-panel-list li").forEach(function(r) {
-    r.addEventListener("click", function() {
-        document.querySelectorAll(".layout-rightside").forEach(function(e) {
-            e.classList.add("show")
-        });
-        var e = r.querySelector(".chatlist-user-name").innerHTML
-          , t = r.querySelector(".chatlist-user-image").getAttribute("src")
-          , e = (document.querySelector(".chat-topbar .profile-username").innerHTML = e,
-        document.querySelector(".chat-topbar .userprofile").setAttribute("src", t),
-        document.getElementById("users-conversation"));
-        Array.from(e.querySelectorAll(".left .chat-avatar")).forEach(function(e) {
-            t ? e.querySelector("img").setAttribute("src", t) : e.querySelector("img").setAttribute("src", dummyUserImage)
-        })
-    })
-}),
-document.getElementById("close-chatlist").addEventListener("click", function() {
-    document.querySelectorAll(".layout-rightside").forEach(function(e) {
-        e.classList.remove("show")
-    })
-}),
-setInterval(currentTime, 1e3);
-var forms = document.querySelectorAll(".chat-form")
-  , chatInput = document.getElementById("chat-input")
-  , chatInputfeedback = document.querySelector(".chat-input-feedback")
-  , currentChatId = (Array.from(forms).forEach(r=>{
-    r.addEventListener("submit", e=>{
-        var t;
-        r.checkValidity() ? (e.preventDefault(),
-        0 == (t = chatInput.value).length ? (chatInputfeedback.classList.add("show"),
-        setTimeout(function() {
-            chatInputfeedback.classList.remove("show")
-        }, 2e3)) : (document.getElementById("users-conversation").insertAdjacentHTML("beforeend", '<li class="chat-list right">        <div class="conversation-list">            <div class="user-chat-content">                <div class="ctext-wrap">                    <div class="ctext-wrap-content">                        <p class="mb-0 ctext-content">' + t + '</p>                    </div>                    <div class="dropdown align-self-start message-box-drop">                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                            <i class="bi bi-three-dots-vertical"></i>                        </a>                        <div class="dropdown-menu">                            <a class="dropdown-item" href="#"><i class="bi bi-reply me-2 text-muted align-bottom"></i>Reply</a>                            <a class="dropdown-item" href="#"><i class="bi bi-share me-2 text-muted align-bottom"></i>Forward</a>                            <a class="dropdown-item" href="#"><i class="bi bi-files me-2 text-muted align-bottom"></i>Copy</a>                            <a class="dropdown-item" href="#"><i class="bi bi-bookmark me-2 text-muted align-bottom"></i>Bookmark</a>                            <a class="dropdown-item delete-item" href="#"><i class="bi bi-trash3 me-2 text-muted align-bottom"></i>Delete</a>                        </div>                    </div>                </div>                <div class="conversation-name"><small class="text-muted time">' + currentTime() + '</small> <span class="text-muted check-message-icon"><i class="ri-check-line align-bottom"></i></span></div>            </div>        </div>    </li>'),
-        scrollToBottom("users-chat"),
-        deleteMessage())) : (e.preventDefault(),
-        e.stopPropagation()),
-        chatInput.value = ""
-    }
-    , !1)
-}
-),
-"users-chat");
+// chartRadialbarMultipleColors && (options = {
+//     series: [44, 55, 67, 83],
+//     chart: {
+//         height: 350,
+//         type: "radialBar"
+//     },
+//     plotOptions: {
+//         radialBar: {
+//             dataLabels: {
+//                 name: {
+//                     fontSize: "22px"
+//                 },
+//                 value: {
+//                     fontSize: "16px"
+//                 },
+//                 total: {
+//                     show: !0,
+//                     label: "Total",
+//                     formatter: function(e) {
+//                         return 249
+//                     }
+//                 }
+//             }
+//         }
+//     },
+//     labels: ["Fashion", "Electronics", "Groceries", "Others"],
+//     colors: chartRadialbarMultipleColors,
+//     legend: {
+//         show: !0,
+//         fontSize: "16px",
+//         position: "bottom",
+//         labels: {
+//             useSeriesColors: !0
+//         },
+//         markers: {
+//             size: 0
+//         }
+//     }
+// },
+// (chart = new ApexCharts(document.querySelector("#multiple_radialbar"),options)).render()),
+// document.querySelectorAll(".chat-panel-list li").forEach(function(r) {
+//     r.addEventListener("click", function() {
+//         document.querySelectorAll(".layout-rightside").forEach(function(e) {
+//             e.classList.add("show")
+//         });
+//         var e = r.querySelector(".chatlist-user-name").innerHTML
+//           , t = r.querySelector(".chatlist-user-image").getAttribute("src")
+//           , e = (document.querySelector(".chat-topbar .profile-username").innerHTML = e,
+//         document.querySelector(".chat-topbar .userprofile").setAttribute("src", t),
+//         document.getElementById("users-conversation"));
+//         Array.from(e.querySelectorAll(".left .chat-avatar")).forEach(function(e) {
+//             t ? e.querySelector("img").setAttribute("src", t) : e.querySelector("img").setAttribute("src", dummyUserImage)
+//         })
+//     })
+// }),
+// document.getElementById("close-chatlist").addEventListener("click", function() {
+//     document.querySelectorAll(".layout-rightside").forEach(function(e) {
+//         e.classList.remove("show")
+//     })
+// }),
+// setInterval(currentTime, 1e3);
+// var forms = document.querySelectorAll(".chat-form")
+//   , chatInput = document.getElementById("chat-input")
+//   , chatInputfeedback = document.querySelector(".chat-input-feedback")
+//   , currentChatId = (Array.from(forms).forEach(r=>{
+//     r.addEventListener("submit", e=>{
+//         var t;
+//         r.checkValidity() ? (e.preventDefault(),
+//         0 == (t = chatInput.value).length ? (chatInputfeedback.classList.add("show"),
+//         setTimeout(function() {
+//             chatInputfeedback.classList.remove("show")
+//         }, 2e3)) : (document.getElementById("users-conversation").insertAdjacentHTML("beforeend", '<li class="chat-list right">        <div class="conversation-list">            <div class="user-chat-content">                <div class="ctext-wrap">                    <div class="ctext-wrap-content">                        <p class="mb-0 ctext-content">' + t + '</p>                    </div>                    <div class="dropdown align-self-start message-box-drop">                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                            <i class="bi bi-three-dots-vertical"></i>                        </a>                        <div class="dropdown-menu">                            <a class="dropdown-item" href="#"><i class="bi bi-reply me-2 text-muted align-bottom"></i>Reply</a>                            <a class="dropdown-item" href="#"><i class="bi bi-share me-2 text-muted align-bottom"></i>Forward</a>                            <a class="dropdown-item" href="#"><i class="bi bi-files me-2 text-muted align-bottom"></i>Copy</a>                            <a class="dropdown-item" href="#"><i class="bi bi-bookmark me-2 text-muted align-bottom"></i>Bookmark</a>                            <a class="dropdown-item delete-item" href="#"><i class="bi bi-trash3 me-2 text-muted align-bottom"></i>Delete</a>                        </div>                    </div>                </div>                <div class="conversation-name"><small class="text-muted time">' + currentTime() + '</small> <span class="text-muted check-message-icon"><i class="ri-check-line align-bottom"></i></span></div>            </div>        </div>    </li>'),
+//         scrollToBottom("users-chat"),
+//         deleteMessage())) : (e.preventDefault(),
+//         e.stopPropagation()),
+//         chatInput.value = ""
+//     }
+//     , !1)
+// }
+// ),
+// "users-chat");
 function scrollToBottom(r) {
     setTimeout(function() {
         var e = document.getElementById(r).querySelector("#chat-conversation .simplebar-content-wrapper") ? document.getElementById(r).querySelector("#chat-conversation .simplebar-content-wrapper") : ""
@@ -355,37 +355,37 @@ function deleteMessage() {
         })
     })
 }
-scrollToBottom(currentChatId),
+// scrollToBottom(currentChatId),
 deleteMessage();
 var searchInput = document.getElementById("searchResultList");
-searchInput.addEventListener("keyup", function() {
-    var a, e = searchInput.value.length, t = document.querySelectorAll(".chat-panel-list .list-group-item");
-    0 < e ? (a = searchInput.value.toLowerCase(),
-    Array.from(t).forEach(function(e) {
-        var t, r, o = "";
-        e.querySelector(".chatlist-user-name") ? (t = e.querySelector(".chatlist-desc").innerText.toLowerCase(),
-        o = (r = e.querySelector(".chatlist-user-name").innerText.toLowerCase()).includes(a) ? r : t) : e.querySelector(".chatlist-desc") && (o = e.querySelector(".chatlist-desc").innerText.toLowerCase()),
-        console.log(o),
-        o && (o.includes(a) ? (e.classList.add("d-block"),
-        e.classList.remove("d-none")) : (e.classList.remove("d-block"),
-        e.classList.add("d-none")))
-    })) : Array.from(t).forEach(function(e) {
-        e.classList.add("d-block"),
-        e.classList.remove("d-none")
-    })
-}),
-document.querySelectorAll("#stats-userlist a").forEach(function(r) {
-    r.addEventListener("click", function() {
-        document.querySelectorAll(".layout-rightside").forEach(function(e) {
-            e.classList.add("show")
-        });
-        var e = r.querySelector(".stats-profile-name").innerHTML
-          , t = r.querySelector(".stats-profile-img").getAttribute("src")
-          , e = (document.querySelector(".chat-topbar .profile-username").innerHTML = e,
-        document.querySelector(".chat-topbar .userprofile").setAttribute("src", t),
-        document.getElementById("users-conversation"));
-        Array.from(e.querySelectorAll(".left .chat-avatar")).forEach(function(e) {
-            t ? e.querySelector("img").setAttribute("src", t) : e.querySelector("img").setAttribute("src", dummyUserImage)
-        })
-    })
-});
+// searchInput.addEventListener("keyup", function() {
+//     var a, e = searchInput.value.length, t = document.querySelectorAll(".chat-panel-list .list-group-item");
+//     0 < e ? (a = searchInput.value.toLowerCase(),
+//     Array.from(t).forEach(function(e) {
+//         var t, r, o = "";
+//         e.querySelector(".chatlist-user-name") ? (t = e.querySelector(".chatlist-desc").innerText.toLowerCase(),
+//         o = (r = e.querySelector(".chatlist-user-name").innerText.toLowerCase()).includes(a) ? r : t) : e.querySelector(".chatlist-desc") && (o = e.querySelector(".chatlist-desc").innerText.toLowerCase()),
+//         console.log(o),
+//         o && (o.includes(a) ? (e.classList.add("d-block"),
+//         e.classList.remove("d-none")) : (e.classList.remove("d-block"),
+//         e.classList.add("d-none")))
+//     })) : Array.from(t).forEach(function(e) {
+//         e.classList.add("d-block"),
+//         e.classList.remove("d-none")
+//     })
+// }),
+// document.querySelectorAll("#stats-userlist a").forEach(function(r) {
+//     r.addEventListener("click", function() {
+//         document.querySelectorAll(".layout-rightside").forEach(function(e) {
+//             e.classList.add("show")
+//         });
+//         var e = r.querySelector(".stats-profile-name").innerHTML
+//           , t = r.querySelector(".stats-profile-img").getAttribute("src")
+//           , e = (document.querySelector(".chat-topbar .profile-username").innerHTML = e,
+//         document.querySelector(".chat-topbar .userprofile").setAttribute("src", t),
+//         document.getElementById("users-conversation"));
+//         Array.from(e.querySelectorAll(".left .chat-avatar")).forEach(function(e) {
+//             t ? e.querySelector("img").setAttribute("src", t) : e.querySelector("img").setAttribute("src", dummyUserImage)
+//         })
+//     })
+// });

@@ -74,10 +74,16 @@ function adminAdd() {
                 $('.preloader').hide(); 
                 var res = JSON.parse(data);                        
                 if (res.status === 'SUCCESS') {
+
                     Swal.fire({
                         title: "<?php echo $success;?>",
                         text: "<?php echo $alert_content[10];?>",
                         icon: "success",
+                        customClass: {
+                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                        },
+                        buttonsStyling: !1,
+                        showCloseButton: !0
                     }).then(function() {
                         location.href =_server_url + 'admin/main/adminList?lang=' + lang_status;
                     });

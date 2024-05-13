@@ -153,18 +153,26 @@ function deviceAdd() {
             },
             function (data) {
                 if(data !== "FAIL") {
-                    swal({
+                    Swal.fire({
                         title: "<?php echo $success;?>",
                         text: "<?php echo $alert_content[12];?>",
                         icon: "success",
+                        showCloseButton: !0
                     })
                     .then(function(value) {
-                        if (value) {
-                            location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
-                        }
+                        location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     });
                 }else {
-                    swal("<?php echo $failed;?>", "<?php echo $alert_content[14];?>", "warning");
+                    Swal.fire({
+                        title: "<?php echo $warning;?>",
+                        text: "<?php echo $alert_content[14];?>",
+                        icon: "warning",
+                        customClass: {
+                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                        },
+                        buttonsStyling: !1,
+                        showCloseButton: !0
+                    });
                 }
             });
         }else{
@@ -183,7 +191,17 @@ function deviceAdd() {
                     if(data !== "FAIL") {
                         location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     }else {
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                        
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                     }
                 });
             } else {
@@ -199,7 +217,17 @@ function deviceAdd() {
                     if(data !== "FAIL") {
                         location.href = _server_url + 'admin/main/deviceList?lang=' + lang_status;
                     }else {
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[14];?>", "warning");
+                       
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[14];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                     }
                 });
             }

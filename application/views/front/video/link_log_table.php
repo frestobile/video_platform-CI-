@@ -1,5 +1,5 @@
-<?php if($active_status['status'] == 1) { ?>
-	<span ><?php echo $video_table['39'];?> : <?php echo date('d.m.Y H:i:s', strtotime($active_status['video_update_time']));?></span>
+<?php if($video_data['status'] == 1) { ?>
+	<span ><?php echo $video_table['39'];?> : <?php echo date('d.m.Y H:i:s', strtotime($video_data['video_update_time']));?></span>
 <?php 
 }
 ?>

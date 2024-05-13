@@ -34,6 +34,9 @@
         <!-- JQUERY MIN JS -->
        <script src="<?=base_url();?>assets/libs/jquery/jquery.min.js?_=<?=time();?>"></script>
        <script src="https://cdn.jwplayer.com/libraries/bL8rDEl6.js?_=<?=time();?>"></script>
+      <script>
+        var _server_url = "<?php echo base_url();?>";
+      </script>
 
        <link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/libs/dataTables/dataTables.bootstrap.min.css?_=<?=time();?>">
         <link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/libs/dataTables/responsive.bootstrap.min.css?_=<?=time();?>">

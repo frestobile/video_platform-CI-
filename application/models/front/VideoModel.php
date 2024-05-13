@@ -120,7 +120,7 @@ class VideoModel extends CI_Model{
     public function getFind($fld_value){
         $result = array();
         try {
-            $this->db->select($this->dbtable.".*, company_name, company_email, sms_sender, email_sender, deviceid, customer_id, customer_name, customer_email, customer_phone");
+            $this->db->select($this->dbtable.".*, company_name, company_picture, company_email, sms_sender, email_sender, deviceid, customer_id, customer_name, customer_email, customer_phone");
             $this->db->from($this->dbtable);
             $this->db->join($this->companytbl, 'company_id = video_company_id', 'left');
             $this->db->join($this->devicetable, 'device_id = video_device_id', 'left');

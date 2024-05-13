@@ -713,7 +713,7 @@
         <script src="<?=base_url();?>assets/libs/bootstrap/js/bootstrap.bundle.min.js?_=<?php echo time();?>"></script>
         <script src="<?=base_url();?>assets/libs/simplebar/simplebar.min.js?_=<?php echo time();?>"></script>
         <script src="<?=base_url();?>assets/js/pages/plugins/lord-icon-2.1.0.js?_=<?php echo time();?>"></script>
-        <script src="<?=base_url();?>assets/js/plugins.js?_=<?php echo time();?>"></script>
+        <!-- <script src="<?=base_url();?>assets/js/plugins.js?_=<?php echo time();?>"></script> -->
 
         <!-- apexcharts -->
         <script src="<?=base_url();?>assets/libs/apexcharts/apexcharts.min.js?_=<?php echo time();?>"></script>

@@ -326,20 +326,42 @@ function CompanyAdd() {
                     $('.preloader').hide(); 
                     var res = JSON.parse(data);                        
                     if (res.response === 'SUCCESS') {
-                        swal({
+                        Swal.fire({
                             title: "<?php echo $success;?>",
                             text: "<?php echo $alert_content[13];?>",
                             icon: "success",
-                        })
-                        .then(function(value) {
-                            if (value) {
-                                location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
-                            }
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        }).then( function(t) {
+                            location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
                         });
                     }else if(res.response === 'FAIL'){
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
+                       
                     }else{
-                        swal("<?php echo $failed;?>", "<?php echo $alert_content[11];?>", "warning");    
+                        Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[11];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
+                         
                     }   
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -383,7 +405,17 @@ function CompanyAdd() {
                             location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
                         }
                         else {
-                            swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                            
+                            Swal.fire({
+                                title: "<?php echo $failed;?>",
+                                text: "<?php echo $alert_content[6];?>",
+                                icon: "warning",
+                                customClass: {
+                                    confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                },
+                                buttonsStyling: !1,
+                                showCloseButton: !0
+                            });
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {

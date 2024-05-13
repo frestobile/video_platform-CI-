@@ -737,7 +737,7 @@ class Manager extends CI_Controller{
         $data['log_data'] = $this->General->get_rows('vis_video_log', $res);
 
         $data['link_log_data'] = $this->General->get_rows('vis_video_link', $res1);
-        $data['active_status'] = $this->VideoModel->getFind($video_id);
+        $data['video_data'] = $this->VideoModel->getFind($video_id);
 
         $resp['counts'] = $this->General->get_counts('vis_video_log', $res);
 
@@ -746,7 +746,6 @@ class Manager extends CI_Controller{
         $resp['log_content'] = $this->load->view('front/video/link_log_table', $data, true);
 
         echo json_encode($resp);
-
 
     }
 
@@ -1028,6 +1027,37 @@ class Manager extends CI_Controller{
             $res['status'] = "fail";
 
         echo json_encode($res);
+    }
+
+    public function get_video_data() {
+        $this->checkLogin();
+       
+        $video_id = $this->input->post('video_id');
+        // $res['vl_video_id'] = $video_id;
+        // $res1['video_id'] = $video_id;
+
+        if (isset($_POST['lang'])){
+            $lang = $_POST['lang'];
+        }else{
+            $lang = 'en';
+        }
+        $data['head_lang'] = $lang;
+        $this->lang->load('content',$lang);
+
+        $data['video_table'] = $this->lang->line('video_table');
+        // $data['log_data'] = $this->General->get_rows('vis_video_log', $res);
+        // $data['link_log_data'] = $this->General->get_rows('vis_video_link', $res1);
+
+        $data['video_data'] = $this->VideoModel->getFind($video_id);
+
+        // $resp['counts'] = $this->General->get_counts('vis_video_log', $res);
+
+        // $resp['content'] = $this->load->view('front/video/log_table', $data, true);
+        $resp['v_content'] = $this->load->view('front/video_modal', $data, true);
+        $resp['admin_content'] = $this->load->view('admin/video/video_modal', $data, true);
+        // $resp['log_content'] = $this->load->view('front/video/link_log_table', $data, true);
+
+        echo json_encode($resp);
     }
 
 }

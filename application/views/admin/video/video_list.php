@@ -199,6 +199,17 @@ function add_customer() {
                 $('span.error_case').show();
             }
         });
+    } else {
+        Swal.fire({
+            title: "<?php echo $warning;?>",
+            text: "<?php echo $alert_content[15];?>",
+            icon: "warning",
+            customClass: {
+                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+            },
+            buttonsStyling: !1,
+            showCloseButton: !0
+        });
     }
 }
 function validation() {
@@ -210,22 +221,8 @@ function validation() {
     var car = document.getElementById("new_client_car").value;
     var emailReg = new RegExp("^([A-Za-z0-9_\\-\\.])+@");
     if (customer_company_id == '' || phone === '' ||  car === '') {
-        swal({
-            title: "<?php echo $warning;?>",
-            text: "<?php echo $alert_content[15];?>",
-            icon: "warning",
-        });
         return false;
-    } 
-	//else if (!(email).match(emailReg)) {
-    //    swal({
-    //        title: "<?php echo $warning;?>",
-    //        text: "<?php echo $alert_content[16];?>",
-    //        icon: "warning",
-    //    });
-    //    return false;
-    //} 
-	else {
+    } else {
         return true;
     }
 }
@@ -310,7 +307,17 @@ function deleteVideodata(obj, idx) {
                     $(obj).parent('td').parent('tr').remove();
                     select_menu('videoList');
                 } else {
-                    swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                    
+                    Swal.fire({
+                        title: "<?php echo $failed;?>",
+                        text: "<?php echo $alert_content[6];?>",
+                        icon: "warning",
+                        customClass: {
+                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                        },
+                        buttonsStyling: !1,
+                        showCloseButton: !0
+                    });
                 }
             });
         }

@@ -19,3 +19,5 @@ application/logs/*
 phpinfo.php
 uploads/*
 .vscode/
+index.php
+*.sql

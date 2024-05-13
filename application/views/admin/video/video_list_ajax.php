@@ -1,24 +1,10 @@
 <script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
-<link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
-<script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
-<!-- <style>
-	.badge:empty {
-		display: block;
-		width: 35px;
-		height: 17px;
-	}
-	.badge:empty.bg-success-subtle {
-		background-color: #2dcb73 !important;
-	}
 
-	.badge:empty.bg-danger-subtle {
-		background-color: #f85b5b !important;
-	}
+<style type="text/css">
+    input[readonly] {background-color: transparent;}
+    .custom_modal input.fcs:focus{outline:none;border-color:inherit;}
+</style>
 
-	.badge:empty.bg-warning-subtle {
-		background-color: #f6bf5e !important;
-	}
-</style> -->
 <div class="table-responsive table-card">
     <table class="table table-centered align-middle table-nowrap mb-0 table-hover">
         <thead class="table-light">
@@ -58,8 +44,8 @@
                 <input type="hidden" id="sms_count<?php echo $item['video_id'];?>" value="<?php echo $item['sms_time'];?>">
 
                 <td>
-                    <a href="javascript:void:(0);" onclick="viewVideo(this, <?php echo $item['video_id'];?>);" style="color: #438eff;">#<?php echo $item['video_id'];?></a>
-                    <!-- <?php echo $item['video_id']; ?> -->
+                    <a href="javascript:void:(0);" onclick="checkVideo(this, <?php echo $item['video_id'];?>);" style="color: #438eff;">#<?php echo $item['video_id'];?></a>
+                    
                 </td>
                 <td nowrap id="car_number<?php echo $item['video_id'];?>"><?php echo $item['video_case_number']; ?></td>
                 <td nowrap id="phone<?php echo $item['video_id'];?>"><?php echo $item['customer_phone'];?></td>
@@ -109,250 +95,8 @@
             <span type="button" class="close" style="float: right;" data-dismiss="modal">&times;</span>
             <span id="modal_title" style="font-size: 24px;color: #43425D;"><?php echo $modal_head[0];?></span>&nbsp;&nbsp;
         </div>
-        <div class="card-block">
-            <div class="row" style="padding: 10px 20px;">
-                <div class="col-sm-8 m-t-10">
-
-                    <div id="admin_video">
-                        <video id="admin_video" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" width="640" height="360" data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }'>
-							<source src="" type="video/mp4" />
-							
-						</video>
-                    </div>
-                    <div id="video_log"></div>
-                    <div id="linksent_log"></div>
-                    <div id="company_logo">
-                        <img src="" id="company_image" alt="">
-                    </div>
-
-                    <div id="send_option">
-						<div class="row m-t-10">
-							<div class="col-sm-4 video-detail">
-								<span style="font-size: 20px;color: #43425D;"><?php echo $video_table[32];?>:</span>
-							</div>
-						</div>
-						<div class="row m-t-10">
-							<div class="col-sm-4 video-detail">
-								<span><?php echo $video_table[16];?>:</span>
-							</div>
-							<div class="col-sm-6 col-xs-6">
-								<input type="text" class="fcs" id="link_phone" style="width: 60%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px">
-								<input type="checkbox" id="checkbox_phone" name="checkbox_phone" value="phone" style="margin-left: 10px" onclick="handleClick(this);">
-  								<span id="sms_count" style="margin-left: 7px; font-weight: 500;">(2)</span>
-							</div>
-                            <div class="col-sm-2">
-                                <span class="btn btn-primary" id="reset_btn" style="cursor: pointer;" onclick="sms_reset();"><?php echo $video_table[40];?></span>
-                            </div>
-						</div>
-						<div class="row m-t-10">
-							<div class="col-sm-4 video-detail">
-								<span><?php echo $video_table[4];?>:</span>
-							</div>
-							<div class="col-sm-6 col-xs-6">
-								<input type="text" class="fcs" id="link_email" style="width: 60%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px">
-								<input type="checkbox" id="checkbox_email" name="checkbox_email" value="email" style="margin-left: 10px" onclick="handleClick(this);">
-  								
-							</div>
-						</div>
-						<div class="row" id="option_error" style="display: none;">
-							<div class="col-sm-4"></div>
-							<div class="col-sm-6">
-								<span style="color: red;"><?php echo $video_table[35];?></span>
-							</div>
-							<div class="col-sm-2"></div>
-						</div>
-						<div class="row m-t-30">
-							<div class="col-sm-4"></div>
-							<div class="col-sm-6">
-								<a href="javascript:void(0);" style="width:70%;" class="btn btn-success" id="link_send_btn" onclick="send_video_link();">
-									<?php echo $video_table[14];?>
-								</a>
-							</div>
-							<div class="col-sm-2"></div>
-						</div>
-
-						<!-- new function  -->
-						<div class="row m-t-30">
-							<div class="col-sm-4 video-detail">
-								<span style="font-size: 20px; color: #43425D;"><?php echo $video_table[36];?>:</span>
-							</div>
-							<div class="col-sm-6" style="padding: 8px 15px;">
-								<span id="activate_status"><?php echo $video_table[38];?></span>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4">
-							</div>
-							<div class="col-sm-6">
-								<a href="javascript:void(0);" class="btn btn-success" style="display: none; width:70%;" id="activate_btn" onclick="activate_video();">
-									<?php echo $video_table[36];?>
-								</a><br>
-								<span id="activate_desc" style="display: none;"><?php echo $video_table[37];?></span>
-							</div>
-							<div class="col-sm-2"></div>
-						</div>
-
-						<div class="row" style="margin-left: 16px;">
-							<div class="col-sm-4">
-								<button class="btn btn-primary" onclick="back();"><?php echo $video_table[29];?></button>
-							</div>
-						</div>
-					</div>
-
-                    <span id="video_link"><span id="link_address"></span></span>
-                    <span id="back_btn"><button class="btn btn-primary" onclick="back();"><?php echo $video_table[29];?></button></span>
-                </div>
-                <div class="col-sm-4 m-t-10">
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span>ID:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <span id="video-id"></span>
-                        </div>
-                    </div>
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[1];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <input type="text" class="fcs" id="car_number" style="width: 80%; border: none; border-bottom: 1px solid #d1d1d1;line-height:10px" readonly>
-                            <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="edit_car" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[16];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <input type="text" class="fcs" id="phone_number" style="width: 80%; border: none; border-bottom: 1px solid #d1d1d1;line-height:10px" readonly>
-                            <input type="hidden" name="customer_id" id="customer_id" value="">
-                            <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="edit_phone_number" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[4];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <input type="text" class="fcs" id="client_email" style="width: 80%; border: none; border-bottom: 1px solid #d1d1d1;line-height:10px" readonly>
-                            <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="edit_email" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[3];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <input type="text" class="fcs" id="client_name" style="width: 80%; border: none; border-bottom: 1px solid #d1d1d1;line-height:10px" readonly>
-                            <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="edit_name" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[2];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <input type="text" class="fcs" id="ncompany" style="width: 80%;border: none; border-bottom: 1px solid #d1d1d1;line-height:10px" readonly>
-                            <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="edit_company" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[5];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <input type="text" class="fcs" id="video_tech_name" style="width: 80%; border: none; border-bottom: 1px solid #d1d1d1;line-height:10px" readonly>
-                            <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="tech_name123" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                            <span class="mdi mdi-pencil-box-outline" id="tech_name" style="visibility: hidden; height: 0"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[23];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <span id="media_id"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[18];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <span id="created_time"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[6];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <span id="upload_time"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[11];?>:</span>
-                        </div>
-                        <div class="col-sm-5 col-xs-5">
-                            <span id="link_sent"></span>
-                        </div>
-                        <div class="col-sm-3 col-xs-3" >
-							<span id="link_log" class="btn btn-primary btn-sm" style="cursor: pointer;" onclick="view_link_logs();">Log</span>
-						</div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[28];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <span id="views_num" style="cursor: pointer; text-decoration: underline; color: #438eff;" onclick="view_logs();"></span>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-sm-4 col-xs-4 video-detail">
-                            <span><?php echo $video_table[7];?>:</span>
-                        </div>
-                        <div class="col-sm-8 col-xs-8" style="display: inline-flex;line-height: 20px;">
-							<!-- <a href="javascript:void(0);" title="" id="state" style="width: 35px; height: 20px; display: block;border-radius: 5px">
-								<div id="disp_status" style="font-size:15px; color:black; text-align: center; display: none">
-									<span class="iconify" data-icon="ion-ios-timer" data-inline="false"></span>
-								</div>
-                                <div id="remove_status" style="font-size:15px; color:black; text-align: center; display: none">
-                                    <span class="iconify" data-icon="dashicons:lock" data-inline="false"></span>
-                                </div>
-							</a>
-							<span id="status-disp" style="margin-left: 10px"></span> -->
-                            <div id="state"></div>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <button class="btn video_btn btn-danger" id="delete_btn" onclick="deleteVideo()"><?php echo $video_table[13];?></button>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <a href="javascript:void(0);" class="btn video_btn btn-success" id="send_btn" onclick="send_link()"><?php echo $video_table[14];?></a>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <button class="btn video_btn btn-primary" id="ok_btn" onclick="video_operation()"><?php echo $video_table[15];?></button>
-                    </div>
-                </div>
-            </div>
+        <div class="card-block" id="modal_content">
+            
         </div>
     </div>
 </div>
@@ -441,195 +185,169 @@
     var video_id;
     var video_status;
 	var upload_status;
-	var user_removed;
-    var playerInstance = jwplayer('admin_video');
+	// var user_removed;
     var views;
     var show_logs = true;
     var show_link_log = true;
     var show_send_option = true;
     var base_url = '<?php echo base_url();?>';
 
-    function viewVideo(obj, idx) {
-        video_id = idx;
-        $('#modal_back').css('display', 'block');
-        $('#video_preview').css('display', 'block');
+    // function viewVideo(obj, idx) {
+    //     video_id = idx;
+    //     $('#modal_back').css('display', 'block');
+    //     $('#video_preview').css('display', 'block');
 
-        $.post(_server_url + 'admin/data/getCountLog', {'video_id': video_id, 'lang': lang_status},
-            function (data) {
-                $(".preloader").hide();
-                $(".preloader img").hide();
-                $('#modal_back').css('display', 'block');
-                $('#video_preview').css('display', 'block');
-                var response = JSON.parse(data);
-                views = response.counts;
-                $('#views_num').html(views);
-                log_table_load(response.content);
-                linksent_logtable_load(response.log_content);
-            }
-        );
+    //     $.post(_server_url + 'admin/data/getCountLog', {'video_id': video_id, 'lang': lang_status},
+    //         function (data) {
+    //             $(".preloader").hide();
+    //             $(".preloader img").hide();
+    //             $('#modal_back').css('display', 'block');
+    //             $('#video_preview').css('display', 'block');
+    //             var response = JSON.parse(data);
+    //             views = response.counts;
+    //             $('#views_num').html(views);
+    //             log_table_load(response.content);
+    //             linksent_logtable_load(response.log_content);
+    //         }
+    //     );
 
-        $('#video_log').css('display', 'none');
-        $('#linksent_log').css('display', 'none');
-		$('#back_btn').css('display', 'none');
-		$('#send_option').css('display', 'none');
+    //     $('#video_log').css('display', 'none');
+    //     $('#linksent_log').css('display', 'none');
+	// 	$('#back_btn').css('display', 'none');
+	// 	$('#send_option').css('display', 'none');
 
-        var car_number = (document.getElementById('car_number'+idx)).innerHTML.trim();
-        var company = $("#company"+idx).val();
+    //     var car_number = (document.getElementById('car_number'+idx)).innerHTML.trim();
+    //     var company = $("#company"+idx).val();
 
-        var client_name = (document.getElementById('client_name'+idx)).innerHTML.trim();
-        var client_email = (document.getElementById('client_email'+idx)).innerHTML.trim();
-        var customer_id = $('#customer_id'+idx).val();
+    //     var client_name = (document.getElementById('client_name'+idx)).innerHTML.trim();
+    //     var client_email = (document.getElementById('client_email'+idx)).innerHTML.trim();
+    //     var customer_id = $('#customer_id'+idx).val();
 
-        var tech_name = $("#tech_name"+idx).val();
-        var created_time = (document.getElementById('created_time'+idx)).innerHTML.trim();
-        var upload_time = $('#upload_time'+idx).val();
-        var link_sent_time = $("#link_sent"+idx).val();
-        var link_sent_second_time = $("#link_sent_second_time"+idx).val();
-        video_status = $("#video_status"+idx).val();
-		upload_status = $("#upload_status" + idx).val();
-		user_removed = $("#user_removed" + idx).val();
-        var video_url = $("#video_url"+idx).val();
-        var video_serial = $("#video_serial"+idx).val();
+    //     var tech_name = $("#tech_name"+idx).val();
+    //     var created_time = (document.getElementById('created_time'+idx)).innerHTML.trim();
+    //     var upload_time = $('#upload_time'+idx).val();
+    //     var link_sent_time = $("#link_sent"+idx).val();
+    //     var link_sent_second_time = $("#link_sent_second_time"+idx).val();
+    //     video_status = $("#video_status"+idx).val();
+	// 	upload_status = $("#upload_status" + idx).val();
+	// 	// user_removed = $("#user_removed" + idx).val();
+    //     var video_url = $("#video_url"+idx).val();
+    //     var video_serial = $("#video_serial"+idx).val();
 
-        var preview_url = _server_url+"client/"+video_serial+"?lang=ee";
-        var sms_count = $("#sms_count"+idx).val();
-        var phone_number = (document.getElementById('phone'+idx)).innerHTML.trim();
+    //     var preview_url = _server_url+"client/"+video_serial+"?lang=ee";
+    //     var sms_count = $("#sms_count"+idx).val();
+    //     var phone_number = (document.getElementById('phone'+idx)).innerHTML.trim();
 
-        document.getElementById("tech_name").innerHTML = tech_name;
-        document.getElementById("created_time").innerHTML = created_time;
+    //     document.getElementById("tech_name").innerHTML = tech_name;
+    //     document.getElementById("created_time").innerHTML = created_time;
 
-        $("#video-id").html(video_id);
-        $("#car_number").val(car_number);
-        $("#client_name").val(client_name);
-        $("#client_email").val(client_email);
-        $("#phone_number").val(phone_number);
-        $("#customer_id").val(customer_id);
-        $("#ncompany").val(company);
-        $("#video_status").val(video_status);
-        $("#video_tech_name").val(tech_name);
-        $("#modal_title").html(car_number);
-		$("#media_id").html(video_url);
-        $("#link_phone").val(phone_number);
-		$("#link_email").val(client_email);
-        $('#status-disp').html('');
+    //     $("#video-id").html(video_id);
+    //     $("#car_number").val(car_number);
+    //     $("#client_name").val(client_name);
+    //     $("#client_email").val(client_email);
+    //     $("#phone_number").val(phone_number);
+    //     $("#customer_id").val(customer_id);
+    //     $("#ncompany").val(company);
+    //     $("#video_status").val(video_status);
+    //     $("#video_tech_name").val(tech_name);
+    //     $("#modal_title").html(car_number);
+	// 	$("#media_id").html(video_url);
+    //     $("#link_phone").val(phone_number);
+	// 	$("#link_email").val(client_email);
+    //     $('#status-disp').html('');
 
-        document.getElementById("sms_count").innerHTML = "("+ sms_count +")  <?php echo $video_table[34];?>";
+    //     document.getElementById("sms_count").innerHTML = "("+ sms_count +")  <?php echo $video_table[34];?>";
 
-		if (sms_count == 0) {
-			document.getElementById("checkbox_phone").disabled = true;
-		} else { 
-            document.getElementById("reset_btn").disabled = true;
-        }
+	// 	if (sms_count == 0) {
+	// 		document.getElementById("checkbox_phone").disabled = true;
+	// 	} else { 
+    //         document.getElementById("reset_btn").disabled = true;
+    //     }
 
-        if (link_sent_time){
-            document.getElementById("link_sent").innerHTML = link_sent_time;
-        } else {
-            document.getElementById("link_sent").innerHTML = "";
-        }
+    //     if (link_sent_time){
+    //         document.getElementById("link_sent").innerHTML = link_sent_time;
+    //     } else {
+    //         document.getElementById("link_sent").innerHTML = "";
+    //     }
 
-        if (parseInt(video_status) !== 0){
-            var player = videojs('admin_video', {
-				autoplay: false,
-				controls: true,
-				fluid: true
-			});
-			var videoLink = base_url + 'uploads/videos/' + video_url;
-			player.src(videoLink);
+    //     // var param = (document.getElementById("videoID"+idx)).innerHTML.trim();
+    //     if (parseInt(video_status) === 0){
+    //         document.getElementById("upload_time").innerHTML = "";
+    //         // document.getElementById("state").style.backgroundColor = "#f6bf5e";
+	// 		if (parseInt(upload_status) > 0) {
+    //             var vi_state = '<span class="badge text-warning bg-warning-subtle" title="<?=$video_table[24];?>">' +
+    //                                 '<span style="font-size: 15px">' + 
+    //                                 '<span class="iconify" data-icon="ion-ios-timer" data-inline="false"></span></span>'+ "<?=$video_table[24];?>" +'</span>';
+    //             $("#state").html(vi_state);
+	// 			document.getElementById("upload_time").innerHTML = "";
+	// 			// $("#state").attr('title','<?php echo $video_table[24];?>');
+	// 			// $("#status-disp").html('<?php echo $video_table[24];?>');
+	// 			// $("#disp_status").css('display', 'block');
+	// 		} else {
+	// 			var vi_state = '<span class="badge text-warning bg-warning-subtle" title="<?=$video_table[20];?>">'+ "<?=$video_table[20];?>" +'</span>'
+    //             $("#state").html(vi_state);
+	// 		}
 
-            // playerInstance.setup({
-            //     playlist: [{
-            //         image:"https://content.jwplatform.com/thumbs/" + video_url + "-1280.jpg",
-            //         sources: [{
-            //             file:"https://cdn.jwplayer.com/videos/" + video_url + "-ONDbyjfZ.mp4",
-            //             label: "720p",
-            //             "default": "true"
-            //         }],
-            //         tracks: [{
-            //             file: "https://cdn.jwplayer.com/strips/" + video_url + "-120.vtt",
-            //             kind: "thumbnails"
-            //         }]
-            //     }]
-            // });
-        }
+    //         $('#video_link').css('display', 'none');
 
-        // var param = (document.getElementById("videoID"+idx)).innerHTML.trim();
-        if (parseInt(video_status) === 0){
-            document.getElementById("upload_time").innerHTML = "";
-            // document.getElementById("state").style.backgroundColor = "#f6bf5e";
-			if (parseInt(upload_status) > 0) {
-                var vi_state = '<span class="badge text-warning bg-warning-subtle" title="<?=$video_table[24];?>">' +
-                                    '<span style="font-size: 15px">' + 
-                                    '<span class="iconify" data-icon="ion-ios-timer" data-inline="false"></span></span>'+ "<?=$video_table[24];?>" +'</span>';
-                $("#state").html(vi_state);
-				document.getElementById("upload_time").innerHTML = "";
-				// $("#state").attr('title','<?php echo $video_table[24];?>');
-				// $("#status-disp").html('<?php echo $video_table[24];?>');
-				// $("#disp_status").css('display', 'block');
-			} else {
-				var vi_state = '<span class="badge text-warning bg-warning-subtle" title="<?=$video_table[20];?>">'+ "<?=$video_table[20];?>" +'</span>'
-                $("#state").html(vi_state);
-			}
+    //         $('#send_btn').css('display','none');
+    //         $('#ok_btn').css('display','block');
+    //         $('#delete_btn').css('display','block');
+    //         document.getElementById("send_btn").disabled = true;
+    //         document.getElementById("delete_btn").disabled = false;
+    //         $('#video_element').css('display','none');
+    //         $('#company_logo').css('display','block');
+    //         var company_image = $("#company_image"+idx).val();
+    //         $("#company_image").attr("src",company_image);
 
-            $('#video_link').css('display', 'none');
+    //     } else if (parseInt(video_status) === 1){
+    //         document.getElementById("upload_time").innerHTML = upload_time;
+    //         var vi_state = '<span class="badge text-danger bg-danger-subtle" title="<?=$video_table[21];?>">'+ "<?=$video_table[21];?>" +'</span>'
+    //             $("#state").html(vi_state);
+    //         // document.getElementById("state").style.backgroundColor = "#f85b5b";
+    //         // $("#state").attr('title','<?php echo $video_table[21];?>');
+    //         // $("#status-disp").html('<?php echo $video_table[21];?>');
+    //         $('#video_link').css('display', 'none');
+    //         $('#send_btn').css('display','block');
+    //         $('#delete_btn').css('display','block');
+    //         $('#ok_btn').css('display','block');
+    //         $('#link_address').css('display','none');
+    //         document.getElementById("send_btn").disabled = false;
+    //         document.getElementById("delete_btn").disabled = false;
+    //         $('#company_logo').css('display','none');
+    //     } else {
+    //         if (parseInt(user_removed) === 1) {
+    //             $('#video_link').css('display', 'none');
+    //             var vi_state = '<span class="badge text-success bg-success-subtle" title="<?=$video_table[27];?>">' +
+    //                                 '<span style="font-size: 15px">' + 
+    //                                 '<span class="iconify" data-icon="dashicons:lock" data-inline="false"></span></span>'+ "<?=$video_table[27];?>" +'</span>';
+    //             $("#state").html(vi_state);
+    //             // $("#state").attr('title','<?php echo $video_table[27];?>');
+    //             // $("#status-disp").html('<?php echo $video_table[27];?>');
+    //             // $("#remove_status").css('display', 'block');
+    //             $("#send_btn").html("<?php echo $video_table[26];?>");
+    //         } else {
+    //             var vi_state = '<span class="badge text-success bg-success-subtle" title="<?=$video_table[22];?>">'+ "<?=$video_table[22];?>" +'</span>'
+    //             $("#state").html(vi_state);
 
-            $('#send_btn').css('display','none');
-            $('#ok_btn').css('display','block');
-            $('#delete_btn').css('display','block');
-            document.getElementById("send_btn").disabled = true;
-            document.getElementById("delete_btn").disabled = false;
-            $('#admin_video').css('display','none');
-            $('#company_logo').css('display','block');
-            var company_image = $("#company_image"+idx).val();
-            $("#company_image").attr("src",company_image);
+    //             $('#video_link').css('display', 'block');
+    //             // $("#state").attr('title','<?php echo $video_table[22];?>');
+    //             // $("#status-disp").html('<?php echo $video_table[22];?>');
+    //             $('#link_address').css('display','block');
+    //             $("#send_btn").html("<?php echo $video_table[14];?>");
+    //             document.getElementById("link_address").innerHTML="<?php echo $video_table[12];?>: <a target='_BLANK' href='" + preview_url +"'>"+ preview_url +"</a>";
+    //         }
+    //         document.getElementById("upload_time").innerHTML = upload_time;
 
-        } else if (parseInt(video_status) === 1){
-            document.getElementById("upload_time").innerHTML = upload_time;
-            var vi_state = '<span class="badge text-danger bg-danger-subtle" title="<?=$video_table[21];?>">'+ "<?=$video_table[21];?>" +'</span>'
-                $("#state").html(vi_state);
-            // document.getElementById("state").style.backgroundColor = "#f85b5b";
-            // $("#state").attr('title','<?php echo $video_table[21];?>');
-            // $("#status-disp").html('<?php echo $video_table[21];?>');
-            $('#video_link').css('display', 'none');
-            $('#send_btn').css('display','block');
-            $('#delete_btn').css('display','block');
-            $('#ok_btn').css('display','block');
-            $('#link_address').css('display','none');
-            document.getElementById("send_btn").disabled = false;
-            document.getElementById("delete_btn").disabled = false;
-            $('#company_logo').css('display','none');
-        } else {
-            if (parseInt(user_removed) === 1) {
-                $('#video_link').css('display', 'none');
-                var vi_state = '<span class="badge text-success bg-success-subtle" title="<?=$video_table[27];?>">' +
-                                    '<span style="font-size: 15px">' + 
-                                    '<span class="iconify" data-icon="dashicons:lock" data-inline="false"></span></span>'+ "<?=$video_table[27];?>" +'</span>';
-                $("#state").html(vi_state);
-                // $("#state").attr('title','<?php echo $video_table[27];?>');
-                // $("#status-disp").html('<?php echo $video_table[27];?>');
-                // $("#remove_status").css('display', 'block');
-                $("#send_btn").html("<?php echo $video_table[26];?>");
-            } else {
-                var vi_state = '<span class="badge text-success bg-success-subtle" title="<?=$video_table[22];?>">'+ "<?=$video_table[22];?>" +'</span>'
-                $("#state").html(vi_state);
-
-                $('#video_link').css('display', 'block');
-                // $("#state").attr('title','<?php echo $video_table[22];?>');
-                // $("#status-disp").html('<?php echo $video_table[22];?>');
-                $('#link_address').css('display','block');
-                $("#send_btn").html("<?php echo $video_table[14];?>");
-                document.getElementById("link_address").innerHTML="<?php echo $video_table[12];?>: <a target='_BLANK' href='" + preview_url +"'>"+ preview_url +"</a>";
-            }
-            document.getElementById("upload_time").innerHTML = upload_time;
-
-            $('#send_btn').css('display','block');
-            $('#ok_btn').css('display','block');
-            $('#delete_btn').css('display','block');
-            $('#company_logo').css('display','none');
+    //         $('#send_btn').css('display','block');
+    //         $('#ok_btn').css('display','block');
+    //         $('#delete_btn').css('display','block');
+    //         $('#company_logo').css('display','none');
 
 
 
-        }
-    }
+    //     }
+    // }
 
     function addNewVideo(obj, idx) {
         $('#modal_back').css('display', 'block');
@@ -699,22 +417,39 @@
 
     function deleteVideo() {
         close_view_modal();
-        swal({
-            title: "<?php echo $warning;?>",
-            text: "<?php echo $alert_content[17];?>",
-            icon: "warning",
-            buttons: ["<?php echo $determine[0];?>", "<?php echo $determine[1];?>"],
-        })
-            .then(function(value) {
-                if (value) {
-                    if (parseInt(upload_status) === 0 ){
+        Swal.fire({
+                    title: "<?php echo $warning;?>",
+                    text: "<?php echo $alert_content[17];?>",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    customClass: {
+                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                        cancelButton: "btn btn-danger w-xs mt-2"
+                    },
+                    confirmButtonText: "<?php echo $determine[1];?>",
+                    cancelButtonText: "<?php echo $determine[0];?>",
+                    buttonsStyling: !1,
+                    showCloseButton: !0     
+                }).then(function(t) {
+                    if (t.isConfirmed) {
+                        if (parseInt(upload_status) === 0 ){
                         $.post(_server_url + 'admin/main/delete_video', {'video_id': video_id},
                             function (data) {
                                 var response = JSON.parse(data);
                                 if(response.status !== "fail") {
                                     window.location.reload();
                                 } else {
-                                    swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                                    
+                                    Swal.fire({
+                                        title: "<?php echo $failed;?>",
+                                        text: "<?php echo $alert_content[6];?>",
+                                        icon: "warning",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                        },
+                                        buttonsStyling: !1,
+                                        showCloseButton: !0
+                                    });
                                 }
                             }
                         );
@@ -729,19 +464,39 @@
                                             if(response.status !== "fail") {
                                                 window.location.reload();
                                             } else {
-                                                swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                                               
+                                                Swal.fire({
+                                                    title: "<?php echo $failed;?>",
+                                                    text: "<?php echo $alert_content[6];?>",
+                                                    icon: "warning",
+                                                    customClass: {
+                                                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                                    },
+                                                    buttonsStyling: !1,
+                                                    showCloseButton: !0
+                                                });
                                             }
                                         }
                                     );
                                 } else {
-                                    swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                                    
+                                    Swal.fire({
+                                        title: "<?php echo $failed;?>",
+                                        text: "<?php echo $alert_content[6];?>",
+                                        icon: "warning",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                        },
+                                        buttonsStyling: !1,
+                                        showCloseButton: !0
+                                    });
                                 }
                             }
                         );
                     }
 
-                }
-            });
+                    } 
+                });
     }
 
     function video_operation() {
@@ -760,11 +515,16 @@
                 if(response.status !== "fail"){
                     window.location.reload();
                 }else{
-                    swal({
-                        title: "Failed！",
-                        text: "Something Went Wrong!",
-                        icon: "warning",
-                    });
+                    Swal.fire({
+                            title: "Failed！",
+                            text: "Something Went Wrong!",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                 }
             });
     }
@@ -772,11 +532,11 @@
     $(function () {
         $('.close').on('click', function () {
             close_view_modal();
-            playerInstance.pause();
         })
     });
 
     function send_link() {
+        var user_removed = $('#user_removed').val();
         if (parseInt(user_removed) === 0) {
             show_link_log = true;
             show_logs = true;
@@ -784,7 +544,7 @@
                 $('#send_option').css('display', 'block');
                 $('#linksent_log').css('display', 'none');
                 $('#video_log').css('display', 'none');
-                $('#admin_video').css('display','none');
+                $('#video_element').css('display','none');
                 $('#company_logo').css('display','none');
                 $('#video_link').css('display', 'none');
                 $('#back_btn').css('display', 'none');
@@ -812,15 +572,31 @@
 				$(".preloader img").hide();
 				var response = JSON.parse(data);
 				if(response.status !== "fail") {
-					swal({
-						title: "<?php echo $success;?>",
-						text: "<?php echo $alert_content[21];?>",
-						icon: "success"
-					}).then(function() {
-						window.location.reload();
-					});
+                    Swal.fire({
+                            title: "<?php echo $success;?>",
+                            text: "<?php echo $alert_content[21];?>",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        })
+                    .then(function(value) {
+                        window.location.reload();
+                    });
 				} else {
-					swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+					
+                    Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
 				}
 			}
 		);
@@ -838,15 +614,33 @@
 				$(".preloader img").hide();
 				var response = JSON.parse(data);
 				if(response.status !== "fail") {
-					swal({
-						title: "<?php echo $success;?>",
-						text: "<?php echo $alert_content[22];?>",
-						icon: "success"
-					}).then(function() {
-						window.location.reload();
-					});
+                  
+                    Swal.fire({
+                            title: "<?php echo $success;?>",
+                            text: "<?php echo $alert_content[22];?>",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        })
+                    .then(function(value) {
+                        window.location.reload();
+                    });
+
 				} else {
-					swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+					
+                    Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
 				}
 			}
 		);
@@ -885,16 +679,32 @@
 				$(".preloader img").hide();
 				var response = JSON.parse(data);
 				if(response.status !== "fail") {
-					swal({
-						title: "<?php echo $success;?>",
-						text: "<?php echo $alert_content[18];?>",
-						icon: "success"
-					}).then(function() {
-						window.location.reload();
-					});
+					Swal.fire({
+                            title: "<?php echo $success;?>",
+                            text: "<?php echo $alert_content[18];?>",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        })
+                    .then(function(value) {
+                        window.location.reload();
+                    });
 
 				} else {
-					swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+					
+                    Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
 				}
 			});
 		}		
@@ -911,15 +721,31 @@
 				$(".preloader img").hide();
                 var response = JSON.parse(data);
                 if(response.status !== "fail") {
-                    swal({
-                        title: "<?php echo $success;?>",
-                        text: "<?php echo $alert_content[19];?>",
-                        icon: "success"
-                    }).then(function() {
+                    Swal.fire({
+                            title: "<?php echo $success;?>",
+                            text: "<?php echo $alert_content[19];?>",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        })
+                    .then(function(value) {
                         window.location.reload();
                     });
                 } else {
-                    swal("<?php echo $failed;?>", "<?php echo $alert_content[6];?>", "warning");
+                    
+                    Swal.fire({
+                            title: "<?php echo $failed;?>",
+                            text: "<?php echo $alert_content[6];?>",
+                            icon: "warning",
+                            customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                            },
+                            buttonsStyling: !1,
+                            showCloseButton: !0
+                        });
                 }
             }
         );
@@ -934,7 +760,7 @@
 			$('#linksent_log').css('display', 'block');
 			$('#send_option').css('display', 'none');
 			$('#video_log').css('display', 'none');
-			$('#admin_video').css('display','none');
+			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
 			$('#back_btn').css('display', 'block');
@@ -944,7 +770,7 @@
 			$('#linksent_log').css('display', 'none');
 			$('#send_option').css('display', 'none');
 			$('#video_log').css('display', 'none');
-			$('#admin_video').css('display','block');
+			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
@@ -952,11 +778,6 @@
 		}
 		
 	}
-
-	$('#video_preview .close').on('click', function () {
-        playerInstance.pause();
-    });
-
 
     function view_logs() {
         $('#send_btn').css('display','block');
@@ -969,7 +790,7 @@
                 $('#video_log').css('display', 'block');
                 $('#linksent_log').css('display', 'none');
 				$('#send_option').css('display', 'none');
-                $('#admin_video').css('display','none');
+                $('#video_element').css('display','none');
                 $('#company_logo').css('display','none');
                 $('#video_link').css('display', 'none');
                 $('#back_btn').css('display', 'block');
@@ -978,7 +799,7 @@
                 $('#video_log').css('display', 'none');
                 $('#linksent_log').css('display', 'none');
 				$('#send_option').css('display', 'none');
-                $('#admin_video').css('display','block');
+                $('#video_element').css('display','block');
                 $('#company_logo').css('display','none');
                 $('#video_link').css('display', 'block');
                 $('#back_btn').css('display', 'none');
@@ -991,7 +812,7 @@
     function back() {
 		if(show_logs == false) {
 			$('#video_log').css('display', 'none');
-			$('#admin_video').css('display','block');
+			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
@@ -1001,7 +822,7 @@
 		if(show_link_log == false) {
 			$('#linksent_log').css('display', 'none');
 			$('#video_log').css('display', 'none');
-			$('#admin_video').css('display','block');
+			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
@@ -1012,7 +833,7 @@
 			$('#send_option').css('display', 'none');
 			$('#linksent_log').css('display', 'none');
 			$('#video_log').css('display', 'none');
-			$('#admin_video').css('display','block');
+			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
@@ -1033,13 +854,34 @@
             'video_tech_name': $("#video_tech_name").val(),
         });
     });
+
     setInterval(function(){
         if($('.custom_modal:visible').length == 0){
             window.location.reload();
         }
     },120000);
+
+    function checkVideo(obj, idx) {
+		$(".preloader").show();
+        $(".preloader img").show();
+		$.ajax({
+			type:"post",
+			url:_server_url + 'manager/get_video_data',
+			data:{ 'video_id': idx, 'lang': lang_status },
+			dataType:"json",
+			success:function(resp) {
+				$(".preloader").hide();
+                $(".preloader img").hide();
+                $("#modal_content").empty();
+				$("#modal_content").html(resp.admin_content);
+				$('#modal_back').css('display', 'block');
+				$('#video_preview').css('display', 'block');
+			}
+		});
+
+	}
+
+
+
 </script>
-<style type="text/css">
-    input[readonly] {background-color: transparent;}
-    .custom_modal input.fcs:focus{outline:none;border-color:inherit;}
-</style>
+
