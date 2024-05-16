@@ -532,6 +532,7 @@
     $(function () {
         $('.close').on('click', function () {
             close_view_modal();
+            $('#modal_content').empty();
         })
     });
 

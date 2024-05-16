@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp,nodir,noydir">
     
-    <link rel="shortcut icon" href="../../public/img/favicon.ico"/>
+    <link rel="shortcut icon" href="<?=base_url();?>assets/images/favicon.ico">
     <!-- global styles-->
     <link type="text/css" rel="stylesheet" href="../../public/css/components.css"/>
     <link type="text/css" rel="stylesheet" href="../../public/css/custom.css"/>
@@ -21,13 +21,14 @@
     <script src="../../public/js/fixed_menu.js"></script>
     <script type="text/javascript" src="../../public/js/sweetalert.min.js"></script>
     <!-- JWPlayer JS -->
-    <script src="https://cdn.jwplayer.com/libraries/bL8rDEl6.js"></script>
+    <!-- <script src="https://cdn.jwplayer.com/libraries/bL8rDEl6.js"></script> -->
+    <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="fixedMenu_header">
 <?php
 if($company_data['company_image']) $image = "../../uploads/company_img/".$company_data['company_image'];
-else $image = "../../public/img/logo.png";
+else $image = "../../assets/images/viserv_logo.png";
 ?>
 <div class="preloader">
     <div class="preloader_img" style="width: 300px; height: 300px; position: absolute; left: 48%; top: 48%; background-position: center; z-index: 999999">
@@ -46,7 +47,7 @@ else $image = "../../public/img/logo.png";
 </div>
 <div class="bg-dark view_page" id="wrap" style="padding-bottom: 40px">
     <div style="margin-top: 20px;">
-        <input type="hidden" id="media_id" value="<?php echo $video_data['video_url'];?>">
+        <!-- <input type="hidden" id="media_id" value="<?php echo $video_data['video_url'];?>"> -->
         <input type="hidden" id="video_id" value="<?php echo $video_data['video_id'];?>">
         <div class="container">
             <div class="card ">
@@ -55,7 +56,11 @@ else $image = "../../public/img/logo.png";
                 </div>
                 <div class="row padding15" style="min-height: 440px">
                     <div class="col-md-7 col-xs-12">
-                        <div id="video-data"></div>
+                        <div id="video-data">
+                            <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }' >
+                                <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
+                            </video>
+                        </div>
                     </div>
                     
                     <div class="col-md-5 col-xs-12">
@@ -85,12 +90,9 @@ else $image = "../../public/img/logo.png";
                               <tr>
                                 <th><?php echo $preview[6];?>:</th>
                                 <td><?php 
-                                if ($video_data['video_sent_second_time'] != null ) {
-                                    echo date('d.m.Y', strtotime($video_data['video_sent_second_time']));
-                                    
-                                } else {
+                                
                                     echo date('d.m.Y', strtotime($video_data['video_sent_time']));
-                                }
+                                
                                 ?></td>
                               </tr>
                             </tbody>
@@ -120,43 +122,36 @@ else $image = "../../public/img/logo.png";
 
     <script type="text/javascript"> 
         var _server_url = 'https://'+location.host+'/';
-        window.onload = function exampleFunction() { 
-            var video_key = $("#media_id").val();
+        // window.onload = function exampleFunction() { 
+        //     var video_key = $("#media_id").val();
 
-            jwplayer('video-data').setup({
-                playlist: [{
-                    image:"https://content.jwplatform.com/thumbs/" + video_key + "-1920.jpg",
-                    sources: [{
-                        file:"https://cdn.jwplayer.com/videos/" + video_key + "-ONDbyjfZ.mp4",
-                        label: "720p",
-                        "default": "true"
-                    }],
-                    tracks: [{
-                        file: "https://cdn.jwplayer.com/strips/" + video_key + "-120.vtt",
-                        kind: "thumbnails"
-                    }]
-                }]
-            }); 
-        } 
+        //     jwplayer('video-data').setup({
+        //         playlist: [{
+        //             image:"https://content.jwplatform.com/thumbs/" + video_key + "-1920.jpg",
+        //             sources: [{
+        //                 file:"https://cdn.jwplayer.com/videos/" + video_key + "-ONDbyjfZ.mp4",
+        //                 label: "720p",
+        //                 "default": "true"
+        //             }],
+        //             tracks: [{
+        //                 file: "https://cdn.jwplayer.com/strips/" + video_key + "-120.vtt",
+        //                 kind: "thumbnails"
+        //             }]
+        //         }]
+        //     }); 
+        // } 
 
         function removeData() {
             var video_id = $('#video_id').val();
 
-            Swal.fire({
+            swal({
                     title: "<?php echo $warning;?>",
                     text: "<?php echo $alert_content[20];?>",
                     icon: "warning",
-                    showCancelButton: !0,
-                    customClass: {
-                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
-                        cancelButton: "btn btn-danger w-xs mt-2"
-                    },
-                    confirmButtonText: "<?php echo $determine[1];?>",
-                    cancelButtonText: "<?php echo $determine[0];?>",
-                    buttonsStyling: !1,
-                    showCloseButton: !0     
+                    buttons: ["<?php echo $determine[0];?>", "<?php echo $determine[1];?>"]
+                    
                 }).then(function(t) {
-                    if (t.isConfirmed) {
+                    if (t) {
                         $(".preloader").show();
                         $(".preloader img").show();
                         return $.post(_server_url + 'backend/remove_data', {'video_id': video_id},
@@ -201,7 +196,13 @@ else $image = "../../public/img/logo.png";
             
         }
     </script> 
-
+<script src="https://vjs.zencdn.net/7.19.2/video.min.js">
+    const player = videojs('custom_player', {
+        autoplay: true,
+        controls: true,
+        fluid: true
+    });
+</script>
 </body>
 </html>
 
