@@ -22,19 +22,20 @@
 		<tbody>
 		<?php 
 		$idx = 1;
-		foreach($video_list as $item){?>
+		foreach($video_list as $item){ ?>
 			<tr>
 				<input type="hidden" id="video_url<?php echo $item['video_id'];?>" value="<?php echo $item['video_url'];?>">
 				<?php if($item['video_is_show'] > 1){?>
 					<input type="hidden" id="video_serial<?php echo $item['video_id'];?>" value="<?php echo $item['video_serial'];?>" data-value="<?php echo $item['video_is_show'];?>">
 				<?php }?>
 		
-
 				<td scope="row">
 					<?php if($item['company_removed'] != 1 && $item['user_removed'] != 1){ ?>
 						
 						<a href="javascript:void(0);" onclick="checkVideo(this, <?php echo $item['video_id'];?>);" style="color: #438eff; ">#<?php echo $item['video_id'];?></a>
-					<?php } ?>
+					<?php } else {?>
+						<span >#<?php echo $item['video_id'];?></span>
+					<?php }?>
 				</td>
 				<td scope="row" style="padding: 5px; width: 100px">
 					<?php if($item['video_uploaded'] < 2) {
@@ -42,7 +43,8 @@
 					?>
 					<img src="<?php echo $image;?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
 					
-					<?php } else { ?>
+					<?php } else { 
+						if ($item['user_removed'] != 1 && $item['company_removed'] != 1 ) {?>
 						<div class="img_container" onclick="checkVideo(this, <?php echo $item['video_id'];?>);">
 							<img src="<?php echo base_url().'uploads/thumbnails/'.$item['video_serial'].'.jpg';?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
 							<div class="middle">
@@ -50,10 +52,22 @@
 							</div>
 						</div>
 					
-					<?php } ?>
+					<?php } else {?>
+						<div class="img_container">
+							<img src="<?php echo base_url().'uploads/thumbnails/'.$item['video_serial'].'.jpg';?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
+						</div>
+						<?php }
+						}?>
 				</td>
 
-				<td nowrap id="car_number<?php echo $item['video_id'];?>"><?php echo $item['video_case_number'];?></td>
+				<td nowrap id="car_number<?php echo $item['video_id'];?>">
+					<?php if($item['company_removed'] != 1 && $item['user_removed'] != 1){ ?>
+						<a href="javascript:void(0);" onclick="checkVideo(this, <?php echo $item['video_id'];?>);" style="color: #438eff; "><?php echo $item['video_case_number'];?></a>
+					<?php } else {?>
+						<span ><?php echo $item['video_case_number'];?></span>
+					<?php }?>
+					
+				</td>
 
 				<?php if ($item['user_removed'] == 1) { ?>
 					<td nowrap >********</td>
@@ -91,7 +105,7 @@
 				<td nowrap id="status<?php echo $item['video_id'];?>">
 					<?php
 					if($item['company_removed'] == 1){
-						echo '<span class="badge text-success bg-success-subtle" title="'.$video_table[22].'">'.$video_table[22].'</span>';
+						echo '<span class="badge text-success bg-success-subtle" title="'.$video_table[25].'">'.$video_table[25].'</span>';
 					}else if ($item['video_is_show'] == 0) {
 						if ($item['video_uploaded'] == 1 || $item['video_uploaded'] == 2) {
 							echo '<span class="badge text-warning bg-warning-subtle" title="'.$video_table[24].'">
@@ -114,7 +128,7 @@
 					}?>
 				</td>
 			</tr>
-		<?php } ?>
+		<?php }  ?>
 		</tbody>
 	</table>
 </div>
@@ -283,6 +297,7 @@
 
 	function deleteVideo() {
 		close_view_modal();
+		video_id = $('#modal_video_id').val();
 		Swal.fire({
 			title: "<?php echo $warning;?>",
 			text: "<?php echo $alert_content[17];?>",
@@ -297,11 +312,11 @@
 			buttonsStyling: !1,
 			showCloseButton: !0
 		})
-			.then(function(value) {
-				if (value) {
+			.then(function(t) {
+				if (t.isConfirmed) {
                     $(".preloader").show();
                     $(".preloader img").show();
-					if (parseInt(upload_status) === 0 || parseInt(upload_status) === 1){
+					// if (parseInt(upload_status) === 0 || parseInt(upload_status) === 1){
 						$.post(_server_url + 'manager/delete_video', {'video_id': video_id},
 							function (data) {
                                 $(".preloader").hide();
@@ -324,35 +339,36 @@
 								}
 							}
 						);
-					} else {
-						$.post(_server_url + 'backend/video_delete', {'video_key': $("#video_url"+video_id).val()},
-							function (data) {
-									$.post(_server_url + 'manager/delete_video', {'video_id': video_id},
-										function (data) {
-                                            $(".preloader").hide();
-                                            $(".preloader img").hide();
-											var response = JSON.parse(data);
-											if(response.status !== "fail") {
-												page_refresh();
-											} else {
+					// } 
+					// else {
+					// 	$.post(_server_url + 'backend/video_delete', {'video_key': $("#video_url"+video_id).val()},
+					// 		function (data) {
+					// 				$.post(_server_url + 'manager/delete_video', {'video_id': video_id},
+					// 					function (data) {
+                    //                         $(".preloader").hide();
+                    //                         $(".preloader img").hide();
+					// 						var response = JSON.parse(data);
+					// 						if(response.status !== "fail") {
+					// 							page_refresh();
+					// 						} else {
 												
-												Swal.fire({
-													title: "<?php echo $failed;?>",
-													text: "<?php echo $alert_content[6];?>",
-													icon: "warning",
-													customClass: {
-														confirmButton: "btn btn-primary w-xs me-2 mt-2",
-													},
-													buttonsStyling: !1,
-													showCloseButton: !0
-												});
-											}
-										}
-									);
+					// 							Swal.fire({
+					// 								title: "<?php echo $failed;?>",
+					// 								text: "<?php echo $alert_content[6];?>",
+					// 								icon: "warning",
+					// 								customClass: {
+					// 									confirmButton: "btn btn-primary w-xs me-2 mt-2",
+					// 								},
+					// 								buttonsStyling: !1,
+					// 								showCloseButton: !0
+					// 							});
+					// 						}
+					// 					}
+					// 				);
 
-							}
-						);
-					}
+					// 		}
+					// 	);
+					// }
 
 				}
 			});

@@ -299,8 +299,8 @@ function deleteVideodata(obj, idx) {
         icon: "warning",
         buttons: ["<?php echo $determine[0];?>", "<?php echo $determine[1];?>"],
     })
-    .then(function(value) {
-        if (value.isConfirmed) {
+    .then(function(t) {
+        if (t.isConfirmed) {
             $.post(_server_url + 'admin/data/videoDelete', {'video_id': idx},
             function (data) {
                 if(data !== "FAIL") {

@@ -21,8 +21,8 @@
             <section class="flexbox-container">
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <div class="col-lg-3 col-md-5 col-sm-10 col-10 box-shadow-2 p-0">
-                        <div class="card border-grey border-lighten-3 px-1 py-1 m-0" style="background-color: #aa0b2d;">
-                            <div class="border-0" style="background-color: #aa0b2d">
+                        <div class="card border-grey border-lighten-3 px-1 py-1 m-0" style="background-color:#2ca2e6;">
+                            <div class="border-0" style="background-color: #2ca2e6">
                                 <div class="text-center" style="margin: 25px 0">
                                     <h1 style="color: #fff;font-size: 10rem">404</h1>
                                     <h2 style="color: #fff">Page not found</h2>

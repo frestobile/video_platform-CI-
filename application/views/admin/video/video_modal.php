@@ -301,6 +301,12 @@
 </script>
 <script>
     var video_id = "<?php echo $video_data['video_id'];?>";
+    var player = videojs('custom_player', {
+      controlBar: {
+        pictureInPictureToggle: false
+      }
+    });
+    
     $(document).ready(function () {
         $('#video_log').css('display', 'none');
 		$('#linksent_log').css('display', 'none');

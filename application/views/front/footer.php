@@ -103,7 +103,6 @@
 
             function page_refresh()
             {
-
                 $(".preloader").show();
                 $(".preloader img").show();
                 $.ajax({
@@ -112,11 +111,13 @@
                     data:{'company_id': company_id, 'lang': lang_status},
                     dataType:"json",
                     success:function(resp) {
+                        let state = localStorage.getItem('datatable-state');
+                        let initialState = state ? JSON.parse(state) : {};
                         $(".preloader").hide();
                         $(".preloader img").hide();
                         $("#updated_list").empty();
                         $("#updated_list").html(resp.content);
-                        $('#updated_list table').DataTable({
+                        let table = $('#updated_list table').DataTable({
                             "bFilter":true,
                             "bInfo": false,
                             "bLengthChange" : false,
@@ -136,8 +137,28 @@
                                 // if ($('#DataTables_Table_0 tr').length < 11) {
                                 //     $('.dataTables_paginate').hide();
                                 // } else if ($('#DataTables_Table_0 tr').length < 11)
+                            },
+                            "statedSaveParams": function(settings, data) {
+                                localStorage.setItem('datatable-state', JSON.stringify(data));
+                            },
+                            "stateLoadParams": function(settings, data) {
+                                if (initialState) {
+                                    // Load saved state
+                                    return initialState;
+                                }
                             }
                         });
+
+                        table.on('page.dt', function() {
+                            let info = table.page.info();
+                            localStorage.setItem('currentPage', info.page);
+                        });
+
+                        // Retrieve and set the page number on page load
+                        let currentPage = localStorage.getItem('currentPage');
+                        if (currentPage !== null) {
+                            table.page(parseInt(currentPage)).draw('page');
+                        }
                     }
                 });
             }

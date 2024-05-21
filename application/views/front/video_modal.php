@@ -9,7 +9,7 @@
 <div class="row" style="padding: 0 20px 20px">
     <!-- <?php var_dump($video_data);?> -->
     <div class="col-lg-8 m-t-10 col-xs-12">
-        
+        <input type="hidden" id="modal_video_id" value="<?php echo $video_data['video_id'];?>">
         <div id="video_log"></div>
         <div id="linksent_log"></div>
 
@@ -22,7 +22,7 @@
             </div>
         <?php } else {?>
             <div id="video_element">
-                <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }' >
+                <video id="custom_player" class="video-js vjs-big-play-centered vjs-theme-city" controls preload="auto" data-setup='{ "aspectRatio":"1280:720"}' >
                     <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                 </video>
             </div>
@@ -252,7 +252,9 @@
             </div>
         </div>
         <div class="row m-t-30">
+        <?php if($video_data['video_is_show'] != 2) {?>
             <button class="btn video_btn btn-danger" id="delete_btn" onclick="deleteVideo()"><?php echo $video_table[13];?></button>
+        <?php }?>
         </div>
         <?php if($video_data['video_is_show'] != 0) {?>
         <div class="row m-t-10">
@@ -272,6 +274,12 @@
     });
 </script>
 <script>
+    var player = videojs('custom_player', {
+      controlBar: {
+        pictureInPictureToggle: false
+      }
+    });
+
     var video_id = "<?php echo $video_data['video_id'];?>";
     $(document).ready(function () {
         $('#video_log').css('display', 'none');

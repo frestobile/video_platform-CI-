@@ -521,10 +521,10 @@ class Manager extends CI_Controller{
         $video_url = $rows['video_url'];
         
         if($rows['video_is_show'] == 0){
-	    if ($rows['video_uploaded'] > 0) {
+	        if ($rows['video_uploaded'] > 0) {
                 $data['video_id'] = $_POST['video_id'];
                 $data['video_is_show'] = 0;
-		$data['video_uploaded'] = 0;
+		        $data['video_uploaded'] = 0;
                 $data['video_upload_time'] = null;
                 $data['video_url'] = null;
              	if($this->VideoModel->update($data))
@@ -536,28 +536,42 @@ class Manager extends CI_Controller{
                 	$data['status'] = "success";
             	else
                 	$data['status'] = "fail";
-	    }	
+	        }	
 
-        }else if($rows['video_is_show'] == 1){
+        } else if ($rows['video_is_show'] == 1){
             if(file_exists($this->url_videos. $video_url)) unlink($this->url_videos.$video_url);
                 $data['video_id'] = $_POST['video_id'];
                 $data['video_is_show'] = 0;
-		$data['video_uploaded'] = 0;
+		        $data['video_uploaded'] = 0;
                 $data['video_upload_time'] = null;
                 $data['video_url'] = null;
-             if($this->VideoModel->update($data))
-                $data['status'] = "success";
-            else
-                $data['status'] = "fail";
+                if($this->VideoModel->update($data))
+                    $data['status'] = "success";
+                else
+                    $data['status'] = "fail";
         }else{
+
             $data['video_id'] = $_POST['video_id'];
-            $data['company_removed'] = 1;
+            $data['user_removed'] = 1;
              if($this->VideoModel->update($data))
                 $data['status'] = "success";
             else
                 $data['status'] = "fail";
         }
 
+        echo json_encode($data);
+    }
+
+    public function deleteVideo_from_user() {
+      
+        $rows = $this->VideoModel->getFind($_POST['video_id']);
+
+        $data['video_id'] = $_POST['video_id'];
+        $data['user_removed'] = 1;
+        if($this->VideoModel->update($data))
+        $data['status'] = "success";
+        else
+            $data['status'] = "fail";
         echo json_encode($data);
     }
 
