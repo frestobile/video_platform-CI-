@@ -55,15 +55,15 @@ else $image = "../../assets/images/viserv_logo.png";
                             </div>
                             <div class="card-body">
                                 <div class="row padding15" style="min-height: 440px">
-                                    <div class="col-md-8 col-xs-12">
+                                    <div class="col-md-7 col-xs-12">
                                         <div id="video-data">
-                                            <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }' >
+                                            <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720" }' >
                                                 <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                                             </video>
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-4 col-xs-12">
+                                    <div class="col-md-5 col-xs-12">
                                         <table class="table table-bordered page_preview">
                                             <tbody>
                                                 <tr>
@@ -132,7 +132,11 @@ else $image = "../../assets/images/viserv_logo.png";
 </script>
 <script type="text/javascript"> 
     var _server_url = '<?php echo base_url();?>';
-
+    var player = videojs('custom_player', {
+      controlBar: {
+        pictureInPictureToggle: false
+      }
+    });
     // window.onload = function exampleFunction() { 
     //     var video_key = $("#media_id").val();
 
@@ -191,7 +195,7 @@ else $image = "../../assets/images/viserv_logo.png";
                                     showCloseButton: !0
                                 })
                             .then(function(value) {
-                                window.location.href = "https://viservice.eu/";
+                                window.location.href = "https://viserv.eu/";
                             });
 
                         } else {

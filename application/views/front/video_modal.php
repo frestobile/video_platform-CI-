@@ -3,6 +3,9 @@
     width: 80%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px
 }
 </style>
+<script>
+    var video_status = "<?php echo $video_data['video_is_show'];?>";
+</script>
 <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
 
 
@@ -267,20 +270,25 @@
     </div>
 </div>
 <script src="https://vjs.zencdn.net/7.19.2/video.min.js">
-    const player = videojs('custom_player', {
-        autoplay: true,
-        controls: true,
-        fluid: true
-    });
+     if (video_status > 1) {
+        const player = videojs('custom_player', {
+            autoplay: true,
+            controls: true,
+            fluid: true
+        });
+    }
 </script>
 <script>
-    var player = videojs('custom_player', {
-      controlBar: {
-        pictureInPictureToggle: false
-      }
-    });
-
     var video_id = "<?php echo $video_data['video_id'];?>";
+    
+    if (video_status > 1) {
+        var player = videojs('custom_player', {
+            controlBar: {
+                pictureInPictureToggle: false
+            }
+        });
+    }
+    
     $(document).ready(function () {
         $('#video_log').css('display', 'none');
 		$('#linksent_log').css('display', 'none');

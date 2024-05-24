@@ -1,5 +1,8 @@
 <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
-<script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
+
+<script>
+    var video_status = "<?php echo $video_data['video_is_show'];?>";
+</script>
 <style>
 .readonly_input {
     width: 80%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px
@@ -16,7 +19,7 @@
             </div>
         <?php } else {?>
             <div id="video_element">
-                <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }' >
+                <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720" }' >
                     <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                 </video>
             </div>
@@ -52,7 +55,6 @@
                 <div class="col-sm-6 col-xs-6">
                     <input type="text" class="fcs" id="link_email" style="width: 60%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px">
                     <input type="checkbox" id="checkbox_email" name="checkbox_email" value="email" style="margin-left: 10px" onclick="handleClick(this);">
-                    
                 </div>
             </div>
             <div class="row" id="option_error" style="display: none;">
@@ -293,20 +295,16 @@
 </div>
 
 <script src="https://vjs.zencdn.net/7.19.2/video.min.js">
-    const player = videojs('custom_player', {
-        autoplay: true,
-        controls: true,
-        fluid: true
-    });
+    if (video_status > 1) {
+        const player = videojs('custom_player', {
+            autoplay: true,
+            controls: true,
+            fluid: true
+        });
+    }
 </script>
 <script>
     var video_id = "<?php echo $video_data['video_id'];?>";
-    var player = videojs('custom_player', {
-      controlBar: {
-        pictureInPictureToggle: false
-      }
-    });
-    
     $(document).ready(function () {
         $('#video_log').css('display', 'none');
 		$('#linksent_log').css('display', 'none');
@@ -327,5 +325,12 @@
                 }
             );
     });
+    if (video_status > 1) {
+        var player = videojs('custom_player', {
+        controlBar: {
+            pictureInPictureToggle: false
+        }
+        });
+    }
 
 </script>
