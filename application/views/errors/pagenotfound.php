@@ -8,11 +8,11 @@
 
     <title>404 | Page not found</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="https://viservice.eu/public/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://viservice.eu/public/vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://viservice.eu/public/vendors/bootstrap/css/bootstrap-extended.min.css">
-    <link rel="stylesheet" type="text/css" href="https://viservice.eu/public/vendors/components/components.min.css">
-    <link rel="stylesheet" type="text/css" href="https://viservice.eu/public/vendors/line-awesome/css/line-awesome.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>public/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/vendors/bootstrap/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/vendors/components/components.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/vendors/line-awesome/css/line-awesome.min.css">
 </head>
 <body class="vertical-layout vertical-menu-modern 1-column menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
 <div class="app-content content" style="background-color: lightgrey">

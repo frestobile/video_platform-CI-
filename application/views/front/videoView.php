@@ -54,15 +54,15 @@ else $image = "../../assets/images/viserv_logo.png";
                                 <?php echo str_replace('%s', $video_data['video_case_number'], $preview[0]) ;?>
                             </div>
                             <div class="card-body">
-                                <div class="row padding15" style="min-height: 440px">
-                                    <div class="col-md-7 col-xs-12">
-                                        <div id="video-data">
-                                            <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720" }' >
+                                <div class="row">
+                                    <div class="col-md-7 col-xs-12" style="padding: 0 30px 30px;">
+                                        <div id="video-data" style="align-content: center;">
+                                            <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720" }'>
                                                 <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                                             </video>
                                         </div>
                                     </div>
-                                    
+                                    <!-- <div class="col-md-1"></div> -->
                                     <div class="col-md-5 col-xs-12">
                                         <table class="table table-bordered page_preview">
                                             <tbody>
