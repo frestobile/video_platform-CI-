@@ -15,14 +15,14 @@
     border: none !important;
 }
 video {
-            width: 100%;
-            height: auto;
-            object-fit: cover; /* Alternatively, try object-fit: cover; */
-            border: none;
-        }
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Alternatively, try object-fit: cover; */
+    border: none;
+}
 </style>
 <script>
-    var video_status = "<?php echo $video_data['video_is_show'];?>";
+    var video_status = "<?php echo $video_data['video_uploaded'];?>";
 </script>
 
 <div class="row" style="padding: 0 20px 20px">
@@ -41,16 +41,11 @@ video {
             </div>
         <?php } else {?>
             <div id="video_element">
-                <video-js id="custom_player" 
+                <video id="custom_player" 
                 poster="<?php echo base_url();?>uploads/thumbnails/<?php echo $video_data['video_serial'];?>-1280.jpg"
                 class="video-js vjs-big-play-centered vjs-theme-city vjs-controls-enabled vjs-workinghover vjs-v8 vjs-user-active  vjs-16-9" controls preload="auto" >
                     <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
-                </video-js>
-
-                <!-- <video-js id="custom_player" class="video-js vjs-big-play-centered vjs-theme-city" controls preload="auto" data-setup='{ "aspectRatio":"1280:720"}' >
-                    <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
-                </video-js> -->
-
+                </video>
             </div>
             <br>
         <?php } ?>
