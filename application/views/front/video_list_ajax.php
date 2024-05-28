@@ -1,7 +1,8 @@
 <script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
-<link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
-<script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
-
+<!-- <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
+<script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script> -->
+<link href="<?=base_url();?>assets/libs/videojs/video-js.min.css" rel="stylesheet" />
+<script src="<?=base_url();?>assets/libs/videojs/video.min.js"></script>
 
 <div class="table-responsive" id="dt_table" style="margin: -1.2rem -1.2rem;">
 

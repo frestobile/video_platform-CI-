@@ -67,7 +67,6 @@
 
         <!-- App js -->
         <script src="<?=base_url();?>assets/js/app.js?_=<?php echo time();?>"></script>
-        <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
 
         <script type="text/javascript">
 

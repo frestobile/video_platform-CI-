@@ -16,16 +16,36 @@
     <link href="<?=base_url();?>assets/css/app.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
     <link href="<?=base_url();?>assets/css/custom.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
     <link href="<?=base_url();?>assets/css/style.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
-
-    <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" type="text/css" />
-
     <script src="<?=base_url();?>assets/libs/jquery/jquery.min.js?_=<?=time();?>"></script>
     <script src="<?=base_url();?>assets/libs/sweetalert2/sweetalert2.min.js?_=<?php echo time();?>"></script>    
+
+    <link href="<?=base_url();?>assets/libs/videojs/video-js.min.css" rel="stylesheet" />
+    <script src="<?=base_url();?>assets/libs/videojs/video.min.js"></script>
+
+    <!-- <script src="<?=base_url();?>assets/libs/videojs/jwplayer.js"></script> -->
 </head>
 <style>
     .page_content {
         padding: calc(35px + 1.5rem) calc(1.5rem* .7) 30px calc(1.5rem* .5);
     }
+    #video-data {
+    width: 100%;
+    height: auto;
+    background-color: black; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+.video-js {
+    border: none !important;
+}
+video {
+            width: 100%;
+            height: auto;
+            object-fit: cover; 
+            border: none;
+        }
 </style>
 <body>
 <?php
@@ -56,13 +76,15 @@ else $image = "../../assets/images/viserv_logo.png";
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-7 col-xs-12" style="padding: 0 30px 30px;">
-                                        <div id="video-data" style="align-content: center;">
-                                            <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720" }'>
+                                        <div id="video-data">
+                                            <video id="custom_player" 
+                                            poster="<?php echo base_url();?>uploads/thumbnails/<?php echo $video_data['video_serial'];?>-1280.jpg"
+                                            class="video-js vjs-big-play-centered vjs-theme-city vjs-controls-enabled vjs-workinghover vjs-v8 vjs-user-active  vjs-16-9" controls preload="auto">
                                                 <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                                             </video>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-1"></div> -->
+                                   
                                     <div class="col-md-5 col-xs-12">
                                         <table class="table table-bordered page_preview">
                                             <tbody>
@@ -123,7 +145,7 @@ else $image = "../../assets/images/viserv_logo.png";
         </div>
     </footer>
 </body>
-<script src="https://vjs.zencdn.net/7.19.2/video.min.js">
+<script src="<?=base_url();?>assets/libs/videojs/video.min.js">
     const player = videojs('custom_player', {
         autoplay: true,
         controls: true,
@@ -138,21 +160,16 @@ else $image = "../../assets/images/viserv_logo.png";
       }
     });
     // window.onload = function exampleFunction() { 
-    //     var video_key = $("#media_id").val();
-
+        
     //     jwplayer('video-data').setup({
-    //         playlist: [{
-    //             image:"https://content.jwplatform.com/thumbs/" + video_key + "-1920.jpg",
-    //             sources: [{
-    //                 file:"https://cdn.jwplayer.com/videos/" + video_key + "-ONDbyjfZ.mp4",
-    //                 label: "720p",
-    //                 "default": "true"
-    //             }],
-    //             tracks: [{
-    //                 file: "https://cdn.jwplayer.com/strips/" + video_key + "-120.vtt",
-    //                 kind: "thumbnails"
-    //             }]
-    //         }]
+
+    //         file: _server_url + "uploads/videos/<?php echo $video_data['video_url'];?>",
+    //         image: _server_url + "uploads/thumbnails/<?php echo $video_data['video_serial'];?>.jpg",
+    //         width: "100%",
+    //         aspectratio: "16:9",
+    //         controls: {
+    //             pipIcon: false
+    //         },
     //     }); 
     // } 
 

@@ -149,7 +149,7 @@ function add_customer() {
             }
         });
     } else {
-        close_view_modal();
+        // close_view_modal();
         
         Swal.fire({
 			title: "<?php echo $warning;?>",

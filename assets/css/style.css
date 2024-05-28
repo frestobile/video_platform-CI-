@@ -1,7 +1,7 @@
 .custom_modal {
     display: none;
     position: fixed;
-    z-index: 2001;
+    z-index: 1051;
     top: 15%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -14,7 +14,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 2000;
+    z-index: 1050;
     opacity: 0.7;
   }
   span.error-msg {
@@ -59,19 +59,20 @@
   }
 
   #calendar_modal, #new_video_modal, #new_customer_modal {
-    width: 45%;
-    left: 26%;
+    width: 50%;
+    max-width: 800px;
+    left: 26.3%;
   }
   #preview_modal {
     width: 60%;
     left: 20%;
   }
   #video_preview {
-    /*width: 80%;
-    left: 10%;
+     width: 80%;
+    /*left: 10%;
     top: 4%;*/
     overflow-y: inherit;
-    width: 1106px;
+    max-width: 1100px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
