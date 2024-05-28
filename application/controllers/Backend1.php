@@ -215,18 +215,18 @@ class Backend1 extends CI_Controller{
     }
 
     public function get_thumbnail($video_path, $thumb_name, $resp) {
-        $width1 = 320;
-        $height1 = 180;
+        // $width1 = 320;
+        // $height1 = 180;
         $width2 = 1280;
         $height2 = 720;
         $videoFilePath = realpath($video_path);
         $thumbnail_path = realpath("./uploads/thumbnails/");
-        $full_path1 = $thumbnail_path.'/'.$thumb_name.'.jpg';
+        // $full_path1 = $thumbnail_path.'/'.$thumb_name.'.jpg';
         $full_path2 = $thumbnail_path.'/'.$thumb_name.'-1280.jpg';
-        $cmd1 = "ffmpeg -i $videoFilePath -ss 00:00:01.000 -vframes 1 -vf scale=$width1:$height1 $full_path1 &";
-        $cmd1 = "ffmpeg -i $videoFilePath -ss 00:00:01.000 -vframes 1 -vf scale=$width2:$height2 $full_path2 &";
+        // $cmd1 = "ffmpeg -i $videoFilePath -ss 00:00:01.000 -vframes 1 -vf scale=$width1:$height1 $full_path1 &";
+        $cmd2 = "ffmpeg -i $videoFilePath -ss 00:00:01.000 -vframes 1 -vf scale=$width2:$height2 $full_path2 &";
         // $resp['command'] = $cmd;
-        shell_exec($cmd1);
+        // shell_exec($cmd1);
         shell_exec($cmd2);
         echo json_encode($resp);    
     }

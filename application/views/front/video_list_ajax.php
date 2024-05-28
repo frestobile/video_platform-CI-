@@ -47,7 +47,7 @@
 					<?php } else { 
 						if ($item['user_removed'] != 1 && $item['company_removed'] != 1 ) {?>
 						<div class="img_container" onclick="checkVideo(this, <?php echo $item['video_id'];?>);">
-							<img src="<?php echo base_url().'uploads/thumbnails/'.$item['video_serial'].'.jpg';?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
+							<img src="<?php echo base_url().'uploads/thumbnails/'.$item['video_serial'].'-1280.jpg';?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
 							<div class="middle">
 								<img src="<?=base_url()?>assets/images/play.png" alt="play button" width="20" height="20">
 							</div>

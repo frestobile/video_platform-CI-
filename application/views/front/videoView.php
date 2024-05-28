@@ -29,23 +29,21 @@
         padding: calc(35px + 1.5rem) calc(1.5rem* .7) 30px calc(1.5rem* .5);
     }
     #video-data {
-    width: 100%;
-    height: auto;
-    background-color: black; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-}
-.video-js {
-    border: none !important;
-}
-video {
-            width: 100%;
-            height: auto;
-            object-fit: cover; 
-            border: none;
-        }
+        background-color: black; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+    .video-js {
+        border: none !important;
+    }
+    video {
+        width: 100%;
+        height: auto;
+        object-fit: cover; 
+        border: none;
+    }
 </style>
 <body>
 <?php
@@ -75,7 +73,7 @@ else $image = "../../assets/images/viserv_logo.png";
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-7 col-xs-12" style="padding: 0 30px 30px;">
+                                    <div class="col-md-7 col-xs-12 video_window">
                                         <div id="video-data">
                                             <video id="custom_player" 
                                             poster="<?php echo base_url();?>uploads/thumbnails/<?php echo $video_data['video_serial'];?>-1280.jpg"

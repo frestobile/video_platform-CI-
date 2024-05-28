@@ -73,6 +73,7 @@
     top: 4%;*/
     overflow-y: inherit;
     max-width: 1100px;
+    min-width: 900px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -299,4 +300,14 @@
 .custom_modal .close { 
   float: right;
     font-size: 30px;
+}
+
+@media (min-width: 1600px) {
+  .video_window {
+    padding: 0 20px;
+  }
+  #video-data {
+    width: 95%;
+    margin: auto;
+  }
 }
