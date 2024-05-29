@@ -26,7 +26,7 @@
 </head>
 <style>
     .page_content {
-        padding: calc(35px + 1.5rem) calc(1.5rem* 2.0) 30px calc(1.5rem* 2.0);
+        padding: calc(35px + 1.0rem) calc(1.5rem* 0.2) 30px calc(1.5rem* 0.2);
     }
     #video-data {
         background-color: black; 
@@ -70,7 +70,7 @@ else $image = "../../assets/images/viserv_logo.png";
                         <div class="card">
                             <div class="card-header" style="padding-left: 30px;">
                                 <label style="font-size: 17px; font-weight: 700;"><?php echo str_replace('%s', $video_data['video_case_number'], $preview[0]) ;?></label>
-                            </div>
+                            </div> 
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-7 col-xs-12 video_window">
