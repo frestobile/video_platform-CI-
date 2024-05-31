@@ -88,7 +88,7 @@ else $image = "../../assets/images/viserv_logo.png";
                                             <tbody>
                                                 <tr>
                                                 <td colspan="2" style="text-align: center;">
-                                                    <img src="<?php echo $image;?>" class="admin_img2 avatar-img" alt="avatar">
+                                                    <img src="<?php echo $image;?>" class="admin_img2 avatar-img" alt="logo">
                                                 </td>
                                                 </tr>
                                             <tr>

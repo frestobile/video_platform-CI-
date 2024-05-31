@@ -334,3 +334,15 @@
     width: 1024px;
   }
 }
+
+.admin_img2 {
+  width: 224px;
+  height: 85px;
+}
+
+@media (max-width: 768px) {
+  .admin_img2 {
+    width: 105px;
+    height: 40px;
+  }
+}
