@@ -222,6 +222,16 @@
 	</form>
 </div>
 
+<div class="modal fade" id="video_detail">
+	<div class="card">
+		<div class="card-header">
+			<span type="button" class="close" style="float: right;" data-dismiss="modal">&times;</span>
+			<span id="modal_title" style="font-size: 24px;color: #43425D; float: left;"><?php echo $modal_head[0];?></span>&nbsp;&nbsp;
+		</div>
+		<div class="card-block" id="video_detail_content">
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 	var video_id;
