@@ -5,9 +5,9 @@
 		<!-- META DATA -->
         <meta charset="UTF-8">
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <meta name="Description" content="Sparic - Codeigniter Multipurpose Responsive Bootstrap5 Dashboard Template">
-        <meta name="Author" content="Spruko Technologies Private Limited">
-        <meta name="keywords" content="admin dashboard, admin dashboard template, admin template, bootstrap 5 codeigniter, codeigniter, codeigniter bootstrap admin, codeigniter template, codeigniter bootstrap template, codeigniter admin, codeigniter admin dashboard, codeigniter admin dashboard template, codeigniter admin panel, codeigniter admin template, codeigniter dashboard, dashboard template">
+        <meta name="Description" content="VISERV VIDEOÜLEVAADE - Lihtne ja paindlik videoülevaade sõiduki seisukorrast.">
+        <meta name="Author" content="Smartsolution">
+        <meta name="keywords" content="viserv viservice, admin dashboard ">
         
         <!-- TITLE -->
 		<title> <?=APP_NAME;?></title>
@@ -64,7 +64,7 @@
 														<img src="<?=base_url();?>assets/images/viserv_logo.png"
 															class="header-brand-img main-logo" alt="VISERV LOGO">
 														<img src="<?=base_url();?>assets/images/logo-light.png"
-															class="header-brand-img darklogo" alt="Sparic logo">
+															class="header-brand-img darklogo" alt="VISERV logo">
 													</a>
 												</div>
 												<!-- <h3>Login</h3> -->
