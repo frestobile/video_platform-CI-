@@ -133,7 +133,7 @@
 		</tbody>
 	</table>
 </div>
-<div class="custom_modal" id="video_preview">
+<!-- <div class="custom_modal" id="video_preview">
 	<div class="card">
 		<div class="card-header">
 			<span type="button" class="close" style="float: right;" data-dismiss="modal">&times;</span>
@@ -142,7 +142,7 @@
 		<div class="card-block" id="video_content">
 		</div>
 	</div>
-</div>
+</div> -->
 <!--add new video modal-->
 <div class="custom_modal" id="new_video_modal">
 	<form id="new_video" action="<?php echo base_url('manager/addNewVideo?lang='. $head_lang)?>" method="post">
@@ -222,13 +222,20 @@
 	</form>
 </div>
 
-<div class="modal fade" id="video_detail">
-	<div class="card">
-		<div class="card-header">
-			<span type="button" class="close" style="float: right;" data-dismiss="modal">&times;</span>
-			<span id="modal_title" style="font-size: 24px;color: #43425D; float: left;"><?php echo $modal_head[0];?></span>&nbsp;&nbsp;
-		</div>
-		<div class="card-block" id="video_detail_content">
+<div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myExtraLargeModalLabel"></h5>
+				<button type="button" class="btn-close close"></button>
+			</div>
+
+			<div class="modal-body" id="video_detail_content">
+			</div>
+			<!-- <div class="modal-footer">
+				<a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+				<button type="button" class="btn btn-primary ">Save changes</button>
+			</div> -->
 		</div>
 	</div>
 </div>
@@ -656,7 +663,7 @@
 
 	$('.close').on('click', function () {
 		// playerInstance.pause();
-		$("#video_content").empty();
+		$("#video_detail_content").empty();
 		close_view_modal();
 		var show_logs = true;
 		var show_link_log = true;
@@ -700,10 +707,9 @@
 			success:function(resp) {
 				$(".preloader").hide();
                 $(".preloader img").hide();
-                $("#video_content").empty();
-				$("#video_content").html(resp.v_content);
-				$('#modal_back').css('display', 'block');
-				$('#video_preview').css('display', 'block');
+                $("#video_detail_content").empty();
+				$("#video_detail_content").html(resp.v_content);
+				$('.bs-example-modal-xl').modal('show');
 			}
 		});
 

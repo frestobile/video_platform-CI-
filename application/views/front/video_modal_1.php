@@ -2,19 +2,33 @@
 .readonly_input {
     width: 80%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px
 }
-
+#video_element {
+    width: 100%;
+    height: auto;
+    background-color: black; /* Background color to handle black lines */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+.video-js {
+    border: none !important;
+}
+video {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Alternatively, try object-fit: cover; */
+    border: none;
+}
 </style>
 <script>
-    var video_status = "<?php echo $video_data['video_is_show'];?>";
+    var video_status = "<?php echo $video_data['video_uploaded'];?>";
 </script>
-
-<div class="row" style="padding: 0 20px 20px">
-    <!-- <?php var_dump($video_data);?> -->
-    <div class="col-lg-8 m-t-10 col-xs-12">
+<div class="row">
+    <div class="col-md-8 col-sm-12">
         <input type="hidden" id="modal_video_id" value="<?php echo $video_data['video_id'];?>">
         <div id="video_log"></div>
         <div id="linksent_log"></div>
-
         <?php if ($video_data['video_is_show'] == 0) {?>
             <div id="company_logo">
                 <?php if($video_data['company_picture']) {?>
@@ -22,18 +36,16 @@
                     <img src="<?php echo $image;?>" id="company_image">
                 <?php }?>
             </div>
-        <?php } else {
-            $this->load->view('video_player', $video_data);
-            ?>
-            
-            <!-- <div id="video_element">
-                <video controls width="100%">
-                    <source src="<?php echo base_url();?>uploads/videos/test_G7QpbguASwo9W78WDKQA.mp4" type="video/mp4">
+        <?php } else {?>
+            <div id="video_element">
+                <video id="custom_player" 
+                poster="<?php echo base_url();?>uploads/thumbnails/<?php echo $video_data['video_serial'];?>-1280.jpg"
+                class="video-js vjs-big-play-centered vjs-theme-city vjs-controls-enabled vjs-workinghover vjs-v8 vjs-user-active  vjs-16-9" controls preload="auto" >
+                    <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                 </video>
             </div>
             <br>
-        <?php } ?> -->
-            <br>
+        <?php } ?>
         <div id="send_option">
             <div class="row m-t-10">
                 <div class="col-sm-4 video-detail">
@@ -118,8 +130,8 @@
             <button class="btn btn-primary" onclick="back();"><?php echo $video_table[29];?></button>
         </span>
     </div>
-    <div class="col-lg-4 m-t-10 col-xs-12">
-        <div class="row m-t-10">
+    <div class="col-md-4 col-sm-12">
+        <div class="row">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span>ID:</span>
             </div>
@@ -271,7 +283,8 @@
         </div>
     </div>
 </div>
-<!-- <script src="https://vjs.zencdn.net/8.3.0/video.min.js">
+
+<script src="<?=base_url();?>assets/libs/videojs/video.min.js">
     	 if (video_status > 1) {
         const player = videojs('custom_player', {
             autoplay: true,
@@ -279,7 +292,7 @@
             fluid: true
         });
     }
-</script> -->
+</script>
 <script>
     var video_id = "<?php echo $video_data['video_id'];?>";
     
@@ -288,14 +301,14 @@
 		$('#linksent_log').css('display', 'none');
 		$('#back_btn').css('display', 'none');
 		$('#send_option').css('display', 'none');
-        $("#modal_title").html("<?php echo $video_data['video_case_number'];?>");
+        $("#myExtraLargeModalLabel").html("<?php echo $video_data['video_case_number'];?>");
         
         $.post(_server_url + 'manager/getCountLog', {'video_id': video_id, 'lang': lang_status},
                 function (data) {
                     $(".preloader").hide();
                     $(".preloader img").hide();
-                    $('#modal_back').css('display', 'block');
-                    $('#video_preview').css('display', 'block');
+                    // $('#modal_back').css('display', 'block');
+                    // $('#video_preview').css('display', 'block');
                     var response = JSON.parse(data);
                     views = response.counts;
                     $('#views_num').html(views);
@@ -304,187 +317,12 @@
                 }
             );
     });
-    // if (video_status > 1) {
-    //     var player = videojs('custom_player', {
-    //         controlBar: {
-    //             pictureInPictureToggle: false
-    //         }
-    //     });
-    // }
-
-</script>
-
-<script>
-    const $VIDEO = document.querySelector('.video'),
-      $VIDEO_CONTROLS = document.querySelector('.video-controls'),
-      $BUTTON_PAUSE_AND_PLAY = document.querySelector('.play-and-pause-video'),
-      $PROGRESS_VIDEO = document.querySelector('.progress-video'),
-      $CHANGE_VOLUME = document.querySelector('.slide-volume-video'),
-      $FULLSCREEN = document.querySelector('.fullscreen-video');
-
-function durationVideo() {
-    let durationMidia = $VIDEO.duration,
-        $durationTime = document.querySelector('.duration-time');
-    $durationTime.innerHTML = transformVideoDuration(durationMidia);
-    animationVolume($VIDEO.volume);
-};
-
-function progressVideo() {
-    var autoProgress = $VIDEO.currentTime,
-        $progressBar = document.querySelector('.progress-video'),
-        $progressTime = document.querySelector('.progress-time');
-    $progressBar.value = autoProgress.toFixed(0);
-    $progressBar.setAttribute('max', $VIDEO.duration);
-
-    $progressTime.innerHTML = transformVideoDuration(autoProgress);
-    animationProgress();
-};
-
-function ChangeProgressVideo() {
-    $changeProgress = document.querySelector('.progress-video');
-    $VIDEO.currentTime = $changeProgress.value;
-};
-
-function animationProgress() {
-    let percentageProgress = (($PROGRESS_VIDEO.value - $PROGRESS_VIDEO.min) * 100) / ($PROGRESS_VIDEO.max - $PROGRESS_VIDEO.min);
-    $PROGRESS_VIDEO.style.backgroundSize = `${percentageProgress}% 100%`;
-    console.log('progress: ' + percentageProgress)
-};
-
-function animationVolume(volume) {
-    let animationVolume = volume;
-    animationVolume = volume * 100;
-    if (animationVolume === 100) {
-        animationVolume = 100;        
-    }
-    $CHANGE_VOLUME.style.backgroundSize = `${animationVolume}% 100%`;
-};
-
-function transformVideoDuration(timeVideo) {
-    let hours, mins, secds, time;
-    hours = Math.floor(timeVideo / 3600);
-    mins = Math.floor(timeVideo / 60);
-    secds = Math.floor(timeVideo - mins * 60)
-    return time = formartTimeVideo(hours, mins, secds);
-};
-
-function formartTimeVideo(hours, mins, secds) {
-    let time;
-    if (hours < 1) {
-        hours = '';
-    };
-    if (hours < 10 && hours != '') {
-        hours = '0' + hours + ':';
-    };
-    if (mins < 10) {
-        mins = '0' + mins;
-    }
-    if (secds < 10) {
-        secds = '0' + secds;
-    }
-    return time = `${hours}${mins}:${secds}`;
-};
-
-function playAndPause() {
-    let $playButton = document.querySelector('.play-and-pause-video');
-    if ($VIDEO.paused == true) {
-        playVideo();
-        $playButton.classList.remove('bi-play-fill');
-        $playButton.classList.add('bi-pause-fill');
-    } else {
-        pauseVideo();
-        $playButton.classList.remove('bi-pause-fill');
-        $playButton.classList.add('bi-play-fill');
-    }
-};
-
-function pauseVideo(){
-    $VIDEO.pause();
-};
-
-function playVideo(){
-    $VIDEO.play();
-};
-
-function volume() {
-    let $changeVolume = document.querySelector('.slide-volume-video').value;
-    $VIDEO.volume = $changeVolume;
-    let $buttonVolume = document.querySelector('.volume-video');
-    if ($VIDEO.volume === 0) {
-        $buttonVolume.classList.remove('fa-volume-up');
-        $buttonVolume.classList.add('fa-volume-off');
-    } else {
-        $buttonVolume.classList.remove('fa-volume-off');
-        $buttonVolume.classList.add('fa-volume-up');
-    };
-    animationVolume($changeVolume);
-};
-
-function endVideo(){
-    let $playButtonEnd = document.querySelector('.play-and-pause-video');
-    $VIDEO_CONTROLS.classList.remove('video-controls-visibility--hidden');
-    $playButtonEnd.classList.remove('fa-pause');
-    $playButtonEnd.classList.add('fa-play');
-
-}
-
-function videoFullScreen() {
-    if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {
-        if ($VIDEO.requestFullscreen) {
-            $VIDEO.requestFullscreen();
-        } else if ($VIDEO.msRequestFullscreen) {
-            $VIDEO.msRequestFullscreen();
-        } else if ($VIDEO.mozRequestFullScreen) {
-            $VIDEO.mozRequestFullScreen();
-        } else if ($VIDEO.webkitRequestFullscreen) {
-            $VIDEO.webkitRequestFullscreen();
-        }
-        $FULLSCREEN.classList.remove('fa-expand');
-        $FULLSCREEN.classList.add('fa-compress'); 
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
+    if (video_status > 1) {
+        var player = videojs('custom_player', {
+            controlBar: {
+                pictureInPictureToggle: false
             }
-            $FULLSCREEN.classList.remove('fa-compress');
-            $FULLSCREEN.classList.add('fa-expand'); 
-        };
-};
+        });
+    }
 
-function controlVisibility(){
-    setTimeout(function(){
-        $VIDEO_CONTROLS.classList.remove('video-controls-visibility--visible');
-        $VIDEO_CONTROLS.classList.add('video-controls-visibility--hidden');
-    }, 10000)
-    console.log('play')
-};
-
-
-//               EVENTS PLAYER
-
-// EVENTS VIDEO
-$VIDEO.addEventListener('loadeddata', durationVideo);
-
-$VIDEO.addEventListener('timeupdate', progressVideo);
-
-$VIDEO.addEventListener('play', controlVisibility);
-
-$VIDEO.addEventListener('click', playAndPause);
-
-$VIDEO.addEventListener('ended', endVideo);
-
-// EVENTS VIDEO CONTROLS
-
-$PROGRESS_VIDEO.addEventListener('click', ChangeProgressVideo)
-
-$BUTTON_PAUSE_AND_PLAY.addEventListener('click', playAndPause);
-
-$CHANGE_VOLUME.addEventListener('change', volume);
-
-$FULLSCREEN.addEventListener('click', videoFullScreen);
 </script>

@@ -1067,7 +1067,7 @@ class Manager extends CI_Controller{
         // $resp['counts'] = $this->General->get_counts('vis_video_log', $res);
 
         // $resp['content'] = $this->load->view('front/video/log_table', $data, true);
-        $resp['v_content'] = $this->load->view('front/video_modal', $data, true);
+        $resp['v_content'] = $this->load->view('front/video_modal_1', $data, true);
         $resp['admin_content'] = $this->load->view('admin/video/video_modal', $data, true);
         // $resp['log_content'] = $this->load->view('front/video/link_log_table', $data, true);
 
