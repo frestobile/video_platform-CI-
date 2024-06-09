@@ -15,11 +15,11 @@
     border: none !important;
 }
 video {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Alternatively, try object-fit: cover; */
-    border: none;
-}
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Alternatively, try object-fit: cover; */
+            border: none;
+        }
 </style>
 <script>
     var video_status = "<?php echo $video_data['video_uploaded'];?>";

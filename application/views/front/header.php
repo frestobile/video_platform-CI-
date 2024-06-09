@@ -7,8 +7,11 @@
         <meta charset="utf-8" />
         <title><?=$head_name;?> | <?=APP_NAME;?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Minimal Admin & Dashboard Template" name="description" />
-        <meta content="Themesbrand" name="author" />
+        <meta content="VISERV VIDEOÜLEVAADE" name="Lihtne ja paindlik videoülevaade sõiduki seisukorrast.
+Omanik tavaliselt sõiduki alla ei satu ja töökojas ei ole mõistlik ega tihti ka võimalik klienti sõiduki seisukorraga tutvuma kutsuda. Ometigi asuvad just seal sõiduki töökorra ja ohutuse seisukohast kõige olulisemad osad. Nendes avastatud probleeme ja lahendusi tuleb tavaliselt kliendile peale ülevaatust ümber jutustada.
+Videokontroll on paindlik ja usaldusväärne lüli sõidukit hooldava ettevõtte ja kliendi vahel, mis hoiab kokku mõlema osapoole aega ning tõstab kliendi silmis teeninduse ja töökoja usaldusväärsust.
+Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodadele ning arvestatavat lisaväärtus sõiduki omanikule." />
+        <meta content="Frestobile" name="HongYun" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="<?=base_url();?>assets/images/favicon.ico">
 
