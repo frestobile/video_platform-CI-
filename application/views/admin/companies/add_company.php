@@ -173,26 +173,26 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group row">
+                        <div class="form-group row">
                             <div class="col-lg-3 text-lg-right">
                                 <label class="col-form-label"><?php echo $company_content[12];?></label>
                             </div>
                             <?php
                             if ($company_data != ""){
                                 $image1 = '';
-                                if($company_data['preview_image']) $image1 = "../../uploads/company_img/".$company_data['preview_image'];
+                                if($company_data['favicon']) $image1 = "../../uploads/company_img/".$company_data['favicon'];
                                 else $image1 = "../../public/img/pic_addfengmian.png";
                             } else {
                                 $image1 = "../../public/img/pic_addfengmian.png";
                             }?>
                             <div class="col-lg-5">
-                                <img id="preview-dialog" src="<?php echo $image1;?>" alt="avatar" width="100" height="70">
+                                <img id="preview-dialog" src="<?php echo $image1;?>" alt="favicon" width="50" height="50">
                                 <input style="display: none" id="preview-image-file" accept="image/jpeg,image/png" onchange="preview_image_upload(this)" type="file">
                             </div>
                             <div class="col-lg-5 push-xl-3">
                                 <span class="error-msg error-image"><?php echo $alert_content[9];?></span>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="form-actions form-group row" style="margin-top: 40px;">
                             <div class="col-lg-3"></div>
@@ -305,7 +305,6 @@ function CompanyAdd() {
 
     if (validateForm()) {
         if($('#company_id').val() === '') {
-            
             var formData = new FormData();
             formData.append('image', company_image, company_image.filename);
             formData.append('preview', preview_image, preview_image.filename);
@@ -322,6 +321,11 @@ function CompanyAdd() {
             $.ajax({
                 type: "POST",
                 url: _server_url + 'admin/Data/AddCompany',
+                async: true,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
                 success: function (data, textStatus, jqXHR) {
                     $('.preloader').hide(); 
                     var res = JSON.parse(data);                        
@@ -366,12 +370,8 @@ function CompanyAdd() {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     message('danger', textStatus + ': ' + errorThrown);
-                },
-                async: true,
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false
+                }
+                
             });
         }else{
             var formData = new FormData();
@@ -379,6 +379,7 @@ function CompanyAdd() {
                 formData.append('image', company_image, company_image.filename);
             }
             if (preview_image != null) {
+                // console.log(preview_image);
                 formData.append('preview', preview_image, preview_image.filename);
             }
             if (compare_email !== edited_email) {
@@ -402,7 +403,8 @@ function CompanyAdd() {
                         $('.preloader').hide();
                         var res = JSON.parse(data);
                         if (res.response === "SUCCESS") {
-                            location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
+                            alert();
+                            // location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
                         }
                         else {
                             

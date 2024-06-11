@@ -12,7 +12,7 @@ class Data extends CI_Controller {
     protected $img_width        = 1024;
     protected $img_height       = 768;
     protected $img_size         = 1024 * 768;
-    protected $pattern_image    = 'gif|jpg|png|bmp';
+    protected $pattern_image    = 'gif|jpg|png|bmp|ico';
     protected $pattern_video    = 'avi|mp4|3gp|ogv|webm';
 
     public function __construct(){
@@ -134,7 +134,8 @@ class Data extends CI_Controller {
                 $data['msg'] = $this->upload->display_errors('', '');
             }else{
                 $upload_data = $this->upload->data();
-                $cond['preview_image'] = $upload_data['file_name'];
+                // $cond['preview_image'] = $upload_data['file_name'];
+                $cond['favicon'] = $upload_data['file_name'];
             }
         }
 
@@ -207,31 +208,48 @@ class Data extends CI_Controller {
         $file_element_name = 'image';
         $file_element_name1 = 'preview';
 
-        if ($data['status'] != "error"){
-            $config['upload_path'] = $this->url_companyimg;
-            $config['allowed_types'] = $this->pattern_image;
-            $config['max_size'] = $this->img_size;
-            $config['encrypt_name'] = FALSE;
+        if(isset($_FILES['image'])) {
+            $tempPath1 = $_FILES['image']['tmp_name'];
+            $fileName = $_FILES['image']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg', 'ico'];
 
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload($file_element_name)){
-                $data['status'] = "error";
-                $data['msg'] = $this->upload->display_errors('', '');
-            }else{
-                $upload_data = $this->upload->data();
-                $data['image_url'] = $upload_data['file_name'];
-                $cond['company_picture']  = $data['image_url'];
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = $this->url_companyimg;
+                $dest_path1 = $uploadFileDir . $_POST['company_name'].'_favicon.'.$fileExtension;
+    
+                if(move_uploaded_file($tempPath1, $dest_path1)) {
+                    $cond['favicon'] = $_POST['company_name'].'_favicon.'.$fileExtension;
+                } else {
+                    $cond['favicon'] = null;
+                }
+            } else {
+                $cond['favicon'] = null;
             }
+        } 
 
-            if (!$this->upload->do_upload($file_element_name1)){
-                $data['status'] = "error";
-                $data['msg'] = $this->upload->display_errors('', '');
-            }else{
-                $upload_data = $this->upload->data();
-                $cond['preview_image']  = $upload_data['file_name'];
+        if(isset($_FILES['preview'])) {
+            $tempPath2 = $_FILES['preview']['tmp_name'];
+            $fileName = $_FILES['preview']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg', 'ico'];
+
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = $this->url_companyimg;
+                $dest_path2 = $uploadFileDir . $_POST['company_name'].'.'.$fileExtension;
+    
+                if(move_uploaded_file($tempPath2, $dest_path2)) {
+                    $cond['company_picture'] = $fileName;
+                } else {
+                    $cond['company_picture'] = null;
+                }
+            } else {
+                $cond['company_picture'] = null;
             }
         }
+        
 
         if (isset($_POST['company_email'])) {
             $company_email = $_POST['company_email'];
@@ -240,14 +258,16 @@ class Data extends CI_Controller {
             if ($state){
                 $ret['response'] = "EXIST";
             }else{
-                if($this->CompaniesModel->update($cond))
+                if($this->CompaniesModel->update($cond)) {
                     $ret['response'] = "SUCCESS";
+                }
                 else
                     $ret['response'] = "FAIL";
             }
         } else {
-            if($this->CompaniesModel->update($cond))
+            if($this->CompaniesModel->update($cond)) {
                 $ret['response'] = "SUCCESS";
+            }
             else
                 $ret['response'] = "FAIL";
         }

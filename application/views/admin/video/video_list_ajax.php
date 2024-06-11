@@ -1,5 +1,6 @@
 <script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
-
+<link href="<?=base_url();?>assets/libs/videojs/video-js.min.css" rel="stylesheet" />
+<script src="<?=base_url();?>assets/libs/videojs/video.min.js"></script>
 <style type="text/css">
     input[readonly] {background-color: transparent;}
     .custom_modal input.fcs:focus{outline:none;border-color:inherit;}
@@ -26,23 +27,6 @@
             $misverify = 0;
             if($item['video_is_show'] == 0) $misverify = 1; ?>
             <tr>
-                <input type="hidden" id="video_url<?php echo $item['video_id'];?>" value="<?php echo $item['video_url'];?>">
-                <?php if ($item['user_removed'] != 1) {
-                    echo '<input type="hidden" id="video_serial'.$item['video_id'].'" value="'.$item['video_serial'].'">';
-                }
-                ?>
-
-                <input type="hidden" id="link_sent<?php echo $item['video_id'];?>" value="<?php if ($item['video_sent_time']!=null) echo date('d.m.Y H:i:s', strtotime($item['video_sent_time']?? '')); else echo '';?>">
-                <input type="hidden" id="link_sent_second_time<?php echo $item['video_id'];?>" value="<?php if ($item['video_sent_second_time']!=null) echo date('d.m.Y H:i:s', strtotime($item['video_sent_second_time']?? '')); else echo '';?>">
-                <input type="hidden" id="deviceID<?php echo $item['video_id'];?>" value="<?php echo $item['deviceid'];?>">
-                <input type="hidden" id="customer_id<?php echo $item['video_id'];?>" value="<?php echo $item['video_customer_id'];?>">
-                <input type="hidden" id="upload_time<?php echo $item['video_id'];?>" value="<?php echo date('d.m.Y H:i:s', strtotime($item['video_upload_time']?? ''));?>">
-                <input type="hidden" id="company<?php echo $item['video_id'];?>" value="<?php echo $item['video_customer_company'];?>">
-                <input type="hidden" id="company_image<?php echo $item['video_id'];?>" value="<?php echo base_url().'uploads/company_img/'.$item['company_image'];?>">
-                <input type="hidden" id="company_id<?php echo $item['video_id'];?>" value="<?php echo $item['company_id'];?>">
-                <input type="hidden" id="tech_name<?php echo $item['video_id'];?>" value="<?php echo $item['video_tech_name']; ?>">
-                <input type="hidden" id="sms_count<?php echo $item['video_id'];?>" value="<?php echo $item['sms_time'];?>">
-
                 <td>
                     <a href="javascript:void:(0);" onclick="checkVideo(this, <?php echo $item['video_id'];?>);" style="color: #438eff;">#<?php echo $item['video_id'];?></a>
                     
@@ -89,16 +73,19 @@
     </table>
 </div>
 <!--video preview modal-->
-<div class="custom_modal" id="video_preview">
-    <div class="card">
-        <div class="card-header">
-            <span type="button" class="close" style="float: right;" data-dismiss="modal">&times;</span>
-            <span id="modal_title" style="font-size: 24px;color: #43425D;"><?php echo $modal_head[0];?></span>&nbsp;&nbsp;
-        </div>
-        <div class="card-block" id="modal_content">
-            
-        </div>
-    </div>
+<div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myExtraLargeModalLabel"></h5>
+				<button type="button" class="btn-close close"></button>
+			</div>
+
+			<div class="modal-body" id="video_detail_content">
+			</div>
+			
+		</div>
+	</div>
 </div>
 <!--add new video modal-->
 <div class="custom_modal" id="new_video_modal">
@@ -191,163 +178,6 @@
     var show_link_log = true;
     var show_send_option = true;
     var base_url = '<?php echo base_url();?>';
-
-    // function viewVideo(obj, idx) {
-    //     video_id = idx;
-    //     $('#modal_back').css('display', 'block');
-    //     $('#video_preview').css('display', 'block');
-
-    //     $.post(_server_url + 'admin/data/getCountLog', {'video_id': video_id, 'lang': lang_status},
-    //         function (data) {
-    //             $(".preloader").hide();
-    //             $(".preloader img").hide();
-    //             $('#modal_back').css('display', 'block');
-    //             $('#video_preview').css('display', 'block');
-    //             var response = JSON.parse(data);
-    //             views = response.counts;
-    //             $('#views_num').html(views);
-    //             log_table_load(response.content);
-    //             linksent_logtable_load(response.log_content);
-    //         }
-    //     );
-
-    //     $('#video_log').css('display', 'none');
-    //     $('#linksent_log').css('display', 'none');
-	// 	$('#back_btn').css('display', 'none');
-	// 	$('#send_option').css('display', 'none');
-
-    //     var car_number = (document.getElementById('car_number'+idx)).innerHTML.trim();
-    //     var company = $("#company"+idx).val();
-
-    //     var client_name = (document.getElementById('client_name'+idx)).innerHTML.trim();
-    //     var client_email = (document.getElementById('client_email'+idx)).innerHTML.trim();
-    //     var customer_id = $('#customer_id'+idx).val();
-
-    //     var tech_name = $("#tech_name"+idx).val();
-    //     var created_time = (document.getElementById('created_time'+idx)).innerHTML.trim();
-    //     var upload_time = $('#upload_time'+idx).val();
-    //     var link_sent_time = $("#link_sent"+idx).val();
-    //     var link_sent_second_time = $("#link_sent_second_time"+idx).val();
-    //     video_status = $("#video_status"+idx).val();
-	// 	upload_status = $("#upload_status" + idx).val();
-	// 	// user_removed = $("#user_removed" + idx).val();
-    //     var video_url = $("#video_url"+idx).val();
-    //     var video_serial = $("#video_serial"+idx).val();
-
-    //     var preview_url = _server_url+"client/"+video_serial+"?lang=ee";
-    //     var sms_count = $("#sms_count"+idx).val();
-    //     var phone_number = (document.getElementById('phone'+idx)).innerHTML.trim();
-
-    //     document.getElementById("tech_name").innerHTML = tech_name;
-    //     document.getElementById("created_time").innerHTML = created_time;
-
-    //     $("#video-id").html(video_id);
-    //     $("#car_number").val(car_number);
-    //     $("#client_name").val(client_name);
-    //     $("#client_email").val(client_email);
-    //     $("#phone_number").val(phone_number);
-    //     $("#customer_id").val(customer_id);
-    //     $("#ncompany").val(company);
-    //     $("#video_status").val(video_status);
-    //     $("#video_tech_name").val(tech_name);
-    //     $("#modal_title").html(car_number);
-	// 	$("#media_id").html(video_url);
-    //     $("#link_phone").val(phone_number);
-	// 	$("#link_email").val(client_email);
-    //     $('#status-disp').html('');
-
-    //     document.getElementById("sms_count").innerHTML = "("+ sms_count +")  <?php echo $video_table[34];?>";
-
-	// 	if (sms_count == 0) {
-	// 		document.getElementById("checkbox_phone").disabled = true;
-	// 	} else { 
-    //         document.getElementById("reset_btn").disabled = true;
-    //     }
-
-    //     if (link_sent_time){
-    //         document.getElementById("link_sent").innerHTML = link_sent_time;
-    //     } else {
-    //         document.getElementById("link_sent").innerHTML = "";
-    //     }
-
-    //     // var param = (document.getElementById("videoID"+idx)).innerHTML.trim();
-    //     if (parseInt(video_status) === 0){
-    //         document.getElementById("upload_time").innerHTML = "";
-    //         // document.getElementById("state").style.backgroundColor = "#f6bf5e";
-	// 		if (parseInt(upload_status) > 0) {
-    //             var vi_state = '<span class="badge text-warning bg-warning-subtle" title="<?=$video_table[24];?>">' +
-    //                                 '<span style="font-size: 15px">' + 
-    //                                 '<span class="iconify" data-icon="ion-ios-timer" data-inline="false"></span></span>'+ "<?=$video_table[24];?>" +'</span>';
-    //             $("#state").html(vi_state);
-	// 			document.getElementById("upload_time").innerHTML = "";
-	// 			// $("#state").attr('title','<?php echo $video_table[24];?>');
-	// 			// $("#status-disp").html('<?php echo $video_table[24];?>');
-	// 			// $("#disp_status").css('display', 'block');
-	// 		} else {
-	// 			var vi_state = '<span class="badge text-warning bg-warning-subtle" title="<?=$video_table[20];?>">'+ "<?=$video_table[20];?>" +'</span>'
-    //             $("#state").html(vi_state);
-	// 		}
-
-    //         $('#video_link').css('display', 'none');
-
-    //         $('#send_btn').css('display','none');
-    //         $('#ok_btn').css('display','block');
-    //         $('#delete_btn').css('display','block');
-    //         document.getElementById("send_btn").disabled = true;
-    //         document.getElementById("delete_btn").disabled = false;
-    //         $('#video_element').css('display','none');
-    //         $('#company_logo').css('display','block');
-    //         var company_image = $("#company_image"+idx).val();
-    //         $("#company_image").attr("src",company_image);
-
-    //     } else if (parseInt(video_status) === 1){
-    //         document.getElementById("upload_time").innerHTML = upload_time;
-    //         var vi_state = '<span class="badge text-danger bg-danger-subtle" title="<?=$video_table[21];?>">'+ "<?=$video_table[21];?>" +'</span>'
-    //             $("#state").html(vi_state);
-    //         // document.getElementById("state").style.backgroundColor = "#f85b5b";
-    //         // $("#state").attr('title','<?php echo $video_table[21];?>');
-    //         // $("#status-disp").html('<?php echo $video_table[21];?>');
-    //         $('#video_link').css('display', 'none');
-    //         $('#send_btn').css('display','block');
-    //         $('#delete_btn').css('display','block');
-    //         $('#ok_btn').css('display','block');
-    //         $('#link_address').css('display','none');
-    //         document.getElementById("send_btn").disabled = false;
-    //         document.getElementById("delete_btn").disabled = false;
-    //         $('#company_logo').css('display','none');
-    //     } else {
-    //         if (parseInt(user_removed) === 1) {
-    //             $('#video_link').css('display', 'none');
-    //             var vi_state = '<span class="badge text-success bg-success-subtle" title="<?=$video_table[27];?>">' +
-    //                                 '<span style="font-size: 15px">' + 
-    //                                 '<span class="iconify" data-icon="dashicons:lock" data-inline="false"></span></span>'+ "<?=$video_table[27];?>" +'</span>';
-    //             $("#state").html(vi_state);
-    //             // $("#state").attr('title','<?php echo $video_table[27];?>');
-    //             // $("#status-disp").html('<?php echo $video_table[27];?>');
-    //             // $("#remove_status").css('display', 'block');
-    //             $("#send_btn").html("<?php echo $video_table[26];?>");
-    //         } else {
-    //             var vi_state = '<span class="badge text-success bg-success-subtle" title="<?=$video_table[22];?>">'+ "<?=$video_table[22];?>" +'</span>'
-    //             $("#state").html(vi_state);
-
-    //             $('#video_link').css('display', 'block');
-    //             // $("#state").attr('title','<?php echo $video_table[22];?>');
-    //             // $("#status-disp").html('<?php echo $video_table[22];?>');
-    //             $('#link_address').css('display','block');
-    //             $("#send_btn").html("<?php echo $video_table[14];?>");
-    //             document.getElementById("link_address").innerHTML="<?php echo $video_table[12];?>: <a target='_BLANK' href='" + preview_url +"'>"+ preview_url +"</a>";
-    //         }
-    //         document.getElementById("upload_time").innerHTML = upload_time;
-
-    //         $('#send_btn').css('display','block');
-    //         $('#ok_btn').css('display','block');
-    //         $('#delete_btn').css('display','block');
-    //         $('#company_logo').css('display','none');
-
-
-
-    //     }
-    // }
 
     function addNewVideo(obj, idx) {
         $('#modal_back').css('display', 'block');
@@ -857,32 +687,30 @@
     });
 
     setInterval(function(){
-        if($('.custom_modal:visible').length == 0){
+        if($('.bs-example-modal-xl:visible').length == 0){
             window.location.reload();
         }
     },120000);
 
     function checkVideo(obj, idx) {
+        // alert(idx);
 		$(".preloader").show();
         $(".preloader img").show();
 		$.ajax({
 			type:"post",
 			url:_server_url + 'manager/get_video_data',
-			data:{ 'video_id': idx, 'lang': lang_status },
+			data:{ video_id: idx, lang: lang_status },
 			dataType:"json",
 			success:function(resp) {
 				$(".preloader").hide();
                 $(".preloader img").hide();
-                $("#modal_content").empty();
-				$("#modal_content").html(resp.admin_content);
-				$('#modal_back').css('display', 'block');
-				$('#video_preview').css('display', 'block');
+                $("#video_detail_content").empty();
+				$("#video_detail_content").html(resp.admin_content);
+				$('.bs-example-modal-xl').modal('show');
 			}
 		});
 
 	}
-
-
 
 </script>
 

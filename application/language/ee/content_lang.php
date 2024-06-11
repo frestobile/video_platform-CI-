@@ -149,7 +149,7 @@ $lang['status'] = ["Kõik", "Aktiivne", "Ei ole aktiivne", "Ootan"];
 $lang['company_count'] = "Ettevõtete arv";
 $lang['company_table'] = ["Nr", "Nimi", "Email", "Telefon", "Aadress", "Videod", "sisselogimise loend", "Registreeritud", "Staatus", "Tegevus", "Muuda", "Kustuta"];
 
-$lang['company_content'] = ["Ettevõtte Nimi", "Ettevõtte E-post", "Parool", "Ettevõtte Aadress", "Telefoni nr", "Tühista", "Salvesta", "Logo", "Valige fail", "Keel", "SMS-saatja nimi", "E-posti saatja nimi", "Logo eelvaade"];
+$lang['company_content'] = ["Ettevõtte Nimi", "Ettevõtte E-post", "Parool", "Ettevõtte Aadress", "Telefoni nr", "Tühista", "Salvesta", "Logo", "Valige fail", "Keel", "SMS-saatja nimi", "E-posti saatja nimi", "Favicon"];
 $lang['error_company'] = ["Sisestage ettevõtte nimi.", "Sisestage ettevõtte e-posti aadress.", "Sisestage ettevõtte parool.", "Palun sisestage ettevõtte aadress.", "Palun sisestage ettevõtte telefon.", "Valige keel", "Palun sisestage SMS-i saatja nimi", "Palun sisestage saatja e-posti aadress"];
 $lang['language'] = ["Valige keel", "Inglise", "Eesti"];
 

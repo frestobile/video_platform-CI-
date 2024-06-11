@@ -785,6 +785,7 @@
             }
 
             function close_view_modal() {
+                $('.bs-example-modal-xl').modal('hide');
                 $('#modal_back').css('display', 'none');
                 $('.custom_modal').css('display', 'none');
             }

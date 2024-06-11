@@ -40,7 +40,7 @@
 				</td>
 				<td scope="row" style="padding: 5px; width: 100px">
 					<?php if($item['video_uploaded'] < 2) {
-						$image = "../../uploads/company_img/".$result['preview_image'];
+						$image = "../../uploads/company_img/".$result['company_image'];
 					?>
 					<img src="<?php echo $image;?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
 					
