@@ -108,34 +108,66 @@ class Data extends CI_Controller {
         $this->checkLogin();
         $this->load->model('CompaniesModel');
 
-        $data['status'] = "";
-        $data['image_url'] = "";
-        $data2['status'] = "";
-        $data2['image_url'] = "";
-        $file_element_name1 = 'image';
-        $file_element_name2 = 'preview';
+        if(isset($_FILES['favicon'])) {
+            $tempPath1 = $_FILES['favicon']['tmp_name'];
+            $fileName = $_FILES['favicon']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg', 'ico'];
 
-        if ($data['status'] != "error"){
-            $config['upload_path'] = $this->url_companyimg;
-            $config['allowed_types'] = $this->pattern_image;
-            $config['encrypt_name'] = FALSE;
-
-            $this->load->library('upload', $config);
-            if (!$this->upload->do_upload($file_element_name1)){
-                $data['status'] = "error";
-                $data['msg'] = $this->upload->display_errors('', '');
-            }else{
-                $upload_data = $this->upload->data();
-                $data['image_url'] = $upload_data['file_name'];
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = $this->url_companyimg;
+                $dest_path1 = $uploadFileDir . $_POST['company_name'].'_favicon.'.$fileExtension;
+    
+                if(move_uploaded_file($tempPath1, $dest_path1)) {
+                    $cond['favicon'] = $_POST['company_name'].'_favicon.'.$fileExtension;
+                } else {
+                    $cond['favicon'] = null;
+                }
+            } else {
+                $cond['favicon'] = null;
             }
+        } 
 
-            if (!$this->upload->do_upload($file_element_name2)){
-                $data['status'] = "error";
-                $data['msg'] = $this->upload->display_errors('', '');
-            }else{
-                $upload_data = $this->upload->data();
-                // $cond['preview_image'] = $upload_data['file_name'];
-                $cond['favicon'] = $upload_data['file_name'];
+        if(isset($_FILES['preview'])) {
+            $tempPath2 = $_FILES['preview']['tmp_name'];
+            $fileName = $_FILES['preview']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg'];
+
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = $this->url_companyimg;
+                $dest_path2 = $uploadFileDir . $_POST['company_name'].'_preview.'.$fileExtension;
+    
+                if(move_uploaded_file($tempPath2, $dest_path2)) {
+                    $cond['preview_image'] = $fileName;
+                } else {
+                    $cond['preview_image'] = null;
+                }
+            } else {
+                $cond['preview_image'] = null;
+            }
+        }
+
+        if(isset($_FILES['image'])) {
+            $tempPath3 = $_FILES['image']['tmp_name'];
+            $fileName = $_FILES['image']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg'];
+
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = $this->url_companyimg;
+                $dest_path3 = $uploadFileDir . $_POST['company_name'].'_logo.'.$fileExtension;
+    
+                if(move_uploaded_file($tempPath3, $dest_path3)) {
+                    $cond['company_picture'] = $fileName;
+                } else {
+                    $cond['company_picture'] = null;
+                }
+            } else {
+                $cond['company_picture'] = null;
             }
         }
 
@@ -147,7 +179,6 @@ class Data extends CI_Controller {
         $cond['company_phone'] = $_POST['company_phone'];
         $cond['company_address']  = $_POST['company_address'];
         $cond['company_lang'] = $_POST['company_language'];
-        $cond['company_picture']  = $data['image_url'];
         $cond['email_sender'] = $_POST['email_sender'];
         $cond['sms_sender']  = $_POST['sms_sender'];
 
@@ -205,12 +236,10 @@ class Data extends CI_Controller {
 
         $data['status'] = "";
         $data['image_url'] = "";
-        $file_element_name = 'image';
-        $file_element_name1 = 'preview';
 
-        if(isset($_FILES['image'])) {
-            $tempPath1 = $_FILES['image']['tmp_name'];
-            $fileName = $_FILES['image']['name'];
+        if(isset($_FILES['favicon'])) {
+            $tempPath1 = $_FILES['favicon']['tmp_name'];
+            $fileName = $_FILES['favicon']['name'];
             $fileNameCmps = explode(".", $fileName);
             $fileExtension = strtolower(end($fileNameCmps));
             $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg', 'ico'];
@@ -234,13 +263,34 @@ class Data extends CI_Controller {
             $fileName = $_FILES['preview']['name'];
             $fileNameCmps = explode(".", $fileName);
             $fileExtension = strtolower(end($fileNameCmps));
-            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg', 'ico'];
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg'];
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path2 = $uploadFileDir . $_POST['company_name'].'.'.$fileExtension;
+                $dest_path2 = $uploadFileDir . $_POST['company_name'].'_preview.'.$fileExtension;
     
                 if(move_uploaded_file($tempPath2, $dest_path2)) {
+                    $cond['preview_image'] = $fileName;
+                } else {
+                    $cond['preview_image'] = null;
+                }
+            } else {
+                $cond['preview_image'] = null;
+            }
+        }
+
+        if(isset($_FILES['image'])) {
+            $tempPath3 = $_FILES['image']['tmp_name'];
+            $fileName = $_FILES['image']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg'];
+
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = $this->url_companyimg;
+                $dest_path3 = $uploadFileDir . $_POST['company_name'].'_logo.'.$fileExtension;
+    
+                if(move_uploaded_file($tempPath3, $dest_path3)) {
                     $cond['company_picture'] = $fileName;
                 } else {
                     $cond['company_picture'] = null;

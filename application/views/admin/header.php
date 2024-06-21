@@ -30,7 +30,6 @@
         <!-- custom Css-->
         <link href="<?=base_url();?>assets/css/custom.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url();?>assets/css/style.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
-        <!-- <link type="text/css" rel="stylesheet" href="../../public/vendors/ionicons/css/ionicons.min.css?_=<?=time();?>" /> -->
 
         <!-- JQUERY MIN JS -->
        <script src="<?=base_url();?>assets/libs/jquery/jquery.min.js?_=<?=time();?>"></script>

@@ -205,7 +205,7 @@ $lang['search'] = ["Please enter company name", "Please enter client company nam
 $lang['status'] = ["All", "Active", "Not Active", "Waiting"];
 $lang['company_count'] = "Company Counts";
 $lang['company_table'] = ["No", "Name", "Email", "Phone", "Address", "Videos", "Login Num", "Registered Time", "Status", "Operation", "Edit", "Delete"];
-$lang['company_content'] = ["Company Name", "Company Email", "Password", "Company Address", "Phone Number", "Cancel", "Save", "Company Logo", "Select a File","Language", "SMS Sender Name", "Email Sender Name", "Favicon"];
+$lang['company_content'] = ["Company Name", "Company Email", "Password", "Company Address", "Phone Number", "Cancel", "Save", "Company Logo", "Select a File","Language", "SMS Sender Name", "Email Sender Name", "Favicon", "Preview Image"];
 $lang['error_company'] = ["Enter new company name.", "Enter company email.", "Enter company password.", "Enter company address.", "Enter company phone number.", "Select a Language", "Enter SMS Sender Name.", "Enter Email Sender Name."];
 $lang['language'] = ["Select a language", "English", "Estonia"];
 

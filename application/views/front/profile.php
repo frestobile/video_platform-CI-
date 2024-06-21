@@ -94,7 +94,7 @@
                         <?php
                         $image = '';
                         if($result['company_image']) $image = "../../uploads/company_img/".$result['company_image'];
-                        else $image = "../../public/img/pic_addfengmian.png";
+                        else $image = base_url()."assets/images/empty.png";
                         ?>
                         <div class="col-lg-4">
                             <img src="<?php echo $image;?>" alt="avatar" width="224" height="85">
