@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?=APP_NAME;?></title>
+    <title><?php echo $company_data['company_name'];?>  |  <?php echo $video_data['video_case_number'];?></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp,nodir,noydir">
-    <link rel="shortcut icon" href="<?=base_url();?>assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?=base_url();?>uploads/company_img/<?php echo $company_data['favicon'];?>">
 
     <link href="<?=base_url();?>assets/libs/swiper/swiper-bundle.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
     <link href="<?=base_url();?>assets/libs/sweetalert2/sweetalert2.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
@@ -27,6 +27,7 @@
 <style>
     .page_content {
         padding: calc(35px + 1.0rem) calc(1.5rem* 0.2) 30px calc(1.5rem* 0.2);
+        margin-bottom: 30px;
     }
     #video-data {
         background-color: black; 
@@ -88,7 +89,7 @@ else $image = "../../assets/images/viserv_logo.png";
                                             <tbody>
                                                 <tr>
                                                 <td colspan="2" style="text-align: center;">
-                                                    <img src="<?php echo $image;?>" class="admin_img2 avatar-img" alt="logo">
+                                                    <img src="<?php echo $image;?>" class="admin_img2 avatar-img" alt="avatar">
                                                 </td>
                                                 </tr>
                                             <tr>

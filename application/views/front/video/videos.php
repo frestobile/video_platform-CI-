@@ -223,7 +223,7 @@ $('#reportrange').daterangepicker({
 cb(start, end,range);
 
 setInterval(function(){
-    if($('.custom_modal:visible').length == 0){
+    if($('.bs-example-modal-xl:visible').length == 0){
         window.location.reload();
     }
 },100000);

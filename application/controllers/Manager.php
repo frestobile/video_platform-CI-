@@ -1059,17 +1059,10 @@ class Manager extends CI_Controller{
         $this->lang->load('content',$lang);
 
         $data['video_table'] = $this->lang->line('video_table');
-        // $data['log_data'] = $this->General->get_rows('vis_video_log', $res);
-        // $data['link_log_data'] = $this->General->get_rows('vis_video_link', $res1);
 
         $data['video_data'] = $this->VideoModel->getFind($video_id);
-
-        // $resp['counts'] = $this->General->get_counts('vis_video_log', $res);
-
-        // $resp['content'] = $this->load->view('front/video/log_table', $data, true);
-        $resp['v_content'] = $this->load->view('front/video_modal', $data, true);
-        $resp['admin_content'] = $this->load->view('admin/video/video_modal', $data, true);
-        // $resp['log_content'] = $this->load->view('front/video/link_log_table', $data, true);
+        $resp['v_content'] = $this->load->view('front/video_modal_1', $data, true);
+        $resp['admin_content'] = $this->load->view('admin/video/video_modal_1', $data, true);
 
         echo json_encode($resp);
     }

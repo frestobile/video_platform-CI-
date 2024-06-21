@@ -24,6 +24,7 @@ class CompanyModel extends CI_Model{
                 'company_name' => $row->company_name,
                 'company_image' => $row->company_picture,
                 'preview_image' => $row->preview_image,
+                'favicon'       => $row->favicon,
                 'company_email' => $row->company_email,
                 'company_phone' => $row->company_phone,
                 'company_address' => $row->company_address,
