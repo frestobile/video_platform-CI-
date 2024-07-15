@@ -46,7 +46,13 @@ $lang['alert_content'] = array(
     19 => "Video taastamine õnnestus!",
     20 => "Kas sa soovid andmed eemaldada?",
     21 => "Video aktiveeritud avalikuks kasutamiseks",
-    22 => "SMS-ide saatmine on nüüd saadaval!"
+    22 => "SMS-ide saatmine on nüüd saadaval!",
+    23 => "Redigeerimis väljad on olemas! Palun täitke need kõigepealt.",
+    24 => "Pakkumise andmed on edukalt salvestatud!",
+    25 => "Pakkumise andmed on edukalt kustutatud!",
+    26 => "Kas soovid remondi pakkumise kinnitada?",
+    27 => "Kinnita",
+    28 => "Tühista"
 );
 
 
@@ -93,20 +99,14 @@ $lang['video_table'] = array(
     17 => "Salvesta", 
     18 => "Loodud", 
     19 => "Tühista", 
-
     20 => "Ootan", 
     21 => "Ootel", 
     22 => "Saadetud", 
-
     23 => "Meediumi ID", 
-
     24 => "Töötlen", 
-
     25 => "Andmed eemaldatud", 
     26 => "TAASTA",  
-
     27 => "Lukus", 
-
     28 => "Külastused", 
     29 => "Tagasi", 
     30 => "Külastamise aeg",  
@@ -120,7 +120,22 @@ $lang['video_table'] = array(
     38 => "Aktiveeritud avalikuks kasutamiseks", 
     39 => "Aktiveeritud", 
     40 => "Lähtesta", 
-    41 =>"Eelvaade"
+    41 =>"Eelvaade",
+    42 => "Pakkumine",
+    43 => "Uuendatud",
+    44 => "Lisa pakkumine",
+    45 => "Vaata pakkumist",
+    46 => "Kustuta pakkumine",
+    47 => "Pakkumine kehtib",
+    48 => "Kinnitatud",
+    49 => "Kinnitus puudu",
+    50 => "Salvesta",
+    51 => "Kirjeldus",
+    52 => "Ühik",
+    53 => "Hind",
+    54 => "Summa",
+    55 => "KM",
+    56 => "Kokku"
 );
 
 $lang['message'] = ["Videolink pole veel saadetud", "Video pole veel üles laaditud"];
@@ -156,7 +171,24 @@ $lang['language'] = ["Valige keel", "Inglise", "Eesti"];
 
 /** Video */
 $lang['backvideo_table'] = ["Nr", "Ettevõte", "Video ID", "Auto nr", "Kliendifirma", "Nimi", "Email", "Tehnik", "Upload aeg", "Status", "Vaade", "Loodud aeg", "Toimimine", "Kustuta"];
-$lang['video_preview'] = ["Video ID", "Auto nr", "Teenindusettevõte", "Klient", "Kliendifirma", "Email", "Telefoni nr", "Tehnik", "Upload aeg", "Ei ole veel üles laaditud", "Tagasi", "Loodud aeg", "Linki aadress", "Kustuta", "Saada video link", "Ok"];
+$lang['video_preview'] = [
+    "Video ID", 
+    "Auto nr", 
+    "Teenindusettevõte", 
+    "Klient", 
+    "Kliendifirma", 
+    "Email", 
+    "Telefoni nr", 
+    "Tehnik", 
+    "Üles laaditud", 
+    "Ei ole veel üles laaditud", 
+    "Tagasi", 
+    "Loodud", 
+    "Linki aadress", 
+    "Kustuta", 
+    "Saada video link", 
+    "Ok"
+];
 
 /**
  * DEVICES
@@ -171,7 +203,29 @@ $lang['edit_device'] = "Muuda";
 $lang['add_device'] = "Lisa uus seade";
 $lang['error_device'] = ["Sisestage uus seadme nimi.","Sisestage uus seadme ID.","Sisestage seadme parool.","Sisestage seadme seerianumber.","Valige seadme jaoks ettevõte."];
 
-$lang['preview'] = ['Teeninduse video : %s', 'Tehnik', 'Ettevõte', 'E-post', 'Telefon', 'Auto nr', 'Kuupäev'];
+$lang['preview'] = array(
+    0 => 'Teeninduse video : %s', 
+    1 => 'Tehnik', 
+    2 => 'Ettevõte', 
+    3 => 'E-post', 
+    4 => 'Telefon', 
+    5 => 'Auto nr', 
+    6 => 'Kuupäev',
+    7 => 'Eemalda andmed',
+    8 => 'Remondi pakkumine',
+    9 => 'Vaata',
+    10 => 'Pakkumine kinnitatud',
+    11 => 'Kinnita',
+    12 => 'Tagasi',
+    13 => 'Tühista',
+    14 => 'Pakkumine kehtib',
+    15 => "Kirjeldus",
+    16 => "Ühik",
+    17 => "Hind",
+    18 => "Summa",
+    19 => "KM",
+    20 => "Kokku"
+);
 
 $lang['sms_mail_settings'] = "SMS- ja e-posti seaded";
 $lang['from_mail'] = "E-postist";

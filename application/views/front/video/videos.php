@@ -236,7 +236,7 @@ function linksent_logtable_load(data) {
         "bFilter":false,
         "bInfo": false,
         "bLengthChange" : false,
-        "pageLength": 7,
+        "pageLength": 5,
         "aaSorting": [],
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 0, 1, 2, 3 ] },
@@ -263,11 +263,38 @@ function log_table_load(data) {
         "bFilter":false,
         "bInfo": false,
         "bLengthChange" : false,
-        "pageLength": 7,
+        "pageLength": 5,
         "aaSorting": [],
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 0, 1 ] },
             { "bSearchable": false, "aTargets": [ 0, 1 ] }
+        ],
+        "language": {
+            "paginate": {
+                "previous": '<i class="mdi mdi-chevron-double-left"></i>',
+                "next": '<i class="mdi mdi-chevron-double-right"></i>'
+            }
+        },
+        "fnDrawCallback": function(oSettings) {
+            // if ($('#DataTables_Table_0 tr').length < 11) {
+            //     $('.dataTables_paginate').hide();
+            // } else if ($('#DataTables_Table_0 tr').length < 11)
+        }
+    });
+}
+
+function offer_table_load(data) {
+    $("#offer_window").empty();
+    $("#offer_window").html(data);
+    var table = $('#offer_table table').DataTable({
+        "bFilter":false,
+        "bInfo": false,
+        "bLengthChange" : false,
+        "pageLength": 5,
+        "aaSorting": [],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0, 1, 2, 3, 4 ] },
+            { "bSearchable": false, "aTargets": [ 0, 1, 2, 3, 4 ] }
         ],
         "language": {
             "paginate": {

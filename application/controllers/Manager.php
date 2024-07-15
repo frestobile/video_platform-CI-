@@ -15,6 +15,7 @@ class Manager extends CI_Controller{
         $this->load->model('front/VideoModel');
         $this->load->model('front/CompanyModel');
         $this->load->model('front/DeviceModel');
+        $this->load->model('front/OfferModel');
         $this->load->model('TimeModel');
         $this->load->helper('directory');
         $this->load->helper('url');
@@ -581,7 +582,6 @@ class Manager extends CI_Controller{
         $data['video_id'] = $_POST['video_id'];
         $data['video_is_show'] = 2;
         $data['video_update_time'] = $this->TimeModel->getting_datetime();
-        $data['status'] = 1;
         if($this->VideoModel->update($data))
             $res['status'] = "success";
         else
@@ -747,16 +747,19 @@ class Manager extends CI_Controller{
         $this->lang->load('content',$lang);
 
         $data['video_table'] = $this->lang->line('video_table');
+        $data['alert_content'] = $this->lang->line('alert_content');
+        $data['determine'] = $this->lang->line('determine');
 
         $data['log_data'] = $this->General->get_rows('vis_video_log', $res);
 
         $data['link_log_data'] = $this->General->get_rows('vis_video_link', $res1);
         $data['video_data'] = $this->VideoModel->getFind($video_id);
+        $data['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
 
         $resp['counts'] = $this->General->get_counts('vis_video_log', $res);
 
         $resp['content'] = $this->load->view('front/video/log_table', $data, true);
-
+        $resp['offer_content'] = $this->load->view('front/video/offer_table', $data, true);
         $resp['log_content'] = $this->load->view('front/video/link_log_table', $data, true);
 
         echo json_encode($resp);
@@ -889,7 +892,7 @@ class Manager extends CI_Controller{
         $data['refresh'] = $this->lang->line('refresh');
         $data['result'] = $result;
         $data['video_list'] = $results;
-        $resp['content'] = $this->load->view('front/video_list_ajax', $data,true);
+        $resp['content'] = $this->load->view('front/video/video_list_ajax', $data,true);
 
         echo json_encode($resp);
     }
@@ -936,7 +939,7 @@ class Manager extends CI_Controller{
         $data['refresh'] = $this->lang->line('refresh');
         $data['result'] = $result;
         $data['video_list'] = $results;
-        $resp['content'] = $this->load->view('front/video_list_ajax', $data,true);
+        $resp['content'] = $this->load->view('front/video/video_list_ajax', $data,true);
 
         echo json_encode($resp);
     }
@@ -985,7 +988,7 @@ class Manager extends CI_Controller{
         $data['result'] = $result;
         $data['video_list'] = $results;
         $resp['total_count'] = count($results);  
-        $resp['content'] = $this->load->view('front/video_list_ajax', $data,true);
+        $resp['content'] = $this->load->view('front/video/video_list_ajax', $data,true);
        
         echo json_encode($resp);
     }
@@ -1059,12 +1062,168 @@ class Manager extends CI_Controller{
         $this->lang->load('content',$lang);
 
         $data['video_table'] = $this->lang->line('video_table');
+        $data['alert_content'] = $this->lang->line('alert_content');
+        $data['determine'] = $this->lang->line('determine');
+       
 
         $data['video_data'] = $this->VideoModel->getFind($video_id);
-        $resp['v_content'] = $this->load->view('front/video_modal_1', $data, true);
+        $data['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        $resp['v_content'] = $this->load->view('front/video/video_modal', $data, true);
         $resp['admin_content'] = $this->load->view('admin/video/video_modal_1', $data, true);
 
         echo json_encode($resp);
     }
 
+    // Offer Features
+    public function offer_valid_update() {
+        $this->checkLogin();
+        $cond['video_id'] = $this->input->post('video_id');
+        $updates['valid_date'] = $this->input->post('date');
+        $result = $this->General->update('vis_videos', $updates, $cond);
+        if($result){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+       
+        echo json_encode($resp);
+    }
+    public function offer_update() {
+        $this->checkLogin();
+
+        $cond['id'] = $this->input->post('id');
+        $cond['video_id'] = $this->input->post('video_id');
+        $updates['description'] = $this->input->post('description');
+        $updates['quantity'] = $this->input->post('quantity');
+        $updates['price'] = $this->input->post('price');
+
+        $video_id = $this->input->post('video_id');
+
+        $data['update_time'] = date('Y-m-d H:i:s');
+        $data['status'] = 1;
+        $this->General->update('vis_videos', $data, array('video_id' => $video_id));
+        $result = $this->General->update('vis_offer', $updates, $cond);
+
+        if($result){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        echo json_encode($resp);
+    }
+
+    public function offer_add() {
+        $this->checkLogin();
+        
+
+        $offer['video_id'] = $this->input->post('video_id');
+        $offer['description'] = $this->input->post('description');
+        $offer['quantity'] = $this->input->post('quantity');
+        $offer['price'] = $this->input->post('price');
+
+        $video_id = $offer['video_id'];
+        $data = array();
+        if ($this->General->get_counts('vis_offer', array('video_id' => $video_id)) > 0) {
+            $data['status'] = 1;
+            $data['update_time'] = date('Y-m-d H:i:s');
+        } else {
+            $data['status'] = 1;
+            $data['offer_time'] = date('Y-m-d H:i:s');
+        }
+
+        $this->General->update('vis_videos', $data, array('video_id' => $video_id));
+        $result = $this->General->insert_new('vis_offer', $offer);
+
+        if($result != null){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        
+        echo json_encode($resp);
+
+    }
+
+    public function offer_delete() {
+        $this->checkLogin();
+        $cond['id'] = $this->input->post('id');
+        $video_id = $this->input->post('video_id');
+
+        $updates['update_time'] = date('Y-m-d H:i:s');
+        $this->General->update('vis_videos', $updates, array('video_id' => $video_id));
+        $result = $this->General->delete('vis_offer', $cond);
+
+        if($result != null){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        
+        echo json_encode($resp);
+
+    }
+
+    public function offer_delete_all() {
+        $this->checkLogin();
+
+        $cond['video_id'] = $this->input->post('video_id');
+        $result = $this->General->delete('vis_offer', $cond);
+
+        $updates['status'] = 0;
+        $updates['update_time'] = null;
+        $updates['offer_time'] = null;
+        $updates['accept_time'] = null;
+        $updates['valid_date'] = null;
+        $this->General->update('vis_videos', $updates, $cond);
+
+        if($result != null){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        
+        echo json_encode($resp);
+    }
+
+    public function accept_offer() {
+        $cond['video_id'] = $this->input->post('video_id');
+        $updates['status'] = 2;
+        $updates['accept_time'] = date('Y-m-d H:i:s');
+
+        $result =  $this->General->update('vis_videos', $updates, $cond);
+        if($result != null){
+            $resp['status'] = "success";
+            $resp['time'] = date('d.m.Y H:i');
+             $this->send_message($resp['time'], $cond['video_id']);
+        } else {
+            $resp['status'] = "fail";
+        }
+        
+        echo json_encode($resp);
+    }
+
+    public function send_message($time, $id) {
+        $this->load->library('email');
+
+        $row = $this->VideoModel->getFind($id);
+        $subject = $row['video_case_number']." accepted the repair offer.";
+        $msg = $row['video_case_number']." has accepted the repair offer ".$time;
+        $config = array(
+            'charset'=>'utf-8',
+            'wordwrap'=> TRUE,
+            'mailtype' => 'html',
+        );
+    
+        $this->email->initialize($config);
+
+        $this->email->from( $this->config_data['from_mail'], $row['email_sender']);
+        $this->email->to($row['company_email']);
+        $this->email->reply_to($row['company_email']);
+        $this->email->subject($subject);
+        $this->email->message($mesg);
+        $this->email->send();
+    }
 }

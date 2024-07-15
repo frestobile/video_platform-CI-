@@ -776,7 +776,6 @@ class Main extends CI_Controller {
         $data['video_id'] = $_POST['video_id'];
         $data['video_is_show'] = 2;
         $data['video_update_time'] = $this->TimeModel->getting_datetime();
-        $data['status'] = 1;
         if($this->VideoModel->update($data))
             $res['status'] = "success";
         else

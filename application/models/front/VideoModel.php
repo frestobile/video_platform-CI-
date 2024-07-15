@@ -4,6 +4,7 @@ class VideoModel extends CI_Model{
     protected $companytbl;
     protected $customertbl;
     protected $devicetable;
+    protected $offertable;
     protected $primaryKey  = 'video_id';
     protected $video_name  = 'video_name';
     protected $video_url   = 'video_url';
@@ -18,6 +19,7 @@ class VideoModel extends CI_Model{
         $this->companytbl = $this->db->dbprefix('companies');
         $this->customertbl = $this->db->dbprefix('customers');
         $this->devicetable = $this->db->dbprefix('devices');
+        $this->offertable = $this->db->dbprefix('offer');
         $this->load->model('TimeModel');
         $this->load->model('GlobalModel');
     }

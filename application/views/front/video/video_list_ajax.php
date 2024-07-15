@@ -17,6 +17,7 @@
 			<th scope="col"><?php echo $video_table[3];?></th>
 			<th scope="col"><?php echo $video_table[2];?></th>
 			<th scope="col"><?php echo $video_table[18];?></th>
+			<th scope="col"><?php echo $video_table[42];?></th>
 			<th scope="col" width="5%"><?php echo $video_table[7];?></th>
 		</tr>
 		</thead>
@@ -106,7 +107,18 @@
 				<?php } ?>
 				
 				
-				<td nowrap id="created_time<?php echo $item['video_id'];?>"><?php echo date('d.m.Y H:i:s', strtotime($item['video_created_time']));?></td>
+				<td nowrap><?php echo date('d.m.Y H:i:s', strtotime($item['video_created_time']));?></td>
+				<td nowrap>
+					<?php
+					if($item['status'] == 0) {
+						echo '';
+					} else if ($item['status'] == 1) {
+						echo '<span class="badge text-warning bg-warning-subtle" title="'.$video_table[49].'">'.$video_table[49].'</span>';
+					} else {
+						echo '<span class="badge text-success bg-success-subtle" title="'.$video_table[48].'">'.$video_table[48].'</span>';
+					}	
+					?>
+				</td>
 				<td nowrap id="status<?php echo $item['video_id'];?>">
 					<?php
 					if($item['company_removed'] == 1){
@@ -228,18 +240,8 @@
 
 <div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="myExtraLargeModalLabel"></h5>
-				<button type="button" class="btn-close close"></button>
-			</div>
+		<div class="modal-content" id="video_detail_content">
 
-			<div class="modal-body" id="video_detail_content">
-			</div>
-			<!-- <div class="modal-footer">
-				<a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-				<button type="button" class="btn btn-primary ">Save changes</button>
-			</div> -->
 		</div>
 	</div>
 </div>
@@ -314,7 +316,11 @@
 			$('#video_tech_name').removeClass('fcs');
 			document.getElementById('video_tech_name').removeAttribute('readonly');
 			$("#video_tech_name").focus();
-		}
+		} else if (obj.id == 'edit_date') {
+            $('#offer_valied').removeClass('fcs');
+            document.getElementById('offer_valied').removeAttribute('readonly');
+            $("#offer_valied").focus();
+        }
 	}
 
 	function deleteVideo() {
@@ -452,7 +458,8 @@
 			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
-			$('#back_btn').css('display', 'none');
+			$('#back_btn').css('display', 'flex');
+			$('#offer_buttons').css('display', 'none');
 			show_send_option = false;
 			$('#send_btn').css('display','none');
 		} else {
@@ -462,10 +469,12 @@
 			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
-			$('#back_btn').css('display', 'none');
+			$('#back_btn').css('display', 'flex');
+			$('#offer_buttons').css('display', 'none');
 			show_send_option = false;
 			$('#send_btn').css('display','none');
 		}
+		$('#offer_window').css('display', 'none');
 	}
 
 	function handleClick(cb) {
@@ -586,7 +595,9 @@
 			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
-			$('#back_btn').css('display', 'block');
+			$('#offer_buttons').css('display', 'none');
+			
+			$('#back_btn').css('display', 'flex');
 			show_link_log = false;
 			
 		} else {
@@ -597,8 +608,11 @@
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
+			$('#offer_buttons').css('display', 'block');
+			
 			show_link_log = true;
 		}
+		$('#offer_window').css('display', 'none');
 		
 	}
 
@@ -616,7 +630,9 @@
 				$('#video_element').css('display','none');
 				$('#company_logo').css('display','none');
 				$('#video_link').css('display', 'none');
-				$('#back_btn').css('display', 'block');
+				$('#offer_buttons').css('display', 'none');
+				$('#offer_window').css('display', 'none');
+				$('#back_btn').css('display', 'flex');
 				show_logs = false;
 				
 			} else {
@@ -626,6 +642,8 @@
 				$('#video_element').css('display','block');
 				$('#company_logo').css('display','none');
 				$('#video_link').css('display', 'block');
+				$('#offer_buttons').css('display', 'block');
+				$('#offer_window').css('display', 'none');
 				$('#back_btn').css('display', 'none');
 				show_logs = true;
 			}
@@ -639,6 +657,7 @@
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
+			$('#offer_buttons').css('display', 'block');
 			show_logs = true;
 			$('#send_btn').css('display','block');
 		} 
@@ -648,6 +667,7 @@
 			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
+			$('#offer_buttons').css('display', 'block');
 			$('#back_btn').css('display', 'none');
 			show_link_log = true;
 			$('#send_btn').css('display','block');
@@ -659,21 +679,13 @@
 			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
+			$('#offer_buttons').css('display', 'block');
 			$('#back_btn').css('display', 'none');
 			show_send_option = true;
 			$('#send_btn').css('display','block');
 		}
+		
 	}
-
-	$('.close').on('click', function () {
-		// playerInstance.pause();
-		$("#video_detail_content").empty();
-		close_view_modal();
-		var show_logs = true;
-		var show_link_log = true;
-		var show_send_option = true;
-
-	});
 
 	$('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name').on('change',function(){
 		$.post(_server_url + 'manager/edit_video_active',{
@@ -719,11 +731,18 @@
 
 	}
 
+	function getBack() {
+		$('#offer_window').css('display', 'none');
+		$('#offer_buttons').css('display', 'block');
+		$('#video_element').css('display','block');
+		$('#video_link').css('display', 'block');
+	}
+
 </script>
 
 <style>
 	input[readonly] {background-color: transparent;}
-	.custom_modal input.fcs:focus{outline:none;border-color:inherit;}
+	.bs-example-modal-xl input.fcs:focus{outline:none;border-color:inherit;}
 	/* #dt_table .table th, .table td {padding:  0.20rem} */
 	/* .enable-status { background-color: #26cc70; width: 40px; height: 40px;} */
 </style>

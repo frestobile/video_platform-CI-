@@ -66,7 +66,13 @@ $lang['alert_content'] = array(
     19 => "Video restored successfully!",
     20 => "Do you want to remove the data?",
     21 => "Video activated for public view",
-    22 => "Sending SMS is now available!"
+    22 => "Sending SMS is now available!",
+    23 => "Editing fields exist!  Please complete them first.",
+    24 => "Offer data has been saved successfully!",
+    25 => "Offer data has been deleted successfully!",
+    26 => "Do you want to accept the repair offer?",
+    27 => "Accept",
+    28 => "Cancel"
 );
 
 /**
@@ -141,20 +147,16 @@ $lang['video_table'] = array(
     15 => "OK", 
     16 => "Phone", 
     17 => "Save", 
-    18 => "Created Time", 
+    18 => "Created", 
     19 => "Cancel", 
-
     20 => "Waiting", 
     21 => "Pending", 
     22 => "Video sent", 
     23 => "Media ID", 
     24 => "Working", 
-
     25 => "Data Removed", 
     26 => "Restore", 
-
     27 => "Locked", 
-    
     28 => "Views", 
     29 => "Back", 
     30 => "Visit Time", 
@@ -168,7 +170,22 @@ $lang['video_table'] = array(
     38 => "Activated for public view", 
     39 => "Activated", 
     40 => "Reset", 
-    41 => "Preview"
+    41 => "Preview",
+    42 => "Offer",
+    43 => "Updated",
+    44 => "Add offer",
+    45 => "View offer",
+    46 => "Delete offer",
+    47 => "Offer valid",
+    48 => "Approved",
+    49 => "Not approved",
+    50 => "Save",
+    51 => "Description",
+    52 => "Qty",
+    53 => "Price",
+    54 => "Sum",
+    55 => "VAT",
+    56 => "Total"
 );
 
 $lang['message'] = ["The videso link hasn't been sent yet", "The video hasn't been uploaded yet"];
@@ -213,7 +230,24 @@ $lang['language'] = ["Select a language", "English", "Estonia"];
  * Video
  */
 $lang['backvideo_table'] = ["No", "Company", "Video ID", "Car Number", "Customer Company", "Name", "Email", "Tech Name", "Upload Time", "Status", "View", "Created Time", "Operation", "Delete"];
-$lang['video_preview'] = ["Video ID", "Car Number", "Service Company", "Client", "Client Company", "Email", "Phone Number", "Technician", "Upload Time", "No uploaded yet", "Back", "Created Time", "Link Address", "Delete", "Send Video Link", "Ok"];
+$lang['video_preview'] = [
+    "Video ID", 
+    "Car Number", 
+    "Service Company", 
+    "Client", 
+    "Client Company", 
+    "Email", 
+    "Phone Number", 
+    "Technician", 
+    "Uploaded", 
+    "No uploaded yet", 
+    "Back", 
+    "Created", 
+    "Link Address", 
+    "Delete", 
+    "Send Video Link", 
+    "Ok"
+];
 
 /**
  * DEVICES
@@ -226,7 +260,30 @@ $lang['edit_device'] = "Edit Device";
 $lang['add_device'] = "Add New Device";
 $lang['error_device'] = ["Please enter new device name.","Please enter new device ID.","Please enter device password.","Please enter device serial number.","Please select any company for the device."];
 
-$lang['preview'] = ['Service video : %s', 'Technician', 'Service Company', 'Email', 'Phone Number', 'Car Number', 'Date'];
+$lang['preview'] = array(
+    0 => 'Service video : %s', 
+    1 => 'Technician', 
+    2 => 'Service Company', 
+    3 => 'Email', 
+    4 => 'Phone Number', 
+    5 => 'Car Number', 
+    6 => 'Date',
+    7 => 'Remove data',
+    8 => 'Repair offer',
+    9 => 'View',
+    10 => 'Offer accepted',
+    11 => 'Accept',
+    12 => 'Back',
+    13 => 'Cancel',
+    14 => 'Offer valid',
+    15 => "Description",
+    16 => "Qty",
+    17 => "Price",
+    18 => "Sum",
+    19 => "VAT",
+    20 => "Total"
+);
+
 
 /**
 * ADMIN

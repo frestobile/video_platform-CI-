@@ -15,8 +15,8 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
         <!-- App favicon -->
         <link rel="shortcut icon" href="<?=base_url();?>assets/images/favicon.ico">
 
-        <!-- jsvectormap css -->
-        <link href="<?=base_url();?>assets/libs/jsvectormap/css/jsvectormap.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
         <!--Swiper slider css-->
         <link href="<?=base_url();?>assets/libs/swiper/swiper-bundle.min.css?_=<?=time();?>" rel="stylesheet" type="text/css" />
@@ -37,6 +37,7 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
         <!-- JQUERY MIN JS -->
        <script src="<?=base_url();?>assets/libs/jquery/jquery.min.js?_=<?=time();?>"></script>
        <!-- <script src="https://cdn.jwplayer.com/libraries/bL8rDEl6.js?_=<?=time();?>"></script> -->
+       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
       <script>
         var _server_url = "<?php echo base_url();?>";
       </script>
