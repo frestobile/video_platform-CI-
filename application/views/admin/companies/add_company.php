@@ -283,6 +283,10 @@ document.querySelector("#preview-dialog").addEventListener('click', function() {
     document.querySelector("#preview-image-file").click();
 });
 
+document.querySelector("#favicon-dialog").addEventListener('click', function() {
+    document.querySelector("#favicon-image-file").click();
+});
+
 function company_image_upload(input) {
     
     $('span.error-image').hide();

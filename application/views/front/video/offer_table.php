@@ -99,12 +99,13 @@
 
 
 <script >
-	let v_id = $('#modal_video_id').val();
+	
 
 	$(document).ready(function() {
 		var isNew = false;
 		var isEditing = false;
 		let offer_status = '<?php echo $video_data['status'];?>';
+		let v_id = $('#modal_video_id').val();
 
 		if (offer_status !== "0") {
 			$('#offer_board').css('display', 'flex');
