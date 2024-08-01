@@ -878,22 +878,22 @@ class Main extends CI_Controller {
         $video_url = $rows['video_url'];
         
         if($rows['video_is_show'] == 0){
-	    if ($rows['video_uploaded'] > 0) {
+            if ($rows['video_uploaded'] > 0) {
                 $data['video_id'] = $_POST['video_id'];
                 $data['video_is_show'] = 0;
-		$data['video_uploaded'] = 0;
+                $data['video_uploaded'] = 0;
                 $data['video_upload_time'] = null;
                 $data['video_url'] = null;
-             	if($this->VideoModel->update($data))
-                	$data['status'] = "success";
-             	else
-                	$data['status'] = "fail";		
+                if($this->VideoModel->update($data))
+                    $data['status'] = "success";
+                else
+                    $data['status'] = "fail";		
             } else {
-            	if($this->VideoModel->delete($_POST['video_id']))
-                	$data['status'] = "success";
-            	else
-                	$data['status'] = "fail";
-	    }
+                if($this->VideoModel->delete($_POST['video_id']))
+                    $data['status'] = "success";
+                else
+                    $data['status'] = "fail";
+            }
 
         }else if($rows['video_is_show'] == 1){
 
@@ -918,7 +918,6 @@ class Main extends CI_Controller {
                 $data['status'] = "fail";
         }
 
-        //if($this->VideoModel->delete($_POST['video_id']))
         echo json_encode($data);
     }
 

@@ -248,85 +248,43 @@
     function deleteVideo() {
         close_view_modal();
         Swal.fire({
-                    title: "<?php echo $warning;?>",
-                    text: "<?php echo $alert_content[17];?>",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    customClass: {
-                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
-                        cancelButton: "btn btn-danger w-xs mt-2"
-                    },
-                    confirmButtonText: "<?php echo $determine[1];?>",
-                    cancelButtonText: "<?php echo $determine[0];?>",
-                    buttonsStyling: !1,
-                    showCloseButton: !0     
-                }).then(function(t) {
-                    if (t.isConfirmed) {
-                        if (parseInt(upload_status) === 0 ){
-                        $.post(_server_url + 'admin/main/delete_video', {'video_id': video_id},
-                            function (data) {
-                                var response = JSON.parse(data);
-                                if(response.status !== "fail") {
-                                    window.location.reload();
-                                } else {
-                                    
-                                    Swal.fire({
-                                        title: "<?php echo $failed;?>",
-                                        text: "<?php echo $alert_content[6];?>",
-                                        icon: "warning",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
-                                        },
-                                        buttonsStyling: !1,
-                                        showCloseButton: !0
-                                    });
-                                }
+            title: "<?php echo $warning;?>",
+            text: "<?php echo $alert_content[17];?>",
+            icon: "warning",
+            showCancelButton: !0,
+            customClass: {
+                confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                cancelButton: "btn btn-danger w-xs mt-2"
+            },
+            confirmButtonText: "<?php echo $determine[1];?>",
+            cancelButtonText: "<?php echo $determine[0];?>",
+            buttonsStyling: !1,
+            showCloseButton: !0     
+        }).then(function(t) {
+            if (t.isConfirmed) {
+                
+                    $.post(_server_url + 'admin/main/delete_video', {'video_id': video_id},
+                        function (data) {
+                            var response = JSON.parse(data);
+                            if(response.status !== "fail") {
+                                window.location.reload();
+                            } else {
+                                
+                                Swal.fire({
+                                    title: "<?php echo $failed;?>",
+                                    text: "<?php echo $alert_content[6];?>",
+                                    icon: "warning",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                                    },
+                                    buttonsStyling: !1,
+                                    showCloseButton: !0
+                                });
                             }
-                        );
-                    } else {
-                        $.post(_server_url + 'backend/video_delete', {'video_key': $("#video_url"+video_id).val()},
-                            function (data) {
-                                var response = JSON.parse(data);
-                                if(response.status === "ok") {
-                                    $.post(_server_url + 'admin/main/delete_video', {'video_id': video_id},
-                                        function (data) {
-                                            var response = JSON.parse(data);
-                                            if(response.status !== "fail") {
-                                                window.location.reload();
-                                            } else {
-                                               
-                                                Swal.fire({
-                                                    title: "<?php echo $failed;?>",
-                                                    text: "<?php echo $alert_content[6];?>",
-                                                    icon: "warning",
-                                                    customClass: {
-                                                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
-                                                    },
-                                                    buttonsStyling: !1,
-                                                    showCloseButton: !0
-                                                });
-                                            }
-                                        }
-                                    );
-                                } else {
-                                    
-                                    Swal.fire({
-                                        title: "<?php echo $failed;?>",
-                                        text: "<?php echo $alert_content[6];?>",
-                                        icon: "warning",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary w-xs me-2 mt-2",
-                                        },
-                                        buttonsStyling: !1,
-                                        showCloseButton: !0
-                                    });
-                                }
-                            }
-                        );
-                    }
-
-                    } 
-                });
+                        }
+                    );
+            } 
+        });
     }
 
     function video_operation() {
@@ -682,7 +640,7 @@
             'email': $("#client_email").val(),
             'phone_number': $("#phone_number").val(),
             'customer_id': $("#customer_id").val(),
-            'video_tech_name': $("#video_tech_name").val(),
+            'video_tech_name': $("#video_tech_name").val()
         });
     });
 
@@ -693,13 +651,15 @@
     },120000);
 
     function checkVideo(obj, idx) {
-        // alert(idx);
 		$(".preloader").show();
         $(".preloader img").show();
 		$.ajax({
 			type:"post",
 			url:_server_url + 'manager/get_video_data',
-			data:{ video_id: idx, lang: lang_status },
+			data:{ 
+                "video_id": idx, 
+                "lang": lang_status 
+            },
 			dataType:"json",
 			success:function(resp) {
 				$(".preloader").hide();
@@ -709,7 +669,6 @@
 				$('.bs-example-modal-xl').modal('show');
 			}
 		});
-
 	}
 
 </script>

@@ -60,7 +60,7 @@
 					
 					<?php } else {?>
 						<div class="img_container">
-							<img src="<?php echo base_url().'uploads/thumbnails/'.$item['video_serial'].'.jpg';?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
+							<img src="<?php echo base_url().'uploads/thumbnails/'.$item['video_serial'].'-1280.jpg';?>" alt="<?php echo $video_table[41];?>" width="100" height="70">
 						</div>
 						<?php }
 						}?>

@@ -246,10 +246,10 @@ class Data extends CI_Controller {
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path1 = $uploadFileDir . $_POST['company_name'].'_favicon.'.$fileExtension;
+                $dest_path1 = $uploadFileDir . $fileName;
     
                 if(move_uploaded_file($tempPath1, $dest_path1)) {
-                    $cond['favicon'] = $_POST['company_name'].'_favicon.'.$fileExtension;
+                    $cond['favicon'] = $fileName;
                 } else {
                     $cond['favicon'] = null;
                 }
@@ -267,10 +267,10 @@ class Data extends CI_Controller {
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path2 = $uploadFileDir . $_POST['company_name'].'_preview.'.$fileExtension;
+                $dest_path2 = $uploadFileDir . $fileName;
     
                 if(move_uploaded_file($tempPath2, $dest_path2)) {
-                    $cond['preview_image'] = $_POST['company_name'].'_preview.'.$fileExtension;
+                    $cond['preview_image'] = $fileName;
                 } else {
                     $cond['preview_image'] = null;
                 }
@@ -288,10 +288,10 @@ class Data extends CI_Controller {
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path3 = $uploadFileDir . $_POST['company_name'].'_logo.'.$fileExtension;
+                $dest_path3 = $uploadFileDir . $fileName;
     
                 if(move_uploaded_file($tempPath3, $dest_path3)) {
-                    $cond['company_picture'] = $_POST['company_name'].'_logo.'.$fileExtension;
+                    $cond['company_picture'] = $fileName;
                 } else {
                     $cond['company_picture'] = null;
                 }

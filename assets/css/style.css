@@ -162,6 +162,15 @@
   #upload-dialog {
     cursor: pointer;
   }
+
+  #preview-dialog {
+    cursor: pointer;
+  }
+
+  #favicon-dialog {
+    cursor: pointer;
+  }
+  
   .refresh {
     color: #43425D;
     font-size: x-large;
