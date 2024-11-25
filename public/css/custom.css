@@ -1301,7 +1301,7 @@ th, td {
   height: 33px;
   line-height: 33px;
 }
-.select-lang {
+.select-lang, .select-active {
   width: 190px;
   float: left;
   padding: 0 0 0 10px;

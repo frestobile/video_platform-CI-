@@ -5547,6 +5547,7 @@
 
 .mdi-pencil-box-outline:before {
   content: "\F3ED";
+  cursor: pointer;
 }
 
 .mdi-pencil-circle:before {

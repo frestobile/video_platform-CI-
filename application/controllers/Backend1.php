@@ -109,10 +109,12 @@ class Backend1 extends CI_Controller{
         $update_data = array();
         if($result['status'] == 'success'){
             $company_data = $this->General->get_row("vis_companies", array("company_id" => $result["device_company_id"]));
+            $langData = $this->General->get_all("vis_language", "no");
             $data['error'] = false;
             $data['state'] = 200;
             $data['msg'] = "Logged In successfully!";
             $data["url"] = $company_data->company_picture;
+            $data['lang'] = $langData;
             $update_data['device_login_num'] = $result['device_login_num'] + 1;
             $this->DeviceModel->loginUpdate($update_data,$result['device_id']);
         }else if($result['status'] == 'block'){

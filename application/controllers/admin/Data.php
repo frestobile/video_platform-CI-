@@ -181,6 +181,7 @@ class Data extends CI_Controller {
         $cond['company_lang'] = $_POST['company_language'];
         $cond['email_sender'] = $_POST['email_sender'];
         $cond['sms_sender']  = $_POST['sms_sender'];
+        $cond['offer_active'] = $_POST['offer_active'];
 
         $company_email = $_POST['company_email'];
         $state = $this->CompaniesModel->exist($company_email);
@@ -233,6 +234,7 @@ class Data extends CI_Controller {
         $cond['company_lang']  = $_POST['company_language'];
         $cond['sms_sender']  = $_POST['sms_sender'];
         $cond['email_sender']  = $_POST['email_sender'];
+        $cond['offer_active'] = $_POST['offer_active'];
 
         $data['status'] = "";
         $data['image_url'] = "";

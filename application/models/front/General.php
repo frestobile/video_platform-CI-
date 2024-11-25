@@ -41,7 +41,7 @@ class General extends CI_Model {
             $this->db->order_by($order, 'desc');
         }
         $query = $this->db->get($tb_name);
-        return $query->result();
+        return $query->result_array();
     }
 
     function get_all_reverse($tb_name, $order) {

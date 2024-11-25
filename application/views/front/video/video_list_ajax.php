@@ -17,7 +17,9 @@
 			<th scope="col"><?php echo $video_table[3];?></th>
 			<th scope="col"><?php echo $video_table[2];?></th>
 			<th scope="col"><?php echo $video_table[18];?></th>
+			<?php if ($result['offer_active'] == 1) { ?>
 			<th scope="col"><?php echo $video_table[42];?></th>
+			<?php } ?>
 			<th scope="col" width="5%"><?php echo $video_table[7];?></th>
 		</tr>
 		</thead>
@@ -108,6 +110,7 @@
 				
 				
 				<td nowrap><?php echo date('d.m.Y H:i:s', strtotime($item['video_created_time']));?></td>
+				<?php if ($result['offer_active'] == 1) { ?>
 				<td nowrap>
 					<?php
 					if($item['status'] == 0) {
@@ -119,6 +122,7 @@
 					}	
 					?>
 				</td>
+				<?php } ?>
 				<td nowrap id="status<?php echo $item['video_id'];?>">
 					<?php
 					if($item['company_removed'] == 1){

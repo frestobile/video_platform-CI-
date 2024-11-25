@@ -275,6 +275,7 @@ class Main extends CI_Controller {
         $data['company_content'] = $this->lang->line('company_content');
         $data['error_company'] = $this->lang->line('error_company');
         $data['language'] = $this->lang->line('language');
+        $data['active'] = $this->lang->line('active');
 
         $data['company_data'] = $result;
         $data['email'] = $this->config_data['from_mail'];
@@ -314,8 +315,8 @@ class Main extends CI_Controller {
         $data['company_content'] = $this->lang->line('company_content');
         $data['error_company'] = $this->lang->line('error_company');
         $data['language'] = $this->lang->line('language');
+        $data['active'] = $this->lang->line('active');
         $data['email'] = $this->config_data['from_mail'];
-        $data['company_data'] = "";
         $data['page_name'] = 'addCompany';
         $data['user'] = $this->getAdminInfo();
 

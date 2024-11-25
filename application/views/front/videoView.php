@@ -52,6 +52,39 @@
     .page_preview td, .page_preview th {
         padding: .6rem .6rem;
     }
+	.wrapped-text {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    table.dataTable td {
+      table-layout: fixed;
+      word-break: break-word;
+    }
+	.w-80 {
+        font-size:12px;
+		width: 50px;
+		height: 30px;
+		display: inline;
+		border-color: #eae8e8;
+		pointer-events: none;
+	}
+	.w-80-non-editable {
+        font-size:12px;
+		width: 50px;
+		height: 30px;
+		display: inline;
+		border-color: #eae8e8;
+		pointer-events: none;
+	}
+	.w-60 {
+		width: 50px;
+		height: 30px;
+		display: inline;
+		background-color:#eff2f7;
+		border-color: #b9b9b9;
+	}
 </style>
 <body>
 <?php
@@ -89,17 +122,16 @@ else $image = "../../assets/images/viserv_logo.png";
                                                 <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                                             </video>
                                         </div>
+                                        <?php 
+                                        if ($company_data['offer_active'] == "1") {
+                                        ?>
                                         <div id="offer_data" style="display: none">
                                             <div id="offer_table">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" style="overflow-x: unset">
                                                     <table class="table table-centered align-middle table-nowrap mb-0 table-hover" id="offer_dt">
                                                         <thead class="table-light">
                                                             <tr>
-                                                                
                                                                 <th scope="col"><?php echo $video_table[51];?></th>
-                                                                <th scope="col"><?php echo $video_table[52];?></th>
-                                                                <th scope="col"><?php echo $video_table[53];?></th>
-                                                                <th scope="col"><?php echo $video_table[54];?></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody id="tableBody">
@@ -107,27 +139,34 @@ else $image = "../../assets/images/viserv_logo.png";
                                                                 $idx = 1;
                                                                 foreach($offer_data as $item){  ?>
                                                                     <tr>
-                                                                        
-                                                                        <td>
-                                                                            <span class="editable" data-name="description"><?php echo $item['description']; ?></span>
-                                                                            <input type="text" class="form-control edit-input" value="<?php echo $item['description']; ?>">
-                                                                        </td>
-                                                                        <td>
-                                                                            <span class="editable" data-name="quantity"><?php echo $item['quantity']; ?></span>
-                                                                            <input type="number" class="form-control edit-input quantity" value="<?php echo $item['quantity']; ?>">
-                                                                        </td>
-                                                                        <td>
-                                                                            <span class="editable" data-name="price"><?php echo $item['price']; ?></span>
-                                                                            <input type="number" class="form-control edit-input price" value="<?php echo $item['price']; ?>">
-                                                                        </td>
-                                                                        <td>
-                                                                            <span class="editable" data-name="sum"><?php echo $item['price'] * $item['quantity']; ?></span>
-                                                                            <input type="number" class="form-control edit-input" value="<?php echo $item['price'] * $item['quantity']; ?>" disabled>
-                                                                            
+                                                                        <td style="border-color:#c9c9c9">						
+                                                                            <input type="hidden" class="offer_id" value="<?php echo $item['id'];?>" />
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <p class="editable wrapped-text" data-name="description"><?php echo $item['description']; ?></p>
+                                                                                    <input type="text" class="form-control edit-input" style="border-color:rgb(185,185,185)" value="<?php echo $item['description']; ?>">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div>
+                                                                                <div style="float: right;" class="row">	
+                                                                                    <div class="col-4">
+                                                                                        <span style="font-size:12px; font-weight:700"><?php echo $video_table[52];?>:</span>
+                                                                                        <input type="number" class="form-control edit-input quantity w-80"value="<?php echo $item['quantity'];?>">
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                        <span style="font-size:12px; font-weight:700"><?php echo $video_table[53];?>: </span>
+                                                                                        <input type="number" class="form-control edit-input price w-80" value="<?php echo $item['price']; ?>">
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                        <span style="font-size:12px; font-weight:700"><?php echo $video_table[54];?>: </span>
+                                                                                        <input type="number" class="form-control edit-input w-80-non-editable" value="<?php echo $item['price'] * $item['quantity']; ?>">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                             <?php } ?>
-
                                                         </tbody>
                                                     </table>
                                                     
@@ -174,6 +213,7 @@ else $image = "../../assets/images/viserv_logo.png";
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php }?>
                                     </div>
                                    
                                     <div class="col-md-5 col-xs-12">
@@ -212,10 +252,11 @@ else $image = "../../assets/images/viserv_logo.png";
                                                 ?></td>
                                             </tr>
                                             <?php
-                                            $total_price = 0;
-                                            foreach ($offer_data as $item) {
-                                                $total_price += $item['quantity'] * $item['price'];
-                                            }
+                                             if ($company_data['offer_active'] == "1") {
+                                                $total_price = 0;
+                                                foreach ($offer_data as $item) {
+                                                    $total_price += $item['quantity'] * $item['price'];
+                                                }
                                             ?>
                                             <tr>
                                                 <th><?php echo $preview[8];?>:</th>
@@ -236,6 +277,7 @@ else $image = "../../assets/images/viserv_logo.png";
                                                     <?php }?>
                                                 </td>
                                             </tr>
+                                            <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

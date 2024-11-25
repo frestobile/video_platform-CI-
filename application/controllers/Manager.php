@@ -240,7 +240,6 @@ class Manager extends CI_Controller{
        
         $results = $this->VideoModel->getvideos($company_id, $offset, $pagesize, $wherestr);
         $totals = $this->VideoModel->getCounts($company_id, $wherestr);
-        $result = $this->CompanyModel->get_by_id($company_id);
         $total_pages = floor($totals / $pagesize);
         if($totals % $pagesize) $total_pages ++;
 
@@ -892,7 +891,7 @@ class Manager extends CI_Controller{
         $data['refresh'] = $this->lang->line('refresh');
         $data['result'] = $result;
         $data['video_list'] = $results;
-        $resp['content'] = $this->load->view('front/video/video_list_ajax', $data,true);
+        $resp['content'] = $this->load->view('front/video/video_list_ajax', $data, true);
 
         echo json_encode($resp);
     }
@@ -1113,10 +1112,24 @@ class Manager extends CI_Controller{
         echo json_encode($resp);
     }
 
+    public function offer_vat() {
+        $this->checkLogin();
+
+        $cond['video_id'] = $this->input->post('video_id');
+        $update_vat = $this->input->post('vat_fee');
+        $result = $this->General->update('vis_videos', array('vis_fee' => $update_vat), $cond);
+        if($result){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($cond['video_id']);
+        echo json_encode($resp);
+    }
+
     public function offer_add() {
         $this->checkLogin();
         
-
         $offer['video_id'] = $this->input->post('video_id');
         $offer['description'] = $this->input->post('description');
         $offer['quantity'] = $this->input->post('quantity');
@@ -1131,7 +1144,6 @@ class Manager extends CI_Controller{
             $data['status'] = 1;
             $data['offer_time'] = date('Y-m-d H:i:s');
         }
-
         $this->General->update('vis_videos', $data, array('video_id' => $video_id));
         $result = $this->General->insert_new('vis_offer', $offer);
 
@@ -1140,6 +1152,7 @@ class Manager extends CI_Controller{
         } else {
             $resp['status'] = "fail";
         }
+        $resp['offer_id'] = $result;
         $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
         
         echo json_encode($resp);

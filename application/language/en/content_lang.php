@@ -188,9 +188,16 @@ $lang['video_table'] = array(
     56 => "Total"
 );
 
-$lang['message'] = ["The videso link hasn't been sent yet", "The video hasn't been uploaded yet"];
+$lang['message'] = array(
+    0 => "The videso link hasn't been sent yet",
+    1 => "The video hasn't been uploaded yet"
+);
 
-$lang['modal_head'] = ["Video Preview", "Add New Customer", "Add New Video Data"];
+$lang['modal_head'] = array(
+    0 => "Video Preview", 
+    1 => "Add New Customer", 
+    2 => "Add New Video Data"
+);
 
 $lang['video_title'] = "Videos";
 
@@ -201,13 +208,36 @@ $lang['refresh'] = "Refresh";
  * DEVICES
  */
 $lang['device_title'] = "Devices";
-$lang['device_table'] = array ("NO", "ID", "Device Name", "Serial Number", "Login Num", "Created Time", "Status", "Active", "Not Active", "Password");
+$lang['device_table'] = array (
+    0 => "NO", 
+    1 => "ID", 
+    2 => "Device Name", 
+    3 => "Serial Number", 
+    4 => "Login Num", 
+    5 => "Created Time", 
+    6 => "Status", 
+    7 => "Active", 
+    8 => "Not Active", 
+    9 => "Password"
+);
 
 /**
  * PROFILE
  */
 $lang['profile_title'] = "Profile";
-$lang['profile_content'] = ["Company Name", "Phone Number", "Email", "Company Logo", "Cancel", "Save", "Select the File", "Address", "Language", "SMS Sender Name", "Email Sender Name"];
+$lang['profile_content'] = array(
+    0 => "Company Name", 
+    1 => "Phone Number", 
+    2 => "Email", 
+    3 => "Company Logo", 
+    4 => "Cancel", 
+    5 => "Save", 
+    6 => "Select the File", 
+    7 => "Address", 
+    8 => "Language", 
+    9 => "SMS Sender Name", 
+    10 => "Email Sender Name"
+);
 
 /** BACKEND */
 
@@ -218,47 +248,146 @@ $lang['company_title'] = "Companies";
 $lang['edit_company'] = "Edit Company Data";
 $lang['add_company'] = "Add New Company";
 $lang['add_btn'] = "Add Company";
-$lang['search'] = ["Please enter company name", "Please enter client company name", "please enter device name", "Choose a Company"];
-$lang['status'] = ["All", "Active", "Not Active", "Waiting"];
+$lang['search'] = array(
+    0 => "Please enter company name", 
+    1 => "Please enter client company name", 
+    2 => "please enter device name", 
+    3 => "Choose a Company"
+);
+$lang['status'] = array(
+    0 => "All", 
+    1 => "Active", 
+    2 => "Not Active", 
+    3 => "Waiting"
+);
 $lang['company_count'] = "Company Counts";
-$lang['company_table'] = ["No", "Name", "Email", "Phone", "Address", "Videos", "Login Num", "Registered Time", "Status", "Operation", "Edit", "Delete"];
-$lang['company_content'] = ["Company Name", "Company Email", "Password", "Company Address", "Phone Number", "Cancel", "Save", "Company Logo", "Select a File","Language", "SMS Sender Name", "Email Sender Name", "Favicon", "Preview Image"];
-$lang['error_company'] = ["Enter new company name.", "Enter company email.", "Enter company password.", "Enter company address.", "Enter company phone number.", "Select a Language", "Enter SMS Sender Name.", "Enter Email Sender Name."];
-$lang['language'] = ["Select a language", "English", "Estonia"];
+$lang['company_table'] = array(
+    0 => "No", 
+    1 => "Name", 
+    2 => "Email", 
+    3 => "Phone", 
+    4 => "Address", 
+    5 => "Videos", 
+    6 => "Login Num", 
+    7 => "Registered Time", 
+    8 => "Status", 
+    9 => "Operation", 
+    10 => "Edit", 
+    11 => "Delete"
+);
+$lang['company_content'] = array(
+    0 => "Company Name", 
+    1 => "Company Email", 
+    2 => "Password", 
+    3 => "Company Address", 
+    4 => "Phone Number", 
+    5 => "Cancel", 
+    6 => "Save", 
+    7 => "Company Logo", 
+    8 => "Select a File",
+    9 => "Language", 
+    10 => "SMS Sender Name", 
+    11 => "Email Sender Name",
+    12 => "Favicon", 
+    13 => "Preview Image",
+    14 => "Active Offer"
+);
+$lang['error_company'] = array(
+    0 => "Enter new company name.",
+    1 => "Enter company email.", 
+    2 => "Enter company password.", 
+    3 => "Enter company address.", 
+    4 => "Enter company phone number.", 
+    5 => "Select a Language", 
+    6 => "Enter SMS Sender Name.", 
+    7 => "Enter Email Sender Name."
+);
+$lang['language'] = array(
+    0 => "Select a language", 
+    1 => "English", 
+    2 => "Estonia"
+);
+
+$lang['active'] = array(
+    0 => "Select a Active Status", 
+    1 => "Active", 
+    2 => "Inactive"
+);
 
 /**
  * Video
  */
-$lang['backvideo_table'] = ["No", "Company", "Video ID", "Car Number", "Customer Company", "Name", "Email", "Tech Name", "Upload Time", "Status", "View", "Created Time", "Operation", "Delete"];
-$lang['video_preview'] = [
-    "Video ID", 
-    "Car Number", 
-    "Service Company", 
-    "Client", 
-    "Client Company", 
-    "Email", 
-    "Phone Number", 
-    "Technician", 
-    "Uploaded", 
-    "No uploaded yet", 
-    "Back", 
-    "Created", 
-    "Link Address", 
-    "Delete", 
-    "Send Video Link", 
-    "Ok"
-];
+$lang['backvideo_table'] = array(
+    0 =>"No", 
+    1 =>"Company", 
+    2 =>"Video ID", 
+    3 =>"Car Number", 
+    4 =>"Customer Company", 
+    5 =>"Name", "Email", 
+    6 =>"Tech Name", 
+    7 =>"Upload Time", 
+    8 =>"Status", 
+    9 =>"View", 
+    10 =>"Created Time", 
+    11 =>"Operation", 
+    12 =>"Delete"
+);
+$lang['video_preview'] = array(
+    0 => "Video ID", 
+    1 => "Car Number", 
+    2 => "Service Company", 
+    3 => "Client", 
+    4 => "Client Company", 
+    5 => "Email", 
+    6 => "Phone Number", 
+    7 => "Technician", 
+    8 => "Uploaded", 
+    9 => "No uploaded yet", 
+    10 => "Back", 
+    11 => "Created", 
+    12 => "Link Address", 
+    13 => "Delete", 
+    14 => "Send Video Link", 
+    15 => "Ok"
+);
 
 /**
  * DEVICES
  */
-$lang['back_device_table'] = ["No",	"ID", "Device Name", "Company", "Serial Number", "Login Num", "Created Time", "Status", "Operation", "Edit", "Delete", "Password"];
+$lang['back_device_table'] = array(
+    0 => "No",	
+    1 => "ID", 
+    2 => "Device Name", 
+    3 => "Company", 
+    4 => "Serial Number", 
+    5 => "Login Num", 
+    6 => "Created Time", 
+    7 => "Status", 
+    8 => "Operation", 
+    9 => "Edit", 
+    10 => "Delete", 
+    11 => "Password"
+);
 $lang['device_add'] = "Add Device";
 $lang['device_count'] = "Device Counts";
-$lang['devices'] = ["Device Name", "Device ID", "Password", "Serial Number", "Company", "Cancel", "Save"];
+$lang['devices'] = array(
+    0 => "Device Name", 
+    1 => "Device ID", 
+    2 => "Password", 
+    3 => "Serial Number", 
+    4 => "Company", 
+    5 => "Cancel", 
+    6 => "Save"
+);
 $lang['edit_device'] = "Edit Device";
 $lang['add_device'] = "Add New Device";
-$lang['error_device'] = ["Please enter new device name.","Please enter new device ID.","Please enter device password.","Please enter device serial number.","Please select any company for the device."];
+$lang['error_device'] = array(
+    0 => "Please enter new device name.",
+    1 => "Please enter new device ID.",
+    2 => "Please enter device password.",
+    3 => "Please enter device serial number.",
+    4 => "Please select any company for the device."
+);
 
 $lang['preview'] = array(
     0 => 'Service video : %s', 
@@ -289,7 +418,10 @@ $lang['preview'] = array(
 * ADMIN
 */
 
-$lang['error_admin'] = ["Enter admin username.", "Enter admin password."];
+$lang['error_admin'] = array(
+    0 => "Enter admin username.", 
+    1 => "Enter admin password."
+);
 
 $lang['sms_mail_settings'] = "SMS & Mail Settings";
 $lang['from_mail'] = "From Email";

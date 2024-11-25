@@ -293,8 +293,8 @@ function offer_table_load(data) {
         "pageLength": 5,
         "aaSorting": [],
         "aoColumnDefs": [
-            { "bSortable": false, "aTargets": [ 0, 1, 2, 3, 4 ] },
-            { "bSearchable": false, "aTargets": [ 0, 1, 2, 3, 4 ] }
+            { "bSortable": false, "aTargets": [ 0] },
+            { "bSearchable": false, "aTargets": [ 0] }
         ],
         "language": {
             "paginate": {

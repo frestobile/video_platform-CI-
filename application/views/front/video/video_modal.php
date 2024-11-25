@@ -26,12 +26,12 @@ video {
 </script>
 <div class="modal-header">
     <span class="modal-title" style="font-size: 20px;"><?php echo $video_data['video_case_number'];?> &nbsp;&nbsp;&nbsp;
-        <?php if($video_data['status'] == 2) {?>
+        <!-- <?php if($video_data['status'] == 2) {?>
         <span class="badge text-success bg-success-subtle"><?php echo $video_table[48];?></span> &nbsp;&nbsp;&nbsp;
         <span><?php echo date('d.m.Y H:i:s', strtotime($video_data['accept_time']));?></span>
         <?php } else if ($video_data['status'] == 1) {?>
             <span class="badge text-warning bg-warning-subtle"><?php echo $video_table[49];?></span>
-        <?php }?>
+        <?php }?> -->
     </span>
     <button type="button" class="btn-close close"></button>
 </div>
@@ -149,12 +149,10 @@ video {
             <!-- </span> -->
             <div id="offer_buttons">
                 <?php if($video_data['video_is_show'] == 1 || $video_data['video_is_show'] == 2) { ?>
-                    
                     <div id="no_offer_btn" class="hstack gap-5 justify-content-center m-t-15" style="display: <?php if($video_data['status'] == 0) echo 'flex'; else echo 'none';?>">
                         <button class="btn btn-primary" onclick="show_offer_window();"><?php echo $video_table[44];?></button>
                     </div>
-
-                    <div id="offer_btn" class="hstack gap-5 justify-content-center m-t-15" style="display: <?php if($video_data['status'] == 1 || $video_data['status'] == 2) echo 'flex'; else echo 'none';?>">
+                    <div id="offer_btn" class="hstack gap-5 justify-content-center m-t-15" style="display: <?php if (($video_data['status'] == 1 || $video_data['status'] == 2)) echo 'flex'; else echo 'none';?>">
                         <button class="btn btn-primary" onclick="show_offer_window();"><?php echo $video_table[45];?></button>
                         <button class="btn btn-danger" onclick="delete_offer();"><?php echo $video_table[46];?></button>
                     </div>
@@ -427,5 +425,12 @@ video {
             }
         });
     }
+
+    function init() {
+        let val = parseInt(document.getElementById('offer_active').value);
+        if (!val) document.getElementById('offer_buttons').style.display = 'none';
+	}
+
+	init();
 
 </script>

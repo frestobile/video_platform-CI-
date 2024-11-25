@@ -60,6 +60,7 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
                 <img src="<?=base_url()?>assets/images/loading.gif" style="width: 50px;" alt="loading...">
             </div>
         </div>
+        <input id="offer_active" type="hidden" style="display:none" value="<?php echo $result['offer_active'];?>"/>
         <input type="hidden" id="lang_status" value="<?php echo $head_lang;?>">
         <input type="hidden" id="company_id" value="<?php echo $company_id;?>">
         <!-- Begin page -->
