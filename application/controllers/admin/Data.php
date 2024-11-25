@@ -19,6 +19,7 @@ class Data extends CI_Controller {
         parent::__construct();
         $this->load->model('TimeModel');
         $this->load->model('GlobalModel');
+        $this->load->model('front/General');
         $this->load->helper('url');
         $this->load->helper('directory');
     }
@@ -213,6 +214,17 @@ class Data extends CI_Controller {
 
         $data = $_POST;
         if($this->CompaniesModel->update($data))
+            $ret['response'] = "SUCCESS";
+        else
+            $ret['response'] = "FAIL";
+        echo json_encode($ret);
+    }
+
+    public function languageUpdate(){
+        $this->checkLogin();
+        $data['status'] = $_POST['status'];
+        $cond['id'] = $_POST['id'];
+        if($this->General->update("vis_language",$data, $cond))
             $ret['response'] = "SUCCESS";
         else
             $ret['response'] = "FAIL";

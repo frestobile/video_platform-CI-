@@ -136,7 +136,8 @@ class Main extends CI_Controller {
         $this->load->model('AdminModel');
         
         $data['user_data'] = json_decode($this->session->userdata('admin'),true);
-        
+        $data['lang_data'] = $this->General->get_all("vis_language", "no");
+        // $data['lang_data'] = $this->General->get_row("vis_language", array('status'=> 1));
         $this->checkLogin();
 
         if (isset($_GET['lang'])){
@@ -148,7 +149,7 @@ class Main extends CI_Controller {
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
         $data['admin'] = $this->lang->line('signin');
-        
+        $data['lang_setting'] = $this->lang->line('lang_setting');
         $data['email'] = $this->config_data['from_mail'];
         
         $data['menu'] = $this->lang->line('menu');

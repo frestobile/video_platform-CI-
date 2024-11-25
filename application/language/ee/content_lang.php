@@ -11,7 +11,16 @@ $lang['menu'] =array(
     5 => "Logi välja",
     6 => "Kliendid",
     7 => "Ootel",
-    8 => "SMS ja e-post"
+    8 => "SMS ja e-post",
+);
+$lang['lang_setting'] = array(
+    0 => "Rakenduse keele seadistus",
+    1 => "Keele nimi",
+    2 => "Keelekood",
+    3 => "Olek",
+    4 => "Operatsioon", 
+    5 => "Aktiivne",
+    6 => "Ei ole aktiivne"
 );
 $lang['sub_menu'] = ["Ettevõtted", "Lisa ettevõte", "Seadmed", "Lisa Seade", "Lukustatud videod", "Videode loend"];
 $lang['change_pass'] = ["Vaheta Parooli", "Algne Parool", "Uus Parool", "Kinnita Parool"];
@@ -57,7 +66,15 @@ $lang['alert_content'] = array(
 
 
 /* Signin */
-$lang['signin'] = ["Email", "Kasutajanimi", "Parool", "Login"];
+$lang['signin'] = array(
+    0 => "E-post",
+    1 => "Kasutajanimi",
+    2 => "Parool",
+    3 => "Logi sisse",
+    4 => "Administraator",
+    5 => "Salvesta",
+    6 => "Tühista"
+);
 $lang['front_title'] = "VIService Süsteem";
 $lang['back_title'] = "VIService Admin";
 $lang['error_content'] = ["Administraator on teie konto blokeerinud.", "Parool on vale.", "Sellist ettevõte pole olemas."];

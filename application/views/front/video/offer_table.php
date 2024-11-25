@@ -63,15 +63,15 @@
 								<div style="margin-top: 5px;">
 									<div style="float: right;" class="row">	
 										<div class="col-4">
-											<span><?php echo $video_table[52];?>:</span>
+											<span style="font-weight: 700;"><?php echo $video_table[52];?>:</span>
 											<input type="number" class="form-control edit-input quantity w-80"value="<?php echo $item['quantity'];?>">
 										</div>
 										<div class="col-4">
-											<span><?php echo $video_table[53];?>: </span>
+											<span style="font-weight: 700;"><?php echo $video_table[53];?>: </span>
 											<input type="number" class="form-control edit-input price w-80" value="<?php echo $item['price']; ?>">
 										</div>
 										<div class="col-4">
-											<span><?php echo $video_table[54];?>: </span>
+											<span style="font-weight: 700;"><?php echo $video_table[54];?>: </span>
 											<input type="number" class="form-control edit-input w-80-non-editable" value="<?php echo $item['price'] * $item['quantity']; ?>">
 										</div>
 									</div>
@@ -513,15 +513,15 @@
 					<div style="margin-top:5px">
 						<div style="float: right;" class="row">	
 							<div class="col-4">
-								<span><?php echo $video_table[52];?>:</span>
+								<span style="font-weight: 700;"><?php echo $video_table[52];?>:</span>
 								<input type="number" class="form-control edit-input quantity w-80"value="">
 							</div>
 							<div class="col-4">
-								<span><?php echo $video_table[53];?>: </span>
+								<span style="font-weight: 700;"><?php echo $video_table[53];?>: </span>
 								<input type="number" class="form-control edit-input price w-80" value="">
 							</div>
 							<div class="col-4">
-								<span><?php echo $video_table[54];?>: </span>
+								<span style="font-weight: 700;"><?php echo $video_table[54];?>: </span>
 								<input type="number" class="form-control edit-input w-80-non-editable" value="">
 							</div>
 						</div>

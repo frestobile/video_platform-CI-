@@ -6,6 +6,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 $lang['front_title'] = "VIServ";
 $lang['back_title'] = "VIServ Admin";
+$lang['lang_setting'] = array(
+    0 => "App Language Setting",
+    1 => "Language Name",
+    2 => "Language Code",
+    3 => "Status",
+    4 => "Operation",
+    5 => "Active",
+    6 => "Not Active"
+);
 
 $lang['menu'] = array(
     0 => "Statistics",
@@ -17,8 +26,9 @@ $lang['menu'] = array(
     6 => "Customers",
     6 => "Admin",
     7 => "Waiting",
-    8 => "SMS & Mail"
+    8 => "SMS & Mail",
 );
+
 $lang['sub_menu'] = array (
     0 => "Company List", 
     1 => "Add Company", 
