@@ -49,7 +49,10 @@
 								<div class="row">
 									<div class="col-10">
 										<p class="editable wrapped-text" data-name="description"><?php echo $item['description']; ?></p>
-										<input type="text" class="form-control edit-input" style="border-color:rgb(185,185,185)" value="<?php echo $item['description']; ?>">
+										<!-- <input type="text" style="border-color:rgb(185,185,185)" value="<?php echo $item['description']; ?>"> -->
+										<textarea class="form-control edit-input" rows="2" cols="20">
+											<?php echo $item['description']; ?>
+										</textarea>
 									</div>
 									<div class="col-2">
 										<div style="float:right">
@@ -92,18 +95,19 @@
 		 $create_date = isset($video_data['offer_time']) ? date('d.m.Y H:i:s', strtotime($video_data['offer_time'])) : date('d.m.Y H:i:s');
 		 $update_date = isset($video_data['update_time']) ? date('d.m.Y H:i:s', strtotime($video_data['update_time'])) : date('d.m.Y H:i:s');
 		?>
-	<div class="col-sm-7">
+	<div class="col-sm-8">
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-7">
 				<div><strong><?php echo $video_table[18];?> : </strong><span id="created_time"><?php echo $create_date;?></span></div>
 				<div id="updated_label" style="display: <?php if($video_data['update_time'] != null) echo 'flex'; else echo 'none';?>">
 					<strong><?php echo $video_table[43];?> : </strong>
-					<span id="updated_time"><?php echo $update_date;?></span>
+					<span id="updated_time"> <?php echo $update_date;?></span>
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<strong><?php echo $video_table[47];?> :</strong>
-				<input type="date" class="fcs" style="width: 50%; border: none; border-bottom: 1px solid #d1d1d1; line-height:15px;" value="<?php echo $valid_date;?>" id="offer_valied">				
+			<div class="col-sm-5">
+				<strong><?php echo $video_table[47];?> : </strong>
+				<input type="hidden" id="temp_date" value="<?php echo $valid_date; ?>" />
+				<input type="text" class="fcs" style="width: 60%; border: none; border-bottom: 1px solid #d1d1d1; line-height:15px;" id="offer_valied">				
 			</div>
 		</div>
 		<div class="row">
@@ -119,7 +123,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-4">
 		<?php
 			$sum = 0;
 			foreach ($offer_data as $item) {
@@ -155,11 +159,45 @@
 		let offer_status = '<?php echo $video_data['status'];?>';
 		let v_id = $('#modal_video_id').val();
 
+		const phpDate = document.getElementById('temp_date').value;
+
+		function formatDateToDDMMYYYY(dateString) {
+            const [year, month, day] = dateString.split('-');
+            return `${day}.${month}.${year}`;
+        }
+
+        // Function to convert dd/mm/yyyy to yyyy-mm-dd format
+        function formatDateToYYYYMMDD(dateString) {
+            const [day, month, year] = dateString.split('.');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Set the input value to the formatted date
+        const dateInput = document.getElementById('offer_valied');
+        dateInput.value = formatDateToDDMMYYYY(phpDate);
+
+        // Focus event: switch to native date picker format (yyyy-mm-dd)
+        dateInput.addEventListener('focus', () => {
+			console.log(dateInput.value);
+			const [day, month, year] = dateInput.value.split('.');
+            const formattedDate = `${year}-${month}-${day}`;
+            dateInput.type = 'date';
+            // dateInput.value = formatDateToYYYYMMDD(dateInput.value);
+			dateInput.value = formattedDate;
+        });
+
+        // Blur event: revert to dd/mm/yyyy format without time zone issues
+        dateInput.addEventListener('blur', () => {
+            dateInput.type = 'text';
+            dateInput.value = formatDateToDDMMYYYY(dateInput.value);
+        });
+
 		if (offer_status !== "0") {
 			$('#offer_board').css('display', 'flex');
 		} else {
 			$('#offer_board').css('display', 'none');
 		}
+
 
 		$(document).on('click', '#edit_vat_fee', function() {
 			if (isEditing) {
@@ -499,7 +537,7 @@
 						<input type="hidden" class="offer_id" value="" />
 						<div class="col-10">
 							<p class="editable wrapped-text" data-name="description"></p>
-							<input type="text" class="form-control edit-input" style="border-color:rgb(185,185,185)" value="">
+							<textarea class="form-control edit-input" rows="2" cols="20"></textarea>
 						</div>
 						<div class="col-2">
 							<div style="float:right">
@@ -547,7 +585,6 @@
 		});
 
 		$('#offer_valied').on('change', function(event) {
-			console.log('Date changed:', event.target.value);
 			$.post(_server_url + 'manager/offer_valid_update', 
 			{
 				'video_id': v_id,

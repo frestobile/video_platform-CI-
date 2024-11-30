@@ -5,7 +5,7 @@
 <script src="<?=base_url();?>assets/libs/videojs/video.min.js"></script>
 
 <div class="table-responsive" id="dt_table" style="margin: -1.2rem -1.2rem;">
-
+	<input type="hidden" value="<?php echo $result['offer_active']; ?>" id="offer_status" />
 	<table class="table table-centered align-middle table-nowrap mb-0 table-hover">
 		<thead class="table-light">
 		<tr>
@@ -18,7 +18,7 @@
 			<th scope="col"><?php echo $video_table[2];?></th>
 			<th scope="col"><?php echo $video_table[18];?></th>
 			<?php if ($result['offer_active'] == 1) { ?>
-			<th scope="col"><?php echo $video_table[42];?></th>
+				<th scope="col"><?php echo $video_table[42];?></th>
 			<?php } ?>
 			<th scope="col" width="5%"><?php echo $video_table[7];?></th>
 		</tr>

@@ -85,6 +85,46 @@
 		background-color:#eff2f7;
 		border-color: #b9b9b9;
 	}
+
+    /* Default desktop layout */
+    .button-container {
+        text-align: right;
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+        .row#offer_board {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        #desktop_view {
+            display: none;
+        }
+        #mobile_view {
+            display: block
+        }
+
+        .col-sm-4 {
+            order: 1;
+        }
+
+        .button-container {
+            order: 2;
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+    @media (min-width: 769px) {
+        #desktop_view {
+            display: block;
+        }
+        #mobile_view {
+            display: none;
+        }
+    }
 </style>
 <body>
 <?php
@@ -175,14 +215,14 @@ else $image = "../../assets/images/viserv_logo.png";
 
                                             <div class="row" id="offer_board">
                                                     <?php
-                                                    $valid_date = isset($video_data['valid_date']) ? date('Y-m-d', strtotime($video_data['valid_date'])) : date('Y-m-d');
+                                                    $valid_date = isset($video_data['valid_date']) ? date('d.m.Y', strtotime($video_data['valid_date'])) : date('d.m.Y');
                                                     ?>
                                                 <div class="col-sm-5">
                                                     
-                                                    <div><strong><?php echo $video_table[47];?> : </strong><span id="created_time"><?php echo $valid_date;?></span></div>
-                                        
+                                                    <!-- <div><strong><?php echo $video_table[47];?> : </strong><span id="created_time"><?php echo $valid_date;?></span></div> -->
                     
-                                                    <div class="m-t-10">
+                                                    <div class="m-t-10" id="desktop_view">
+                                                    <div><strong><?php echo $video_table[47];?> : </strong><span><?php echo $valid_date;?></span></div>
                                                         <button class="btn btn-primary" onclick="getBack();"><?php echo $video_table[29];?></button>
                                                     </div>
                                                 </div>
@@ -210,6 +250,11 @@ else $image = "../../assets/images/viserv_logo.png";
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                                 <!-- Button Container -->
+                                                <div class="button-container text-center" id="mobile_view">
+                                                <div style="float: left;"><strong><?php echo $video_table[47];?> : </strong><span id="created_time"><?php echo $valid_date;?></span></div>
+                                                    <button class="btn btn-primary" onclick="getBack();"><?php echo $video_table[29];?></button>
                                                 </div>
                                             </div>
                                         </div>
