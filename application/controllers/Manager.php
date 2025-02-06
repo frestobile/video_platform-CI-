@@ -4,6 +4,7 @@ class Manager extends CI_Controller{
 
     protected $url_videos = './uploads/videos/';
     public $config_data = array();
+    public $lang_code = 'en';
 
     public function __construct(){
         parent::__construct();
@@ -27,6 +28,12 @@ class Manager extends CI_Controller{
             redirect($baseurl."/", 'refresh');
         }
         $this->config_data  =  $this->ConfigModel->get_all_config_data();
+        $host_array = explode(".", $_SERVER['HTTP_HOST']);
+        if (count($host_array) < 2) {
+            $this->lang_code = "en";
+        } else {
+            $this->lang_code = array_splice($host_array, -1)[0];
+        }
     }
 
     public function index() {
@@ -164,8 +171,9 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
+        var_dump($this->lang_code);
 
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -182,6 +190,7 @@ class Manager extends CI_Controller{
         $data['modal_head'] = $this->lang->line('modal_head');
         $data['no_data'] = $this->lang->line('no_data');
         $data['months'] = $this->lang->line('months');
+        $data['language'] = $this->lang->line('language');
 
         $data['warning'] = $this->lang->line('warning');
         $data['success'] = $this->lang->line('success');
@@ -250,15 +259,17 @@ class Manager extends CI_Controller{
         $data['curpage'] = $curpage;
 
         if($result["company_lang"] == 0) {
-            $lang = 'ee';
-        } else {
+            $lang = 'eu';
+        } else if ($result["company_lang"] == 1){
             $lang = 'en';
+        } else if ($result["company_lang"] == 2) {
+            $lang = 'fi';
         }
 
         if (isset($_GET['lang'])){
            $lang = $_GET['lang'];
         }else{
-           $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -283,6 +294,7 @@ class Manager extends CI_Controller{
         $data['message'] = $this->lang->line('message');
         $data['error_case'] = $this->lang->line('error_case');
         $data['refresh'] = $this->lang->line('refresh');
+        $data['language'] = $this->lang->line('language');
 
         $data['company_id'] = $company_id;
         $data['result'] = $result;
@@ -319,7 +331,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
@@ -338,6 +350,7 @@ class Manager extends CI_Controller{
         $data['head_name'] = $this->lang->line('device_title');
         $data['device_table'] = $this->lang->line('device_table');
         $data['device_num'] = $this->lang->line('device_count');
+        $data['language'] = $this->lang->line('language');
 
         $data['company_id'] = $company_id;
         $data['result'] = $result;
@@ -360,7 +373,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -411,10 +424,17 @@ class Manager extends CI_Controller{
         $this->checkLogin();
 
         $case = isset($_POST['car'])? $_POST['car']: "";
+        $customer_phone = $_POST['phone'];
+        if (str_starts_with($customer_phone, "0")) {
+            $cond['customer_phone'] = $customer_phone;
+        } else {
+            $cond['customer_phone'] = "0".$customer_phone;
+        }
+
 
         $cond['customer_name'] = isset($_POST['name'])? $_POST['name']: "";
         $cond['customer_email'] = isset($_POST['email'])? $_POST['email']: "";
-        $cond['customer_phone'] = isset($_POST['phone'])? $_POST['phone']: "";
+        
 		$cond['customer_company'] = isset($_POST['company'])? $_POST['company']: "";
         $cond['customer_case_number'] = $case;
 
@@ -437,7 +457,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         if($result1 && $result2){
@@ -474,7 +494,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         if($result1 && $result2){
@@ -653,9 +673,14 @@ class Manager extends CI_Controller{
                 $sms_text = str_replace("{{client}}", $rows['customer_name'],$sms_text);
                 $sms_text = str_replace("{{car_number}}", $rows['video_case_number'],$sms_text); 
                 $sms_text = str_replace("{{url}}", $config_data['video_url'],$sms_text);
-                $country_code = "+372";
-                $mobile =    $_POST['phone'];
-                $mobile = ltrim($mobile,$country_code);
+                $country_code = "+358";
+                if (str_starts_with($_POST['phone'], "0")) {
+                    $mobile = (string)intval($_POST['phone']);
+                } else {
+                    $mobile =    $_POST['phone'];
+                }
+
+                $mobile = ltrim($mobile, $country_code);
                 $sms_data['message'] = $sms_text;
                 $sms_data['to'] = $country_code.$mobile;
                 $sms_data['from'] = $rows['sms_sender'];
@@ -740,7 +765,7 @@ class Manager extends CI_Controller{
         if (isset($_POST['lang'])){
             $lang = $_POST['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -865,7 +890,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -909,7 +934,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
@@ -957,7 +982,7 @@ class Manager extends CI_Controller{
          if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
@@ -1055,7 +1080,7 @@ class Manager extends CI_Controller{
         if (isset($_POST['lang'])){
             $lang = $_POST['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);

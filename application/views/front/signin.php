@@ -172,7 +172,7 @@
                             var idx = result.company_id;
                             var lang;
                             if(result.lang == 0) {
-                                lang = "ee";
+                                lang = "fi";
                             } else {
                                 lang = "en";
                             }

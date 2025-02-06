@@ -211,10 +211,10 @@
                     var res = JSON.parse(data);
                     if(res.status === 'success') {
                         if (id == 1) {
-                            lang = 'ee';
-                        } else {
+                            lang = 'fi';
+                        } else if (id == 0){
                             lang = 'en';
-                        }
+                        } 
                         // location.href =_server_url + 'manager/companyList?lang=' + lang_status;
                         location.href =_server_url + 'manager/'+ page_name +'?id='+ company_id + '&lang=' + lang;
                     }else {

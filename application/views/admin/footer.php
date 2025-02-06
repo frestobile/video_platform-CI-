@@ -764,21 +764,21 @@
                     if (page === 'companyUpdate') {
 
                         var company_id = $("#company_id").val();
-                        location.href =_server_url + 'admin/main/'+ page + '?id=' + company_id + '&lang=ee';
+                        location.href =_server_url + 'admin/main/'+ page + '?id=' + company_id + '&lang=fi';
 
                     } else if (page === 'videoUpdate') {
 
                         var video_id = $("#VD").val();
-                        location.href =_server_url + 'admin/main/'+ page + '?VD=' + video_id + '&lang=ee';
+                        location.href =_server_url + 'admin/main/'+ page + '?VD=' + video_id + '&lang=fi';
 
                     } else if (page === 'deviceUpdate') {
 
                         var device_id = $("#device_id").val();
-                        location.href =_server_url + 'admin/main/'+ page + '?id=' + device_id + '&lang=ee';
+                        location.href =_server_url + 'admin/main/'+ page + '?id=' + device_id + '&lang=fi';
 
                     } else {
 
-                        location.href =_server_url + 'admin/main/'+ page +'?lang=ee';
+                        location.href =_server_url + 'admin/main/'+ page +'?lang=fi';
                     }
                 }
 

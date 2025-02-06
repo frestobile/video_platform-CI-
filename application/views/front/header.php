@@ -1,3 +1,4 @@
+
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
@@ -7,10 +8,6 @@
         <meta charset="utf-8" />
         <title><?=$head_name;?> | <?=APP_NAME;?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="VISERV VIDEOÜLEVAADE" name="Lihtne ja paindlik videoülevaade sõiduki seisukorrast.
-Omanik tavaliselt sõiduki alla ei satu ja töökojas ei ole mõistlik ega tihti ka võimalik klienti sõiduki seisukorraga tutvuma kutsuda. Ometigi asuvad just seal sõiduki töökorra ja ohutuse seisukohast kõige olulisemad osad. Nendes avastatud probleeme ja lahendusi tuleb tavaliselt kliendile peale ülevaatust ümber jutustada.
-Videokontroll on paindlik ja usaldusväärne lüli sõidukit hooldava ettevõtte ja kliendi vahel, mis hoiab kokku mõlema osapoole aega ning tõstab kliendi silmis teeninduse ja töökoja usaldusväärsust.
-Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodadele ning arvestatavat lisaväärtus sõiduki omanikule." />
         <meta content="Frestobile" name="HongYun" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="<?=base_url();?>assets/images/favicon.ico">
@@ -81,7 +78,7 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
                                     <a href="mailto:<?=$email;?>"><?=$email;?></a>
                                 </div>
                                 <div>
-                                    <i class="bi bi-globe align-middle me-2"></i> <a href="https://viservice.eu">https://viservice.eu</a>
+                                    <i class="bi bi-globe align-middle me-2"></i> <a href="https://viserv.fi">https://viserv.fi</a>
                                 </div>
                             </div> -->
                         </div>
@@ -89,25 +86,25 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
                             <div class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
                                 <?php if($head_lang == 'en'){ ?>
                                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name">English</span>
+                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="Header Language" height="20" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[1];?></span>
                                     </button>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url();?>assets/images/flags/es.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name">Eesti keel</span>
+                                        <img src="<?=base_url();?>assets/images/flags/fin.png" alt="Header Language" height="20" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[2];?></span>
                                     </button>
                                 <?php } ?>
                                 <div class="dropdown-menu dropdown-menu-end">
 
                                     <!-- item-->
                                     <a href="javascript:select_lang(0);" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
-                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="user-image" class="me-2 rounded-circle" height="18">
-                                        <span class="align-middle">English</span>
+                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="user-image" class="rounded-circle me-2" height="20">
+                                        <span class="align-middle"><?php echo $language[1];?></span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:select_lang(1);" class="dropdown-item notify-item language" data-lang="ee" title="Estonia">
-                                        <img src="<?=base_url();?>assets/images/flags/es.png" alt="user-image" class="me-2 rounded-circle" height="18">
-                                        <span class="align-middle">Eesti keel</span>
+                                    <a href="javascript:select_lang(1);" class="dropdown-item notify-item language" data-lang="ee" title="Suomi">
+                                        <img src="<?=base_url();?>assets/images/flags/fin.png" alt="user-image" class="rounded-circle me-2" height="20">
+                                        <span class="align-middle"><?php echo $language[2];?></span>
                                     </a>
                                 </div>
                             </div>
@@ -163,7 +160,7 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
                                 </button>
                             </div> -->
 
-                            <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                            <!-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
                                 <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle mode-layout" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="bi bi-sun align-middle fs-20"></i>
                                 </button>
@@ -172,7 +169,7 @@ Videokontroll pakub konkurentsieelist, käibe kasvu teenindustele ja töökodade
                                     <a href="#!" class="dropdown-item" data-mode="dark"><i class="bi bi-moon align-middle me-2"></i> Dark</a>
                                     <a href="#!" class="dropdown-item" data-mode="auto"><i class="bi bi-moon-stars align-middle me-2"></i> Auto (Default)</a>
                                 </div>
-                            </div>
+                            </div> -->
                             <?php if($result['company_image']) {
                                 $image = "../../uploads/company_img/".$result['company_image'];?>
                             <div class="dropdown ms-sm-3 header-item topbar-user" style="background-color: #FFF;">
