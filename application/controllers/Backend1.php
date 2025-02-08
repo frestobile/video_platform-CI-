@@ -104,20 +104,15 @@ class Backend1 extends CI_Controller{
     public function device_login(){
         $deviceID = $this->input->get('id');
         $password = $this->input->get('password');
-        $lang = [
-            ["id" => "1", "name" => "English", "code" => "en", "status" => "1"]
-        ];
 
         $result = $this->LoginModel->device_login($deviceID, $password);
         $update_data = array();
         if($result['status'] == 'success'){
             $company_data = $this->General->get_row("vis_companies", array("company_id" => $result["device_company_id"]));
-            $langData = $this->General->get_data_by_condition("vis_language", array('status' => 1));
             $data['error'] = false;
             $data['state'] = 200;
             $data['msg'] = "Logged In successfully!";
             $data["url"] = $company_data->company_picture;
-            $data['lang'] = $langData;
             $update_data['device_login_num'] = $result['device_login_num'] + 1;
             $this->DeviceModel->loginUpdate($update_data,$result['device_id']);
         }else if($result['status'] == 'block'){
@@ -125,19 +120,16 @@ class Backend1 extends CI_Controller{
             $data['state'] =  100;
             $data['msg'] = "This Device was Blocked!";
             $data['url'] = "";
-            $data['lang'] = $lang;
         }else if($result['status'] == 'password'){
             $data['error'] = true;
             $data['state'] =  300;
             $data['msg'] = "Password is Incorrect!";
             $data['url'] = "";
-            $data['lang'] = $lang;
         }else{
             $data['error'] = true;
             $data['state'] = 500;
             $data['msg'] = "This Device doesn't exist!";
             $data['url'] = "";
-            $data['lang'] = $lang;
         }
 
         echo json_encode($data);
@@ -147,21 +139,16 @@ class Backend1 extends CI_Controller{
         $response = array();
         $deviceID = $this->input->get('deviceID');
         $device_data = $this->General->get_row('vis_devices', array('deviceid' => $deviceID));
-        $lang = [
-            ["id" => "1", "name" => "English", "code" => "en", "status" => "1"]
-        ];
         if(empty($device_data)) {
             $response["error"] = true;
             $response['state'] = 400;
             $response["msg"] = "Device ID doesn't exist anymore!";
             $response['url'] = "";
-            $response['lang'] = $lang;
         } else {
             $response["error"] = false;
             $response['state'] = 200;
             $response["msg"] = "OK";
             $response['url'] = "";
-            $response['lang'] = $lang;
         }
         echo json_encode($response);
     }

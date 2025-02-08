@@ -30,8 +30,7 @@ class CompanyModel extends CI_Model{
                 'company_address' => $row->company_address,
                 'company_lang' => $row->company_lang,
                 'sms_sender' => $row->sms_sender,
-                'email_sender' => $row->email_sender,
-                'offer_active' => $row->offer_active
+                'email_sender' => $row->email_sender
             );
         }
     }

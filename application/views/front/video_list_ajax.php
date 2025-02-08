@@ -5,7 +5,7 @@
 <script src="<?=base_url();?>assets/libs/videojs/video.min.js"></script>
 
 <div class="table-responsive" id="dt_table" style="margin: -1.2rem -1.2rem;">
-	<input type="hidden" value="<?php echo $result['offer_active']; ?>" id="offer_status" />
+
 	<table class="table table-centered align-middle table-nowrap mb-0 table-hover">
 		<thead class="table-light">
 		<tr>
@@ -17,9 +17,6 @@
 			<th scope="col"><?php echo $video_table[3];?></th>
 			<th scope="col"><?php echo $video_table[2];?></th>
 			<th scope="col"><?php echo $video_table[18];?></th>
-			<?php if ($result['offer_active'] == 1) { ?>
-				<th scope="col"><?php echo $video_table[42];?></th>
-			<?php } ?>
 			<th scope="col" width="5%"><?php echo $video_table[7];?></th>
 		</tr>
 		</thead>
@@ -109,20 +106,7 @@
 				<?php } ?>
 				
 				
-				<td nowrap><?php echo date('d.m.Y H:i:s', strtotime($item['video_created_time']));?></td>
-				<?php if ($result['offer_active'] == 1) { ?>
-				<td nowrap>
-					<?php
-					if($item['status'] == 0) {
-						echo '';
-					} else if ($item['status'] == 1) {
-						echo '<span class="badge text-warning bg-warning-subtle" title="'.$video_table[49].'">'.$video_table[49].'</span>';
-					} else {
-						echo '<span class="badge text-success bg-success-subtle" title="'.$video_table[48].'">'.$video_table[48].'</span>';
-					}	
-					?>
-				</td>
-				<?php } ?>
+				<td nowrap id="created_time<?php echo $item['video_id'];?>"><?php echo date('d.m.Y H:i:s', strtotime($item['video_created_time']));?></td>
 				<td nowrap id="status<?php echo $item['video_id'];?>">
 					<?php
 					if($item['company_removed'] == 1){
@@ -244,8 +228,18 @@
 
 <div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
-		<div class="modal-content" id="video_detail_content">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myExtraLargeModalLabel"></h5>
+				<button type="button" class="btn-close close"></button>
+			</div>
 
+			<div class="modal-body" id="video_detail_content">
+			</div>
+			<!-- <div class="modal-footer">
+				<a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+				<button type="button" class="btn btn-primary ">Save changes</button>
+			</div> -->
 		</div>
 	</div>
 </div>
@@ -294,10 +288,6 @@
 	}
 
 	function edit_field(obj) {
-		$('#ok_btn').removeClass('btn-rimary');
-		$('#ok_btn').addClass('btn-success');
-		document.getElementById("ok_btn").textContent = "<?php echo $video_table[17];?>";
-		
 		$('.custom_modal input').addClass('fcs');
 		$('.custom_modal input').attr('readonly', true);
 		if(obj.id === 'edit_email') {
@@ -324,11 +314,7 @@
 			$('#video_tech_name').removeClass('fcs');
 			document.getElementById('video_tech_name').removeAttribute('readonly');
 			$("#video_tech_name").focus();
-		} else if (obj.id == 'edit_date') {
-            $('#offer_valied').removeClass('fcs');
-            document.getElementById('offer_valied').removeAttribute('readonly');
-            $("#offer_valied").focus();
-        }
+		}
 	}
 
 	function deleteVideo() {
@@ -411,23 +397,10 @@
 	}
 
 	function video_operation() {
-	    
-		if ($("#car_number").val() == '' || $("#phone_number").val() == '') {
-			Swal.fire({
-				title: "<?php echo $failed;?>",
-				text: "<?php echo $alert_content[29];?>",
-				icon: "warning",
-				customClass: {
-					confirmButton: "btn btn-primary w-xs me-2 mt-2",
-				},
-				buttonsStyling: !1,
-				showCloseButton: !0
-			});
-		} else {
-			close_view_modal();
-			$(".preloader").show();
-        	$(".preloader img").show();
-			$.post(_server_url + 'manager/edit_video_active',{
+	    close_view_modal();
+        $(".preloader").show();
+        $(".preloader img").show();
+		$.post(_server_url + 'manager/edit_video_active',{
 				'video_id': video_id,
 				'company': $("#company").val(),
 				'car_number': $("#car_number").val(),
@@ -443,15 +416,15 @@
 				var response = JSON.parse(data);
 				if(response.status !== "fail"){
 					// page_refresh();
-					window.location.reload();
-					// var show_logs = true;
-					// var show_link_log = true;
-					// var show_send_option = true;
-					// document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
-					// document.getElementById('company' + video_id).innerHTML = $("#company").val();
-					// document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
-					// document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
-					// document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
+					// window.location.reload();
+					var show_logs = true;
+					var show_link_log = true;
+					var show_send_option = true;
+					document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
+					document.getElementById('company' + video_id).innerHTML = $("#company").val();
+					document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
+					document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
+					document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
 				}else{
 					Swal.fire({
 						title: "<?php echo $failed;?>",
@@ -465,8 +438,6 @@
 					});
 				}
 			});
-		}
-        
 	}
 
 	function send_link() {
@@ -481,8 +452,7 @@
 			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
-			$('#back_btn').css('display', 'flex');
-			$('#offer_buttons').css('display', 'none');
+			$('#back_btn').css('display', 'none');
 			show_send_option = false;
 			$('#send_btn').css('display','none');
 		} else {
@@ -492,12 +462,10 @@
 			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
-			$('#back_btn').css('display', 'flex');
-			$('#offer_buttons').css('display', 'none');
+			$('#back_btn').css('display', 'none');
 			show_send_option = false;
 			$('#send_btn').css('display','none');
 		}
-		$('#offer_window').css('display', 'none');
 	}
 
 	function handleClick(cb) {
@@ -618,9 +586,7 @@
 			$('#video_element').css('display','none');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'none');
-			$('#offer_buttons').css('display', 'none');
-			
-			$('#back_btn').css('display', 'flex');
+			$('#back_btn').css('display', 'block');
 			show_link_log = false;
 			
 		} else {
@@ -631,11 +597,8 @@
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
-			$('#offer_buttons').css('display', 'block');
-			
 			show_link_log = true;
 		}
-		$('#offer_window').css('display', 'none');
 		
 	}
 
@@ -653,9 +616,7 @@
 				$('#video_element').css('display','none');
 				$('#company_logo').css('display','none');
 				$('#video_link').css('display', 'none');
-				$('#offer_buttons').css('display', 'none');
-				$('#offer_window').css('display', 'none');
-				$('#back_btn').css('display', 'flex');
+				$('#back_btn').css('display', 'block');
 				show_logs = false;
 				
 			} else {
@@ -665,8 +626,6 @@
 				$('#video_element').css('display','block');
 				$('#company_logo').css('display','none');
 				$('#video_link').css('display', 'block');
-				$('#offer_buttons').css('display', 'block');
-				$('#offer_window').css('display', 'none');
 				$('#back_btn').css('display', 'none');
 				show_logs = true;
 			}
@@ -680,7 +639,6 @@
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
-			$('#offer_buttons').css('display', 'block');
 			show_logs = true;
 			$('#send_btn').css('display','block');
 		} 
@@ -690,7 +648,6 @@
 			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
-			$('#offer_buttons').css('display', 'block');
 			$('#back_btn').css('display', 'none');
 			show_link_log = true;
 			$('#send_btn').css('display','block');
@@ -702,13 +659,21 @@
 			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
-			$('#offer_buttons').css('display', 'block');
 			$('#back_btn').css('display', 'none');
 			show_send_option = true;
 			$('#send_btn').css('display','block');
 		}
-		
 	}
+
+	$('.close').on('click', function () {
+		// playerInstance.pause();
+		$("#video_detail_content").empty();
+		close_view_modal();
+		var show_logs = true;
+		var show_link_log = true;
+		var show_send_option = true;
+
+	});
 
 	$('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name').on('change',function(){
 		$.post(_server_url + 'manager/edit_video_active',{
@@ -754,18 +719,11 @@
 
 	}
 
-	function getBack() {
-		$('#offer_window').css('display', 'none');
-		$('#offer_buttons').css('display', 'block');
-		$('#video_element').css('display','block');
-		$('#video_link').css('display', 'block');
-	}
-
 </script>
 
 <style>
 	input[readonly] {background-color: transparent;}
-	.bs-example-modal-xl input.fcs:focus{outline:none;border-color:inherit;}
+	.custom_modal input.fcs:focus{outline:none;border-color:inherit;}
 	/* #dt_table .table th, .table td {padding:  0.20rem} */
 	/* .enable-status { background-color: #26cc70; width: 40px; height: 40px;} */
 </style>

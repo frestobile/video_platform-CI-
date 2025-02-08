@@ -2,7 +2,6 @@
 .readonly_input {
     width: 80%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px
 }
-#video_detail_content input.readonly_input:focus{outline:none;border-color:inherit;}
 #video_element {
     width: 100%;
     height: auto;
@@ -16,17 +15,23 @@
     border: none !important;
 }
 video {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Alternatively, try object-fit: cover; */
-    border: none;
-}
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Alternatively, try object-fit: cover; */
+            border: none;
+        }
 </style>
 <script>
     var video_status = "<?php echo $video_data['video_uploaded'];?>";
 </script>
-<div class="row">
-    <div class="col-sm-8 m-t-10">
+
+<div class="row" style="padding: 0 20px 20px">
+    <!-- <?php var_dump($video_data);?> -->
+    <div class="col-lg-8 m-t-10 col-xs-12">
+        <input type="hidden" id="modal_video_id" value="<?php echo $video_data['video_id'];?>">
+        <div id="video_log"></div>
+        <div id="linksent_log"></div>
+
         <?php if ($video_data['video_is_show'] == 0) {?>
             <div id="company_logo">
                 <?php if($video_data['company_picture']) {?>
@@ -36,15 +41,14 @@ video {
             </div>
         <?php } else {?>
             <div id="video_element">
-                <video id="custom_player" class="video-js vjs-big-play-centered vjs-default-skin" controls preload="auto" data-setup='{ "aspectRatio":"1280:720" }' >
+                <video id="custom_player" 
+                poster="<?php echo base_url();?>uploads/thumbnails/<?php echo $video_data['video_serial'];?>-1280.jpg"
+                class="video-js vjs-big-play-centered vjs-theme-city vjs-controls-enabled vjs-workinghover vjs-v8 vjs-user-active  vjs-16-9" controls preload="auto" >
                     <source src="<?php echo base_url();?>uploads/videos/<?php echo $video_data['video_url'];?>" type="video/mp4" />
                 </video>
             </div>
             <br>
         <?php } ?>
-
-        <div id="video_log"></div>
-        <div id="linksent_log"></div>
 
         <div id="send_option">
             <div class="row m-t-10">
@@ -53,35 +57,33 @@ video {
                 </div>
             </div>
             <div class="row m-t-10">
-                <div class="col-sm-4 video-detail">
+                <div class="col-sm-4 video-detail" style="margin-left: 25px;">
                     <span><?php echo $video_table[16];?>:</span>
                 </div>
                 <div class="col-sm-6 col-xs-6">
                     <input type="text" class="fcs" id="link_phone" style="width: 60%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px">
                     <input type="checkbox" <?php if($video_data['sms_time'] == 0) echo "disabled";?> id="checkbox_phone" name="checkbox_phone" value="phone" style="margin-left: 10px" onclick="handleClick(this);">
-                    <span id="sms_count" style="margin-left: 7px; font-weight: 500;">(2)</span>
-                </div>
-                <div class="col-sm-2">
-                    <span class="btn btn-primary" id="reset_btn" style="cursor: pointer;" onclick="sms_reset();"><?php echo $video_table[40];?></span>
+                    <span id="sms_count" style="margin-left: 7px; font-weight: 500;">(<?php echo $video_data['sms_time'];?>) <?php echo $video_table[34];?></span>
                 </div>
             </div>
             <div class="row m-t-10">
-                <div class="col-sm-4 video-detail">
+                <div class="col-sm-4 video-detail" style="margin-left: 25px;">
                     <span><?php echo $video_table[4];?>:</span>
                 </div>
                 <div class="col-sm-6 col-xs-6">
                     <input type="text" class="fcs" id="link_email" style="width: 60%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px">
                     <input type="checkbox" id="checkbox_email" name="checkbox_email" value="email" style="margin-left: 10px" onclick="handleClick(this);">
+                    
                 </div>
             </div>
             <div class="row" id="option_error" style="display: none;">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-6">
-                    <span style="color: red;"><?php echo $video_table[35];?></span>
+                    <span style="color: red; margin-left:22px;"><?php echo $video_table[35];?></span>
                 </div>
                 <div class="col-sm-2"></div>
             </div>
-            <div class="row m-t-30">
+            <div class="row m-t-30" style="margin-left: 16px;">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-6">
                     <a href="javascript:void(0);" style="width:70%;" class="btn btn-success" id="link_send_btn" onclick="send_video_link();">
@@ -96,12 +98,12 @@ video {
                 <div class="col-sm-4 video-detail">
                     <span style="font-size: 20px; color: #43425D;"><?php echo $video_table[36];?>:</span>
                 </div>
-                <div class="col-sm-6" style="padding: 8px 15px;">
+                <div class="col-sm-6" style="margin-left: 22px;">
                     <span id="activate_status" style="padding: 6px 0; display: <?php if($video_data['video_is_show'] == 2) echo "block;"; else echo "none;";?>"><?php echo $video_table[38];?></span>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" style="margin-left: 16px;">
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-6">
@@ -118,20 +120,22 @@ video {
                     <button class="btn btn-primary" onclick="back();"><?php echo $video_table[29];?></button>
                 </div>
             </div>
-        </div>
 
+        </div>
         <?php if($video_data['video_is_show'] == 2) {?>
             <span id="video_link"><?php echo $video_table[12];?>: 
-                <a target='_BLANK' href="<?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=<?php echo $default_lang;?>">
-                <?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=<?php echo $default_lang;?>
+                <a target='_BLANK' href="<?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=ee">
+                <?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=ee
                 </a>
             </span>
         <?php } ?>
-
-        <span id="back_btn"><button class="btn btn-primary" onclick="back();"><?php echo $video_table[29];?></button></span>
+       
+        <span id="back_btn" style="margin-top: 25px;">
+            <button class="btn btn-primary" onclick="back();"><?php echo $video_table[29];?></button>
+        </span>
     </div>
-    <div class="col-sm-4">
-        <div class="row m-t-5">
+    <div class="col-lg-4 m-t-10 col-xs-12">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span>ID:</span>
             </div>
@@ -139,7 +143,7 @@ video {
                 <span id="video-id"><?php echo $video_data['video_id'];?></span>
             </div>
         </div>
-        <div class="row m-t-5">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[1];?>:</span>
             </div>
@@ -149,7 +153,7 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[16];?>:</span>
             </div>
@@ -160,7 +164,7 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[4];?>:</span>
             </div>
@@ -170,7 +174,7 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[3];?>:</span>
             </div>
@@ -180,37 +184,28 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[2];?>:</span>
             </div>
             <div class="col-sm-8 col-xs-8">
-                <input type="text" class="fcs readonly_input" id="ncompany" value="<?php echo $video_data['video_customer_company'];?>" readonly>
+                <input type="text" class="fcs readonly_input" id="company" value="<?php echo $video_data['video_customer_company'];?>" readonly>
                 <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="edit_company" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row m-t-10">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[5];?>:</span>
             </div>
             <div class="col-sm-8 col-xs-8">
                 <input type="text" class="fcs readonly_input" id="video_tech_name" value="<?php echo $video_data['video_tech_name'];?>" readonly>
                 <span class="mdi mdi-pencil-box-outline" onclick="edit_field(this);" id="tech_name123" style="font-size: 20px; margin: -5px 0 0 10px;"></span>
-                <!-- <span class="mdi mdi-pencil-box-outline" id="tech_name" style="visibility: hidden; height: 0"></span> -->
+                <span id="tech_name" style="visibility: hidden; height: 0"></span>
             </div>
         </div>
 
-        <!-- <div class="row m-t-5">
-            <div class="col-sm-4 col-xs-4 video-detail">
-                <span><?php echo $video_table[23];?>:</span>
-            </div>
-            <div class="col-sm-8 col-xs-8">
-                <span id="media_id"><?php echo $video_data['video_serial'];?></span>
-            </div>
-        </div> -->
-
-        <div class="row m-t-5">
+        <div class="row" style="margin-top: 0">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[18];?>:</span>
             </div>
@@ -219,7 +214,7 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[6];?>:</span>
             </div>
@@ -228,7 +223,7 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[11];?>:</span>
             </div>
@@ -242,7 +237,7 @@ video {
             <?php }?>
         </div>
 
-        <div class="row m-t-5">
+        <div class="row">
             <div class="col-sm-4 col-xs-4 video-detail">
                 <span><?php echo $video_table[28];?>:</span>
             </div>
@@ -251,66 +246,47 @@ video {
             </div>
         </div>
 
-        <div class="row m-t-5">
-            <div class="col-sm-4 col-xs-4 video-detail">
+        <div class="row">
+            <div class="col-sm-4 col-xs-4 video-detail" style="align-content: center;">
                 <span><?php echo $video_table[7];?>:</span>
             </div>
-            <div class="col-sm-8 col-xs-8" style="display: inline-flex;line-height: 20px;">
+            <div class="col-sm-8 col-xs-8" style="display: inline-flex;line-height: 30px;">
                 <div id="state">
-                <?php
-					if($video_data['company_removed'] == 1){
-						echo '<span class="badge text-danger bg-danger-subtle" title="'.$video_table[22].'">'.$video_table[22].'</span>';
-					}else if ($video_data['video_is_show'] == 0) {
-						if ($video_data['video_uploaded'] > 0) {
-                            echo '<span class="badge text-warning bg-warning-subtle" title="'.$video_table[24].'">
-                                    <span style="font-size: 15px"><span class="iconify" data-icon="ion-ios-timer" data-inline="false"></span></span>'.$video_table[24].'
-                                </span>';
-	
-						} else {
-							echo '<span class="badge text-warning bg-warning-subtle" id="title_changed'.$video_data['video_id'].'" title="'.$video_table[20].'">'.$video_table[20].'</span>';
-						}
-
-					} else if ($video_data['video_is_show'] == 1) {
-						echo '<span class="badge text-danger bg-danger-subtle" title="'.$video_table[21].'">'.$video_table[21].'</span>';
-					} else {
-                        if ($video_data['user_removed'] == 1) {
-                            echo '<span class="badge text-success bg-success-subtle" title="'.$video_table[27].'">
-                                    <span style="font-size: 15px"><span class="iconify" data-icon="dashicons:lock" data-inline="false"></span></span>'.$video_table[27].'
-                                </span>';
-                        } else {
-                            echo '<span class="badge text-success bg-success-subtle" title="'.$video_table[22].'">'.$video_table[22].'</span>';
-                        }
-
-					}?>
+                    <?php if($video_data['video_is_show'] == 0) {
+                        if ($video_data['video_uploaded'] ==1 || $video_data['video_uploaded'] == 2) {
+                        ?>
+                    <span class="badge text-warning bg-warning-subtle" title="<?=$video_table[24];?>">
+                        <span style="font-size: 15px">
+                            <span class="iconify" data-icon="ion-ios-timer" data-inline="false"></span>
+                        </span>
+                        <?=$video_table[24];?>
+                    </span>
+                        <?php } else {?>
+                            <span class="badge text-warning bg-warning-subtle" title="<?=$video_table[20];?>"><?=$video_table[20];?></span>
+                        <?php }?>
+                    <?php } else if ($video_data['video_is_show'] == 1) {?>
+                        <span class="badge text-danger bg-danger-subtle" title="<?=$video_table[21];?>"><?=$video_table[21];?></span>
+                    <?php } else {?>
+                        <span class="badge text-success bg-success-subtle" title="<?=$video_table[22];?>"><?=$video_table[22];?></span>
+                    <?php }?>
                 </div>
             </div>
         </div>
-
-        <div class="row m-t-10">
+        <div class="row m-t-30">
+        <?php if($video_data['video_is_show'] != 2) {?>
             <button class="btn video_btn btn-danger" id="delete_btn" onclick="deleteVideo()"><?php echo $video_table[13];?></button>
+        <?php }?>
         </div>
-        <input type="hidden" id="user_removed" value="<?php echo $video_data['user_removed'];?>">
         <?php if($video_data['video_is_show'] != 0) {?>
         <div class="row m-t-10">
-            <a href="javascript:void(0);" class="btn video_btn btn-success" id="send_btn" onclick="send_link()">
-            
-            <?php if ($video_data['user_removed'] == 1) {
-                echo $video_table[26];
-            } else {
-                echo $video_table[14];
-            }
-            
-            ?>
-        </a>
+            <a href="javascript:void(0);" class="btn video_btn btn-success" id="send_btn" onclick="send_link()"><?php echo $video_table[14];?></a>
         </div>
         <?php }?>
-
         <div class="row m-t-10">
             <button class="btn video_btn btn-primary" id="ok_btn" onclick="video_operation()"><?php echo $video_table[15];?></button>
         </div>
     </div>
 </div>
-
 <script src="<?=base_url();?>assets/libs/videojs/video.min.js">
     	 if (video_status > 1) {
         const player = videojs('custom_player', {
@@ -328,12 +304,14 @@ video {
 		$('#linksent_log').css('display', 'none');
 		$('#back_btn').css('display', 'none');
 		$('#send_option').css('display', 'none');
-        $("#myExtraLargeModalLabel").html("<?php echo $video_data['video_case_number'];?>");
+        $("#modal_title").html("<?php echo $video_data['video_case_number'];?>");
         
-        $.post(_server_url + 'admin/data/getCountLog', {'video_id': video_id, 'lang': lang_status},
+        $.post(_server_url + 'manager/getCountLog', {'video_id': video_id, 'lang': lang_status},
                 function (data) {
                     $(".preloader").hide();
                     $(".preloader img").hide();
+                    $('#modal_back').css('display', 'block');
+                    $('#video_preview').css('display', 'block');
                     var response = JSON.parse(data);
                     views = response.counts;
                     $('#views_num').html(views);

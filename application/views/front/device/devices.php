@@ -18,8 +18,8 @@
                 </div>
                 <div class="m-t-20">
                     <div class="table-responsive table-card">
-                        <table class="table table-centered align-middle table-nowrap mb-0 table-hover">
-		                    <thead class="table-light">
+                    <table class="table table-centered align-middle table-nowrap mb-0 table-hover">
+		<thead class="table-light">
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col"><?php echo $device_table[1];?></th>

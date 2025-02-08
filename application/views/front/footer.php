@@ -113,76 +113,41 @@
                     success:function(resp) {
                         let state = localStorage.getItem('datatable-state');
                         let initialState = state ? JSON.parse(state) : {};
-                        let table = null;
                         $(".preloader").hide();
                         $(".preloader img").hide();
                         $("#updated_list").empty();
                         $("#updated_list").html(resp.content);
-                        if ($('#offer_status').val() == "0") {
-                            table = $('#updated_list table').DataTable({
-                                "bFilter":true,
-                                "bInfo": false,
-                                "bLengthChange" : false,
-                                "pageLength": 10,
-                                "aaSorting": [],
-                                "aoColumnDefs": [
-                                    { "bSortable": false, "aTargets": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] },
-                                    { "bSearchable": true, "aTargets": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] }
-                                ],
-                                "language": {
-                                    "paginate": {
-                                        "previous": '<i class="mdi mdi-chevron-double-left"></i>',
-                                        "next": '<i class="mdi mdi-chevron-double-right"></i>'
-                                    }
-                                },
-                                "fnDrawCallback": function(oSettings) {
-                                    // if ($('#DataTables_Table_0 tr').length < 11) {
-                                    //     $('.dataTables_paginate').hide();
-                                    // } else if ($('#DataTables_Table_0 tr').length < 11)
-                                },
-                                "statedSaveParams": function(settings, data) {
-                                    localStorage.setItem('datatable-state', JSON.stringify(data));
-                                },
-                                "stateLoadParams": function(settings, data) {
-                                    if (initialState) {
-                                        // Load saved state
-                                        return initialState;
-                                    }
+                        let table = $('#updated_list table').DataTable({
+                            "bFilter":true,
+                            "bInfo": false,
+                            "bLengthChange" : false,
+                            "pageLength": 10,
+                            "aaSorting": [],
+                            "aoColumnDefs": [
+                                { "bSortable": false, "aTargets": [ 0, 1, 2, 3,4,5,6,7,8] },
+                                { "bSearchable": true, "aTargets": [ 0, 1, 2, 3,4,5,6,7,8] }
+                            ],
+                            "language": {
+                                "paginate": {
+                                    "previous": '<i class="mdi mdi-chevron-double-left"></i>',
+                                    "next": '<i class="mdi mdi-chevron-double-right"></i>'
                                 }
-                            });
-                        } else {
-                            table = $('#updated_list table').DataTable({
-                                "bFilter":true,
-                                "bInfo": false,
-                                "bLengthChange" : false,
-                                "pageLength": 10,
-                                "aaSorting": [],
-                                "aoColumnDefs": [
-                                    { "bSortable": false, "aTargets": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ] },
-                                    { "bSearchable": true, "aTargets": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ] }
-                                ],
-                                "language": {
-                                    "paginate": {
-                                        "previous": '<i class="mdi mdi-chevron-double-left"></i>',
-                                        "next": '<i class="mdi mdi-chevron-double-right"></i>'
-                                    }
-                                },
-                                "fnDrawCallback": function(oSettings) {
-                                    // if ($('#DataTables_Table_0 tr').length < 11) {
-                                    //     $('.dataTables_paginate').hide();
-                                    // } else if ($('#DataTables_Table_0 tr').length < 11)
-                                },
-                                "statedSaveParams": function(settings, data) {
-                                    localStorage.setItem('datatable-state', JSON.stringify(data));
-                                },
-                                "stateLoadParams": function(settings, data) {
-                                    if (initialState) {
-                                        // Load saved state
-                                        return initialState;
-                                    }
+                            },
+                            "fnDrawCallback": function(oSettings) {
+                                // if ($('#DataTables_Table_0 tr').length < 11) {
+                                //     $('.dataTables_paginate').hide();
+                                // } else if ($('#DataTables_Table_0 tr').length < 11)
+                            },
+                            "statedSaveParams": function(settings, data) {
+                                localStorage.setItem('datatable-state', JSON.stringify(data));
+                            },
+                            "stateLoadParams": function(settings, data) {
+                                if (initialState) {
+                                    // Load saved state
+                                    return initialState;
                                 }
-                            });
-                        }
+                            }
+                        });
 
                         table.on('page.dt', function() {
                             let info = table.page.info();
