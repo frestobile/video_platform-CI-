@@ -165,13 +165,18 @@
                 var email = $('#email').val();
                 var password = $('#password').val();
                 if (validateForm()){
-                console.log(_server_url);
                     $.post(_server_url + 'manager/can_login', {'email': email, 'password': password},
                     function (data) {
                         var result = JSON.parse(data);
                         if (result.state === "success") {
                             var idx = result.company_id;
-                            location.href = _server_url + 'manager/go_videos?id='+ idx;
+                            var lang;
+                            if(result.lang == 0) {
+                                lang = "ee";
+                            } else {
+                                lang = "en";
+                            }
+                            location.href = _server_url + 'manager/go_videos?id='+ idx + '&lang=' + lang;
                         }else if (result.state === 'block') {
                             $('p.msg-blocked').show();
                         }else if (result.state === 'password') {

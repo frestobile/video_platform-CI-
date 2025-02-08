@@ -67,11 +67,11 @@
                         </div>
                         <div class="col-lg-4">
                         <?php
-                            $lang_arr = array(
-                                0=> $language[2],
-                                1=> $language[1],
-                            );
-                        ?>
+                                $lang_arr = array(
+                                    0=> $language[2],
+                                    1=> $language[1],
+                                );
+                            ?>
                             <select class="update-lang" onchange="updateLang()">
                                 <?php 
                                     for( $idx = sizeof($lang_arr) - 1; $idx >= 0; $idx--)
@@ -121,12 +121,11 @@ function updateLang(){
     function (data) {
         $('.preloader').hide();
         var res = JSON.parse(data);
-        var lang_id = $('.update-lang').val();
         if(res.status === 'success') {
-            if (lang_id == 1) {
+            if ($('.update-lang').val() == 1) {
                 lang_status = 'en';
             } else {
-                lang_status = 'fi';
+                lang_status = 'ee';
             }
             // location.href =_server_url + 'manager/companyList?lang=' + lang_status;
             location.href =_server_url + 'manager/go_profile?id='+ company_id + '&lang=' + lang_status;

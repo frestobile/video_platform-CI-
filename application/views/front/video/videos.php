@@ -44,7 +44,7 @@
                             <span class="span_txt"><?php echo $video_table[1];?>:</span>
                         </div>
                         <div class="col-sm-8 col-xs-8">
-                            <input class="dataSectionC" onpaste="return false" id="new_client_car" name="car" type="text" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')" placeholder="<?php echo $video_table[57];?>" required>
+                            <input class="dataSectionC" id="new_client_car" name="car" type="text" required>
                             <span class="error-msg error_case"><?php echo $error_case;?></span>
                         </div>
                         <div class="col-sm-1 col-xs-1">
@@ -69,7 +69,7 @@
                             <span class="span_txt"><?php echo $video_table[4];?>:</span>
                         </div>
                         <div class="col-sm-8 col-xs-8">
-                            <input class="dataSectionC" id="new_client_email" name="email" type="email" placeholder="<?php echo $video_table[58];?>">
+                            <input class="dataSectionC" id="new_client_email" name="email" type="email">
                         </div>
                     </div>
 
@@ -171,10 +171,7 @@ function validation() {
     var company = document.getElementById("new_client_company").value;
     var car = document.getElementById("new_client_car").value;
     var emailReg = new RegExp("^([A-Za-z0-9_\\-\\.])+@");
-    if (email != '') {
-        return emailReg.test(email);
-    }
-    if ( phone === '' ||  car === '' ) {
+    if ( phone === '' ||  car === '') {
         return false;
     } else {
         return true;
@@ -226,7 +223,7 @@ $('#reportrange').daterangepicker({
 cb(start, end,range);
 
 setInterval(function(){
-    if($('.bs-example-modal-xl:visible').length == 0 && $('.custom_modal:visible').length == 0){
+    if($('.bs-example-modal-xl:visible').length == 0){
         window.location.reload();
     }
 },100000);

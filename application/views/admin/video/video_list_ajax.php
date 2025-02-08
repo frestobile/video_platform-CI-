@@ -215,10 +215,6 @@
     }
 
     function edit_field(obj) {
-        $('#ok_btn').removeClass('btn-rimary');
-		$('#ok_btn').addClass('btn-success');
-		document.getElementById("ok_btn").textContent = "<?php echo $video_table[17];?>";
-		
         $('.custom_modal input').addClass('fcs');
         $('.custom_modal input').attr('readonly', true);
 
@@ -292,19 +288,7 @@
     }
 
     function video_operation() {
-        if ($("#car_number").val() == '' || $("#phone_number").val() == '')  {
-            Swal.fire({
-                title: "<?php echo $failed;?>",
-                text: "<?php echo $alert_content[29];?>",
-                icon: "warning",
-                customClass: {
-                    confirmButton: "btn btn-primary w-xs me-2 mt-2",
-                },
-                buttonsStyling: !1,
-                showCloseButton: !0
-            });
-        } else {
-            $.post(_server_url + 'admin/main/edit_video_active',{
+        $.post(_server_url + 'admin/main/edit_video_active',{
                 'video_id': video_id,
                 'company': $("#ncompany").val(),
                 'car_number': $("#car_number").val(),
@@ -320,8 +304,8 @@
                     window.location.reload();
                 }else{
                     Swal.fire({
-                            title: "<?php echo $failed;?>",
-                            text: "<?php echo $alert_content[6];?>",
+                            title: "Failed！",
+                            text: "Something Went Wrong!",
                             icon: "warning",
                             customClass: {
                                 confirmButton: "btn btn-primary w-xs me-2 mt-2",
@@ -331,7 +315,6 @@
                         });
                 }
             });
-        }
     }
 	
     $(function () {

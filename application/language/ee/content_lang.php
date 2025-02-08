@@ -61,8 +61,7 @@ $lang['alert_content'] = array(
     25 => "Pakkumise andmed on edukalt kustutatud!",
     26 => "Kas soovid remondi pakkumise kinnitada?",
     27 => "Kinnita",
-    28 => "Tühista",
-    29 => "Car number Or Phone number can't be empty"
+    28 => "Tühista"
 );
 
 
@@ -153,9 +152,7 @@ $lang['video_table'] = array(
     53 => "Hind",
     54 => "Summa",
     55 => "KM",
-    56 => "Kokku",
-    57 => "Enter Letters & Numbers only",
-    58 => "Please include an '@' in the email address"
+    56 => "Kokku"
 );
 
 $lang['message'] = ["Videolink pole veel saadetud", "Video pole veel üles laaditud"];

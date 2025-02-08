@@ -38,7 +38,7 @@
                                     if ($head_lang == 'en'){
                                         $verify_arr = array("Not Active", "Active");
                                     } else {
-                                        $verify_arr = array("Ei ole aktiivinen", "Aktiivinen");
+                                        $verify_arr = array("Ei ole aktiivne", "Aktiivne");
                                     }
 
                                     $misverify = 0;

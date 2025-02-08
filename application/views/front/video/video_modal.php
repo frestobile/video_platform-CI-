@@ -20,7 +20,6 @@ video {
     object-fit: cover; /* Alternatively, try object-fit: cover; */
     border: none;
 }
-#video_content_data input.readonly_input:focus{outline:none;border-color:inherit;}
 </style>
 <script>
     var video_status = "<?php echo $video_data['video_uploaded'];?>";
@@ -135,8 +134,8 @@ video {
             </div>
             <?php if($video_data['video_is_show'] == 2) {?>
                 <span id="video_link"><?php echo $video_table[12];?>: 
-                    <a target='_BLANK' href="<?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=<?php echo $default_lang;?>">
-                    <?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=<?php echo $default_lang;?>
+                    <a target='_BLANK' href="<?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=ee">
+                    <?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=ee
                     </a>
                 </span>
             <?php } ?>

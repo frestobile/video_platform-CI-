@@ -7,7 +7,6 @@
 .readonly_input {
     width: 80%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px
 }
-#video_detail_content input.readonly_input:focus{outline:none;border-color:inherit;}
 </style>
 <div class="row" style="padding: 10px 20px;">
     <div class="col-sm-8 m-t-10">
@@ -106,8 +105,8 @@
 
         <?php if($video_data['video_is_show'] == 2) {?>
             <span id="video_link"><?php echo $video_table[12];?>: 
-                <a target='_BLANK' href="<?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=<?php echo $default_lang;?>">
-                <?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=<?php echo $default_lang;?>
+                <a target='_BLANK' href="<?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=ee">
+                <?php echo base_url();?>client/<?php echo $video_data['video_serial'];?>?lang=ee
                 </a>
             </span>
         <?php } ?>
