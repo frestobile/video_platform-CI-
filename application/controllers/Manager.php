@@ -69,27 +69,24 @@ class Manager extends CI_Controller{
     }
 
     public function can_login(){
-        $email = $this->input->post('email');
-        $password = md5($this->input->post('password'));
-        // $password  = $this->input->post('password');
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
 
         $data = array(
-            'pass' => $password,
             'state' => 'fail',
             'company_id' => '',
-            'lang' => 0
         );
 
-        $result = $this->LoginModel->can_login($email, $password);
+        $result = $this->LoginModel->login($email, $password);
+
         $update_data = array();
         if($result['status'] == 'success'){
             $data['state'] = "success";
             $data['company_id'] = $result['company_id'];
-            $data['lang'] = $result['company_lang'];
             $update_data['company_login_num'] = $result['company_login_num'] + 1;
             $update_data['company_login_time'] = $this->TimeModel->getting_datetime();
             $this->setCompanyInfo($result);
-            $this->CompanyModel->loginUpdate($update_data,$result['company_id']);
+            $this->CompanyModel->loginUpdate($update_data, $result['company_id']);
             
         }else if($result['status'] == 'block'){
             $data['state'] = 'block';
