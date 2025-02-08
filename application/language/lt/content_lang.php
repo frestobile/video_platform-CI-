@@ -73,7 +73,8 @@ $lang['alert_content'] = array(
  25 => "Pasiūlymo duomenys sėkmingai ištrinti!",
  26 => "Ar norite priimti remonto pasiūlymą?",
  27 => "Priimti",
- 28 => "Atšaukti"
+ 28 => "Atšaukti",
+ 29 => "Car number Or Phone number can't be empty"
 );
 
 /**
@@ -133,7 +134,7 @@ $lang['search_key'] = "Įveskite paieškos raktinį žodį";
 $lang['video_table'] = array(
  0 => "Vaizdo įrašo ID",
  1 => "Automobilio numeris",
- 2 => „Įmonė“,
+ 2 => "Įmonė",
  3 => "Vardas",
  4 => "El. paštas",
  5 => "Technikos pavadinimas",
@@ -187,7 +188,9 @@ $lang['video_table'] = array(
  53 => "Kaina",
  54 => "Suma",
  55 => "PVM",
- 56 => "Iš viso"
+ 56 => "Iš viso",
+ 57 => "Enter Letters & Numbers only",
+    58 => "Please include an '@' in the email address"
 );
 
 $lang['message'] = array(

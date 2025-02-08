@@ -70,7 +70,8 @@ $lang['alert_content'] = array(
  25 => "Piedāvājuma dati ir veiksmīgi izdzēsti!",
  26 => "Vai vēlaties pieņemt remonta piedāvājumu?",
  27 => "Pieņemt",
- 28 => "Atcelt"
+ 28 => "Atcelt",
+ 29 => "Car number Or Phone number can't be empty"
 );
 
 /**
@@ -183,7 +184,9 @@ $lang['video_table'] = array(
  53 => "Cena",
  54 => "Summa",
  55 => "PVN",
- 56 => "Kopā"
+ 56 => "Kopā",
+ 57 => "Enter Letters & Numbers only",
+    58 => "Please include an '@' in the email address"
 );
 
 $lang['message'] = array(

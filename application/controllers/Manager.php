@@ -173,9 +173,9 @@ class Manager extends CI_Controller{
         }else{
             $lang = $this->lang_code;
         }
-        var_dump($this->lang_code);
 
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['menu'] = $this->lang->line('menu');
@@ -272,6 +272,7 @@ class Manager extends CI_Controller{
             $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['menu'] = $this->lang->line('menu');
@@ -376,6 +377,7 @@ class Manager extends CI_Controller{
             $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['menu'] = $this->lang->line('menu');
@@ -513,14 +515,26 @@ class Manager extends CI_Controller{
 
         $video_data = $this->VideoModel->getFind($_POST['video_id']);
         if(!empty($video_data)){
-            $result1 = $this->VideoModel->update($data);
+            $videos = $this->VideoModel->getFindWhere(
+                array(
+                    'video_uploaded' => 0, 
+                    'video_case_number' => $_POST['car_number']
+                )
+            );
+            if (count($videos) < 2) {
+                $result1 = $this->VideoModel->update($data);
           
-            $param['customer_name'] = $_POST['name'];
-            $param['customer_email'] = $_POST['email'];
-            $param['customer_phone'] = $_POST['phone_number'];
-            $param['customer_id'] = $video_data['video_customer_id'];
-
-            $result2 = $this->CustomerModel->update($param);
+                $param['customer_name'] = $_POST['name'];
+                $param['customer_email'] = $_POST['email'];
+                $param['customer_phone'] = $_POST['phone_number'];
+                $param['customer_id'] = $video_data['video_customer_id'];
+    
+                $result2 = $this->CustomerModel->update($param);
+            } else {
+                $result1 = false;
+                $result2 = false;
+            }
+            
         }else{
             $result1 = false;
             $result2 = false;
@@ -646,7 +660,7 @@ class Manager extends CI_Controller{
         $rows = $this->VideoModel->getFind($_POST['video_id']);
 
         $config_data               =  $this->ConfigModel->get_all_config_data();
-        $config_data['video_url']  =  base_url().'client/'.$rows['video_serial'].'?lang=ee';
+        $config_data['video_url']  =  base_url().'client/'.$rows['video_serial'].'?lang='.$this->lang_code;
         
         $data['video_id']          =  $_POST['video_id'];
         $data['video_is_show']     =  2;
@@ -1083,6 +1097,7 @@ class Manager extends CI_Controller{
             $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['video_table'] = $this->lang->line('video_table');

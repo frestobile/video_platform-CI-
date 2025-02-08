@@ -82,7 +82,8 @@ $lang['alert_content'] = array(
     25 => "Offer data has been deleted successfully!",
     26 => "Do you want to accept the repair offer?",
     27 => "Accept",
-    28 => "Cancel"
+    28 => "Cancel",
+    29 => "Car number Or Phone number can't be empty"
 );
 
 /**
@@ -195,7 +196,9 @@ $lang['video_table'] = array(
     53 => "Price",
     54 => "Sum",
     55 => "VAT",
-    56 => "Total"
+    56 => "Total",
+    57 => "Enter Letters & Numbers only",
+    58 => "Please include an '@' in the email address"
 );
 
 $lang['message'] = array(

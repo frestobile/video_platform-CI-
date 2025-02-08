@@ -370,3 +370,16 @@
 .edit-input {
   display: none;
 }
+@media (min-width: 992px){
+  .navbar.navbar-static-top .container-fluid.m-0 #top .topnav {margin: 10px 0 3px 0;}
+  .for-admin { padding: 27px }
+  .view_page .container {width: 1480px;}
+  }
+.status_box {border-bottom: none;}
+#video_link {margin-top: 10px}
+.video_btn{width: 60%; margin: auto;}
+
+#updated_list .table-responsive .dataTables_filter input[type="search"] {
+  border: solid 1px #dcdcdc;
+  border-radius: 3px;
+}

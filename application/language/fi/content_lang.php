@@ -61,7 +61,8 @@ $lang['alert_content'] = array(
     25 => "Tarjouksen tiedot poistettu onnistuneesti!",
     26 => "Haluatko vahvistaa korjaustarjouksen?",
     27 => "Vahvista",
-    28 => "Peruuta"
+    28 => "Peruuta",
+    29 => "Car number Or Phone number can't be empty"
 );
 /* Signin */
 $lang['signin'] = array(
@@ -150,7 +151,9 @@ $lang['video_table'] = array(
     53 => "Hinta",
     54 => "Summa",
     55 => "ALV",
-    56 => "Yhteensä"
+    56 => "Yhteensä",
+    57 => "Enter Letters & Numbers only",
+    58 => "Please include an '@' in the email address"
 );
 
 $lang['message'] = ["Videolinkkiä ei ole vielä lähetetty", "Videota ei ole vielä ladattu"];
