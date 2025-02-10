@@ -2,6 +2,7 @@
 .readonly_input {
     width: 80%; border: none; border-bottom: 1px solid #d1d1d1; line-height:10px
 }
+#video_detail_content input.readonly_input:focus{outline:none;border-color:inherit;}
 #video_element {
     width: 100%;
     height: auto;

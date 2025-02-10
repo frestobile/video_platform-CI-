@@ -288,6 +288,10 @@
 	}
 
 	function edit_field(obj) {
+		$('#ok_btn').removeClass('btn-rimary');
+		$('#ok_btn').addClass('btn-success');
+		document.getElementById("ok_btn").textContent = "<?php echo $video_table[17];?>";
+		
 		$('.custom_modal input').addClass('fcs');
 		$('.custom_modal input').attr('readonly', true);
 		if(obj.id === 'edit_email') {
@@ -397,47 +401,60 @@
 	}
 
 	function video_operation() {
-	    close_view_modal();
-        $(".preloader").show();
-        $(".preloader img").show();
-		$.post(_server_url + 'manager/edit_video_active',{
-				'video_id': video_id,
-				'company': $("#company").val(),
-				'car_number': $("#car_number").val(),
-				'name': $("#client_name").val(),
-				'email': $("#client_email").val(),
-				'phone_number': $("#phone_number").val(),
-				'customer_id': $("#customer_id").val(),
-				'video_tech_name': $("#video_tech_name").val(),
-			},
-			function (data) {
-				$(".preloader").hide();
-        		$(".preloader img").hide();
-				var response = JSON.parse(data);
-				if(response.status !== "fail"){
-					// page_refresh();
-					// window.location.reload();
-					var show_logs = true;
-					var show_link_log = true;
-					var show_send_option = true;
-					document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
-					document.getElementById('company' + video_id).innerHTML = $("#company").val();
-					document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
-					document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
-					document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
-				}else{
-					Swal.fire({
-						title: "<?php echo $failed;?>",
-						text: "<?php echo $alert_content[6];?>",
-						icon: "warning",
-						customClass: {
-							confirmButton: "btn btn-primary w-xs me-2 mt-2",
-						},
-						buttonsStyling: !1,
-						showCloseButton: !0
-					});
-				}
+		if ($("#car_number").val() == '' || $("#phone_number").val() == '') {
+			Swal.fire({
+				title: "<?php echo $failed;?>",
+				text: "<?php echo $alert_content[29];?>",
+				icon: "warning",
+				customClass: {
+					confirmButton: "btn btn-primary w-xs me-2 mt-2",
+				},
+				buttonsStyling: !1,
+				showCloseButton: !0
 			});
+		} else {
+			close_view_modal();
+			$(".preloader").show();
+			$(".preloader img").show();
+			$.post(_server_url + 'manager/edit_video_active',{
+					'video_id': video_id,
+					'company': $("#company").val(),
+					'car_number': $("#car_number").val(),
+					'name': $("#client_name").val(),
+					'email': $("#client_email").val(),
+					'phone_number': $("#phone_number").val(),
+					'customer_id': $("#customer_id").val(),
+					'video_tech_name': $("#video_tech_name").val(),
+				},
+				function (data) {
+					$(".preloader").hide();
+					$(".preloader img").hide();
+					var response = JSON.parse(data);
+					if(response.status !== "fail"){
+						// page_refresh();
+						window.location.reload();
+						// var show_logs = true;
+						// var show_link_log = true;
+						// var show_send_option = true;
+						// document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
+						// document.getElementById('company' + video_id).innerHTML = $("#company").val();
+						// document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
+						// document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
+						// document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
+					}else{
+						Swal.fire({
+							title: "<?php echo $failed;?>",
+							text: "<?php echo $alert_content[6];?>",
+							icon: "warning",
+							customClass: {
+								confirmButton: "btn btn-primary w-xs me-2 mt-2",
+							},
+							buttonsStyling: !1,
+							showCloseButton: !0
+						});
+					}
+				});
+			}
 	}
 
 	function send_link() {
@@ -675,30 +692,30 @@
 
 	});
 
-	$('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name').on('change',function(){
-		$.post(_server_url + 'manager/edit_video_active',{
-			'video_id': video_id,
-			'company': $("#company").val(),
-			'car_number': $("#car_number").val(),
-			'name': $("#client_name").val(),
-			'email': $("#client_email").val(),
-			'phone_number': $("#phone_number").val(),
-			'customer_id': $("#customer_id").val(),
-			'video_tech_name': $("#video_tech_name").val(),
-		},
-		function (data) {
-				var response = JSON.parse(data);
-				if(response.status !== "fail"){
-					document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
-					document.getElementById('company' + video_id).innerHTML = $("#company").val();
-					document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
-					document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
-					document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
-				}else{
+	// $('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name').on('change',function(){
+	// 	$.post(_server_url + 'manager/edit_video_active',{
+	// 		'video_id': video_id,
+	// 		'company': $("#company").val(),
+	// 		'car_number': $("#car_number").val(),
+	// 		'name': $("#client_name").val(),
+	// 		'email': $("#client_email").val(),
+	// 		'phone_number': $("#phone_number").val(),
+	// 		'customer_id': $("#customer_id").val(),
+	// 		'video_tech_name': $("#video_tech_name").val(),
+	// 	},
+	// 	function (data) {
+	// 			var response = JSON.parse(data);
+	// 			if(response.status !== "fail"){
+	// 				document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
+	// 				document.getElementById('company' + video_id).innerHTML = $("#company").val();
+	// 				document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
+	// 				document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
+	// 				document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
+	// 			}else{
 					
-				}
-			});
-	});
+	// 			}
+	// 		});
+	// });
 
 	function checkVideo(obj, idx) {
 		$(".preloader").show();
@@ -723,7 +740,7 @@
 
 <style>
 	input[readonly] {background-color: transparent;}
-	.custom_modal input.fcs:focus{outline:none;border-color:inherit;}
+	#video_detail_content input.fcs:focus{outline:none;border-color:inherit;}
 	/* #dt_table .table th, .table td {padding:  0.20rem} */
 	/* .enable-status { background-color: #26cc70; width: 40px; height: 40px;} */
 </style>
