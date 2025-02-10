@@ -492,14 +492,25 @@ class Manager extends CI_Controller{
 
         $video_data = $this->VideoModel->getFind($_POST['video_id']);
         if(!empty($video_data)){
-            $result1 = $this->VideoModel->update($data);
-          
-            $param['customer_name'] = $_POST['name'];
-            $param['customer_email'] = $_POST['email'];
-            $param['customer_phone'] = $_POST['phone_number'];
-            $param['customer_id'] = $video_data['video_customer_id'];
+            $videos = $this->VideoModel->getFindWhere(
+                array(
+                    'video_uploaded' => 0, 
+                    'video_case_number' => $_POST['car_number']
+                ), $data['video_id']
+            );
+            if (count($videos) == 0) {
+                $result1 = $this->VideoModel->update($data);
+                
+                $param['customer_name'] = $_POST['name'];
+                $param['customer_email'] = $_POST['email'];
+                $param['customer_phone'] = $_POST['phone_number'];
+                $param['customer_id'] = $video_data['video_customer_id'];
 
-            $result2 = $this->CustomerModel->update($param);
+                $result2 = $this->CustomerModel->update($param);
+            } else {
+                $result1 = false;
+                $result2 = false;
+            }
         }else{
             $result1 = false;
             $result2 = false;
