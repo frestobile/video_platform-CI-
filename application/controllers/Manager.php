@@ -77,7 +77,7 @@ class Manager extends CI_Controller{
             'company_id' => '',
         );
 
-        $result = $this->LoginModel->login($email, $password);
+        $result = $this->LoginModel->can_login($email, $password);
 
         $update_data = array();
         if($result['status'] == 'success'){
@@ -516,9 +516,9 @@ class Manager extends CI_Controller{
                 array(
                     'video_uploaded' => 0, 
                     'video_case_number' => $_POST['car_number']
-                )
+                ), $data['video_id']
             );
-            if (count($videos) < 2) {
+            if (count($videos) == 0) {
                 $result1 = $this->VideoModel->update($data);
           
                 $param['customer_name'] = $_POST['name'];

@@ -710,30 +710,30 @@
 		
 	}
 
-	$('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name').on('change',function(){
-		$.post(_server_url + 'manager/edit_video_active',{
-			'video_id': video_id,
-			'company': $("#company").val(),
-			'car_number': $("#car_number").val(),
-			'name': $("#client_name").val(),
-			'email': $("#client_email").val(),
-			'phone_number': $("#phone_number").val(),
-			'customer_id': $("#customer_id").val(),
-			'video_tech_name': $("#video_tech_name").val(),
-		},
-		function (data) {
-				var response = JSON.parse(data);
-				if(response.status !== "fail"){
-					document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
-					document.getElementById('company' + video_id).innerHTML = $("#company").val();
-					document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
-					document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
-					document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
-				}else{
+	// $('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name').on('change',function(){
+	// 	$.post(_server_url + 'manager/edit_video_active',{
+	// 		'video_id': video_id,
+	// 		'company': $("#company").val(),
+	// 		'car_number': $("#car_number").val(),
+	// 		'name': $("#client_name").val(),
+	// 		'email': $("#client_email").val(),
+	// 		'phone_number': $("#phone_number").val(),
+	// 		'customer_id': $("#customer_id").val(),
+	// 		'video_tech_name': $("#video_tech_name").val(),
+	// 	},
+	// 	function (data) {
+	// 			var response = JSON.parse(data);
+	// 			if(response.status !== "fail"){
+	// 				document.getElementById('car_number' + video_id).innerHTML = $("#car_number").val();
+	// 				document.getElementById('company' + video_id).innerHTML = $("#company").val();
+	// 				document.getElementById('client_name' + video_id).innerHTML = $("#client_name").val();
+	// 				document.getElementById('client_email' + video_id).innerHTML = $("#client_email").val();
+	// 				document.getElementById('user_phone' + video_id).innerHTML = $("#phone_number").val();
+	// 			}else{
 					
-				}
-			});
-	});
+	// 			}
+	// 		});
+	// });
 
 	function checkVideo(obj, idx) {
 		$(".preloader").show();

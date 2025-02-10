@@ -648,18 +648,18 @@
 		}
 	}
 
-    $('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name, #ncompany').on('change',function(){
-        $.post(_server_url + 'admin/main/edit_video_active',{
-            'video_id': video_id,
-            'company': $("#ncompany").val(),
-            'car_number': $("#car_number").val(),
-            'name': $("#client_name").val(),
-            'email': $("#client_email").val(),
-            'phone_number': $("#phone_number").val(),
-            'customer_id': $("#customer_id").val(),
-            'video_tech_name': $("#video_tech_name").val()
-        });
-    });
+    // $('#car_number, #company, #client_name, #client_email, #phone_number, #video_tech_name, #ncompany').on('change',function(){
+    //     $.post(_server_url + 'admin/main/edit_video_active',{
+    //         'video_id': video_id,
+    //         'company': $("#ncompany").val(),
+    //         'car_number': $("#car_number").val(),
+    //         'name': $("#client_name").val(),
+    //         'email': $("#client_email").val(),
+    //         'phone_number': $("#phone_number").val(),
+    //         'customer_id': $("#customer_id").val(),
+    //         'video_tech_name': $("#video_tech_name").val()
+    //     });
+    // });
 
     setInterval(function(){
         if($('.bs-example-modal-xl:visible').length == 0){
