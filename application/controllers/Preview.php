@@ -52,9 +52,7 @@ class Preview extends CI_Controller {
 	            $company_data = $this->CompanyModel->get_by_id($row['video_company_id']);
 	            $customer_data = $this->CustomerModel->get_by_id($row['video_customer_id']);
 
-
 	            $data['video_data'] = $row;
-                $data['offer_data'] = $this->OfferModel->getOfferByVideoId($row->video_id);
 	            $data['company_data'] = $company_data;
 	            $data['customer_data'] = $customer_data;
 

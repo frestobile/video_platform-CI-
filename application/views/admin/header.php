@@ -67,7 +67,7 @@
                                     <i class="bi bi-envelope align-middle me-2"></i> <a href="mailto:<?=$email;?>"><?=$email;?></a>
                                 </div>
                                 <div>
-                                    <i class="bi bi-globe align-middle me-2"></i> <a href="https://viserv.fi">https://viserv.fi</a>
+                                    <i class="bi bi-globe align-middle me-2"></i> <a href="https://viservice.eu">https://viservice.eu</a>
                                 </div>
                             </div> -->
                         </div>
@@ -75,25 +75,25 @@
                             <div class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
                                 <?php if($head_lang == 'en'){ ?>
                                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[1];?></span>
+                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name">English</span>
                                     </button>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url();?>assets/images/flags/fi.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[2];?></span>
+                                        <img src="<?=base_url();?>assets/images/flags/es.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name">Eesti keel</span>
                                     </button>
                                 <?php } ?>
                                 <div class="dropdown-menu dropdown-menu-end">
 
                                     <!-- item-->
-                                    <a href="javascript:switch_langugage(0);" class="dropdown-item notify-item language py-2">
+                                    <a href="javascript:switch_langugage(0);" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
                                         <img src="<?=base_url();?>assets/images/flags/us.png" alt="user-image" class="me-2 rounded-circle" height="18">
-                                        <span class="align-middle"><?php echo $language[1];?></span>
+                                        <span class="align-middle">English</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:switch_langugage(1);" class="dropdown-item notify-item language">
-                                        <img src="<?=base_url();?>assets/images/flags/fi.png" alt="user-image" class="me-2 rounded-circle" height="18">
-                                        <span class="align-middle"><?php echo $language[2];?></span>
+                                    <a href="javascript:switch_langugage(1);" class="dropdown-item notify-item language" data-lang="sp" title="Estonia">
+                                        <img src="<?=base_url();?>assets/images/flags/es.png" alt="user-image" class="me-2 rounded-circle" height="18">
+                                        <span class="align-middle">Eesti keel</span>
                                     </a>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                                 </button>
                             </div> -->
 
-                            <!-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                            <div class="dropdown topbar-head-dropdown ms-1 header-item">
                                 <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle mode-layout" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="bi bi-sun align-middle fs-20"></i>
                                 </button>
@@ -158,7 +158,7 @@
                                     <a href="#!" class="dropdown-item" data-mode="dark"><i class="bi bi-moon align-middle me-2"></i> Dark</a>
                                     <a href="#!" class="dropdown-item" data-mode="auto"><i class="bi bi-moon-stars align-middle me-2"></i> Auto (Default)</a>
                                 </div>
-                            </div> -->
+                            </div>
 
                             
 

@@ -29,25 +29,19 @@ class General extends CI_Model {
         return $query->num_rows();
     }
 
-    //get data from tables by condition
-    function get_data_by_condition($tb_name, $cond) {
-        $query = $this->db->get_where($tb_name, $cond);
-        return $query->result_array();
-    }
-
     //get one row from table
     function get_row($tb_name, $cond) {
         $query = $this->db->get_where($tb_name, $cond);
         return $query->row();
     }
-    
+
     //get all rows
     function get_all($tb_name, $order) {
         if ($order != "no") {
             $this->db->order_by($order, 'desc');
         }
         $query = $this->db->get($tb_name);
-        return $query->result_array();
+        return $query->result();
     }
 
     function get_all_reverse($tb_name, $order) {

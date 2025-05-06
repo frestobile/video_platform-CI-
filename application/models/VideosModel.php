@@ -119,13 +119,14 @@ class VideosModel extends CI_Model{
         return $result;
     }
 
-    public function getFindWhere($data = null, $order_fld = null, $order_way = 'asc'){
+    public function getFindWhere($data = null, $id = null, $order_fld = null, $order_way = 'asc'){
         $result_arr = array();
         try {
             $this->db->from($this->dbtable);
             if($order_fld == null) $order_fld = $this->created_at;
             $this->db->order_by($order_fld, $order_way);
             if($data)  $this->db->where($data);
+            if($id) $this->db->where('video_id !=', $id);
             $query = $this->db->get();
             
             log_message('info', 'VideosModel->getFindWhere result:');

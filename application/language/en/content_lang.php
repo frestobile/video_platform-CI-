@@ -318,7 +318,7 @@ $lang['error_company'] = array(
 $lang['language'] = array(
     0 => "Select a language", 
     1 => "English", 
-    2 => "Finnish"
+    2 => "Estonian"
 );
 
 $lang['active'] = array(

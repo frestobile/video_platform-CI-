@@ -49,9 +49,9 @@
                                 <?php }?>
                             </div>
                         </div>
-      </div>
-                        </div>
-                  </div>
+                    </div>
+                </div>
+            </div>
             <!-- /.container-fluid -->
         </nav>
         <!-- /.navbar -->

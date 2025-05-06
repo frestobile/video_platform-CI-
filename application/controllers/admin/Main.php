@@ -145,8 +145,6 @@ class Main extends CI_Controller {
         $this->load->model('AdminModel');
         
         $data['user_data'] = json_decode($this->session->userdata('admin'),true);
-        $data['lang_data'] = $this->General->get_all("vis_language", "no");
-        // $data['lang_data'] = $this->General->get_row("vis_language", array('status'=> 1));
         $this->checkLogin();
 
         if (isset($_GET['lang'])){
@@ -335,6 +333,7 @@ class Main extends CI_Controller {
         $data['email'] = $this->config_data['from_mail'];
         $data['page_name'] = 'addCompany';
         $data['user'] = $this->getAdminInfo();
+        $data['company_data'] = "";
 
         $this->load->view('admin/header',$data);
         $this->load->view('admin/companies/add_company',$data);
