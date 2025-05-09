@@ -11,6 +11,4 @@ if (!defined('BASEPATH'))
         $config['smtp_crypto'] = getenv('EMAIL_CRYPTO');
         $config['crlf'] = '\r\n';
         $config['newline']   = "\r\n";
-
-
 ?>
