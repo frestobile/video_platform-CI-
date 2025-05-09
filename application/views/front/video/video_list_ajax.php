@@ -229,7 +229,7 @@
 					<div class="row m-t-35 m-b-20">
 						<div class="col-sm-3"></div>
 						<div class="col-sm-4 col-xs-6">
-							<input type="button" value="<?php echo $video_table[17];?>" class="btn btn-primary style="width: 150px" onclick="saveNewVideo();">
+							<input type="button" value="<?php echo $video_table[17];?>" class="btn btn-primary" style="width: 150px" onclick="saveNewVideo();">
 						</div>
 						<div class="col-sm-4 col-xs-6">
 							<input type="button" value="<?php echo $video_table[19];?>" class="btn btn-dark" style="width: 150px" onclick="close_view_modal();">

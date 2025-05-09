@@ -424,11 +424,11 @@ class Manager extends CI_Controller{
 
         $case = isset($_POST['car'])? $_POST['car']: "";
         $customer_phone = $_POST['phone'];
-        if (str_starts_with($customer_phone, "0")) {
+        // if (str_starts_with($customer_phone, "0")) {
             $cond['customer_phone'] = $customer_phone;
-        } else {
-            $cond['customer_phone'] = "0".$customer_phone;
-        }
+        // } else {
+            // $cond['customer_phone'] = "0".$customer_phone;
+        // }
 
 
         $cond['customer_name'] = isset($_POST['name'])? $_POST['name']: "";

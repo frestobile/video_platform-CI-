@@ -21,3 +21,4 @@ uploads/*
 .vscode/
 index.php
 *.sql
+*.env
