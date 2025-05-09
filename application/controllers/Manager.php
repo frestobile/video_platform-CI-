@@ -625,7 +625,13 @@ class Manager extends CI_Controller{
         $this->email->reply_to($video_data['company_email']);
         $this->email->subject($subject);
         $this->email->message($mesg);
-        $this->email->send();
+        $status = $this->email->send();
+        if ($status) {
+            return true;
+
+        } else {
+            echo $this->email->print_debugger();
+        }
     }
 
     public function send_video(){
@@ -679,16 +685,14 @@ class Manager extends CI_Controller{
                     $data['sms_time'] = $rows['sms_time'];
                 }
             }
-        } else {
+
             $status = true;
         }
 
-        // var_dump($sms_status['success']);
-        // exit();
-
         if($_POST['email_state'] == 1) {
             $cond['email'] = $_POST['email'];
-            $this->send_email($config_data, $rows, $_POST);
+
+            $status = $this->send_email($config_data, $rows, $_POST);
         } 
         $this->General->insert_new('vis_video_link', $cond);
         if($status && $this->VideoModel->update($data))
@@ -697,6 +701,28 @@ class Manager extends CI_Controller{
             $res['status'] = "fail";
         
         echo json_encode($res);
+    }
+
+    public function env_debug() {
+        echo "<h2>Loaded .env Variables</h2><pre>";
+
+        echo "=== getenv() values ===\n";
+        $keys = ['EMAIL_PROTOCOL', 'EMAIL_HOST', 'EMAIL_PORT', 'EMAIL_USER', 'EMAIL_PASS'];
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (getenv($key) ?: '❌ NOT SET') . "\n";
+        }
+
+        echo "\n=== \$_ENV values ===\n";
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (isset($_ENV[$key]) ? $_ENV[$key] : '❌ NOT SET') . "\n";
+        }
+
+        echo "\n=== \$_SERVER values ===\n";
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (isset($_SERVER[$key]) ? $_SERVER[$key] : '❌ NOT SET') . "\n";
+        }
+
+        echo "</pre>";
     }
 
     public function companyUpdate(){
