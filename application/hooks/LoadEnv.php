@@ -14,9 +14,10 @@ class LoadEnv {
             $key = trim($key);
             $value = trim($value);
 
-            putenv("$key=$value");   // ✅ visible to getenv()
+            putenv("$key=$value"); 
             $_ENV[$key] = $value;
             $_SERVER[$key] = $value;
         }
     }
+
 }

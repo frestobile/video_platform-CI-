@@ -16,5 +16,4 @@ $hook['pre_system'][] = array(
     'function' => 'initializeEnv',
     'filename' => 'LoadEnv.php',
     'filepath' => 'hooks',
-    // 'params'   => array()
 );

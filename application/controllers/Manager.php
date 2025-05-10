@@ -20,6 +20,7 @@ class Manager extends CI_Controller{
         $this->load->model('TimeModel');
         $this->load->helper('directory');
         $this->load->helper('url');
+        $this->load->library('email');
 
         $company = json_decode($this->session->company!=null ? $this->session->company: '', true);
         
@@ -646,13 +647,39 @@ class Manager extends CI_Controller{
         $this->email->reply_to($video_data['company_email']);
         $this->email->subject($subject);
         $this->email->message($mesg);
-        $this->email->send();
+        $status = $this->email->send();
+        if ($status) {
+            return true;
+        } else {
+            // echo $this->email->print_debugger();
+            return false;
+        }
+    }
+
+    public function env_debug() {
+        echo "<h2>Loaded .env Variables</h2><pre>";
+
+        echo "=== getenv() values ===\n";
+        $keys = ['EMAIL_PROTOCOL', 'EMAIL_HOST', 'EMAIL_PORT', 'EMAIL_USER', 'EMAIL_PASS'];
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (getenv($key) ?: '❌ NOT SET') . "\n";
+        }
+
+        echo "\n=== \$_ENV values ===\n";
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (isset($_ENV[$key]) ? $_ENV[$key] : '❌ NOT SET') . "\n";
+        }
+
+        echo "\n=== \$_SERVER values ===\n";
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (isset($_SERVER[$key]) ? $_SERVER[$key] : '❌ NOT SET') . "\n";
+        }
+
+        echo "</pre>";
     }
 
     public function send_video(){
         $this->checkLogin();
-
-        $this->load->library('email');
 
         $rows = $this->VideoModel->getFind($_POST['video_id']);
 
@@ -714,7 +741,7 @@ class Manager extends CI_Controller{
 
         if($_POST['email_state'] == 1) {
             $cond['email'] = $_POST['email'];
-            $this->send_email($config_data, $rows, $_POST);
+            $status = $this->send_email($config_data, $rows, $_POST);
         } 
         $this->General->insert_new('vis_video_link', $cond);
         if($status && $this->VideoModel->update($data))
