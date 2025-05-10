@@ -630,7 +630,8 @@ class Manager extends CI_Controller{
             return true;
 
         } else {
-            echo $this->email->print_debugger();
+            // echo $this->email->print_debugger();
+            return false;
         }
     }
 
