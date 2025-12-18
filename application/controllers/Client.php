@@ -10,6 +10,7 @@ class Client extends CI_Controller {
         $this->load->model('front/VideoModel');
         $this->load->model('front/CompanyModel');
         $this->load->model('front/CustomerModel');
+        $this->load->model('front/OfferModel');
         $this->load->model('GlobalModel');
         $this->load->model('TimeModel');
         
@@ -28,6 +29,7 @@ class Client extends CI_Controller {
         $data['failed'] = $this->lang->line('failed');
         $data['determine'] = $this->lang->line('determine');
         $data['alert_content'] = $this->lang->line('alert_content');
+        $data['video_table'] = $this->lang->line('video_table');
 
         if (!empty($param)){
             $row = $this->VideoModel->is_video_exist($param);
@@ -46,6 +48,7 @@ class Client extends CI_Controller {
                         $customer_data = $this->CustomerModel->get_by_id($row['video_customer_id']);
 
                         $data['video_data'] = $row;
+                        $data['offer_data'] = $this->OfferModel->getOfferByVideoId($row['video_id']);
                         $data['company_data'] = $company_data;
                         $data['customer_data'] = $customer_data;
                         $this->load->view('front/videoView', $data);

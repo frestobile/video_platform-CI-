@@ -165,6 +165,7 @@
                 var email = $('#email').val();
                 var password = $('#password').val();
                 if (validateForm()){
+                console.log(_server_url);
                     $.post(_server_url + 'manager/can_login', {'email': email, 'password': password},
                     function (data) {
                         var result = JSON.parse(data);

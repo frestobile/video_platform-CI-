@@ -19,6 +19,7 @@ class Data extends CI_Controller {
         parent::__construct();
         $this->load->model('TimeModel');
         $this->load->model('GlobalModel');
+        $this->load->model('front/General');
         $this->load->helper('url');
         $this->load->helper('directory');
     }
@@ -117,10 +118,10 @@ class Data extends CI_Controller {
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path1 = $uploadFileDir . $fileName;
+                $dest_path1 = $uploadFileDir . $_POST['company_name'].'_favicon.'.$fileExtension;
     
                 if(move_uploaded_file($tempPath1, $dest_path1)) {
-                    $cond['favicon'] = $fileName;
+                    $cond['favicon'] = $_POST['company_name'].'_favicon.'.$fileExtension;
                 } else {
                     $cond['favicon'] = null;
                 }
@@ -138,7 +139,7 @@ class Data extends CI_Controller {
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path2 = $uploadFileDir . $fileName;
+                $dest_path2 = $uploadFileDir . $_POST['company_name'].'_preview.'.$fileExtension;
     
                 if(move_uploaded_file($tempPath2, $dest_path2)) {
                     $cond['preview_image'] = $fileName;
@@ -159,7 +160,7 @@ class Data extends CI_Controller {
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
                 $uploadFileDir = $this->url_companyimg;
-                $dest_path3 = $uploadFileDir . $fileName;
+                $dest_path3 = $uploadFileDir . $_POST['company_name'].'_logo.'.$fileExtension;
     
                 if(move_uploaded_file($tempPath3, $dest_path3)) {
                     $cond['company_picture'] = $fileName;
@@ -181,6 +182,7 @@ class Data extends CI_Controller {
         $cond['company_lang'] = $_POST['company_language'];
         $cond['email_sender'] = $_POST['email_sender'];
         $cond['sms_sender']  = $_POST['sms_sender'];
+        $cond['offer_active'] = $_POST['offer_active'];
 
         $company_email = $_POST['company_email'];
         $state = $this->CompaniesModel->exist($company_email);
@@ -218,6 +220,17 @@ class Data extends CI_Controller {
         echo json_encode($ret);
     }
 
+    public function languageUpdate(){
+        $this->checkLogin();
+        $data['status'] = $_POST['status'];
+        $cond['id'] = $_POST['id'];
+        if($this->General->update("vis_language",$data, $cond))
+            $ret['response'] = "SUCCESS";
+        else
+            $ret['response'] = "FAIL";
+        echo json_encode($ret);
+    }
+
     public function companyUpdate(){
         $this->checkLogin();
         $this->load->model('CompaniesModel');
@@ -233,6 +246,7 @@ class Data extends CI_Controller {
         $cond['company_lang']  = $_POST['company_language'];
         $cond['sms_sender']  = $_POST['sms_sender'];
         $cond['email_sender']  = $_POST['email_sender'];
+        $cond['offer_active'] = $_POST['offer_active'];
 
         $data['status'] = "";
         $data['image_url'] = "";

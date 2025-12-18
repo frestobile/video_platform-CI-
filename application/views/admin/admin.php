@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-xl-6">
         <div class="card">
             <div class="card-header border-0 align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1"><?php echo $menu[6];?></h4>
@@ -44,6 +44,52 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header border-0 align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1"><?php echo $lang_setting[0];?></h4>
+            </div>
+            <div class="card-body p-30">
+                <div class="table-responsive table-card">
+                    <table class="table table-centered align-middle table-nowrap mb-0 table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col"><?php echo $lang_setting[1];?></th>
+                                <th scope="col"><?php echo $lang_setting[2];?></th>
+                                <th scope="col"><?php echo $lang_setting[3];?></th>
+                                <th scope="col"><?php echo $lang_setting[4];?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $idx = 1;
+                            foreach($lang_data as $item) {
+                               
+                                $verify_arr = array($lang_setting[6], $lang_setting[5]);
+
+                                $misverify = 0;
+                                if ($item['status'] == 0) $misverify = 1;
+                                ?>
+                                <tr>
+                                    <td scope="row"><?=$idx++;?></td>
+                                    <td id=""><?php echo $item['name'];?></td>
+                                    <td id=""><?php echo $item['code'];?></td>
+                                    <td id=""><?php echo $verify_arr[$item['status']];?></td>
+                                    <td nowrap>
+                                        <a href="#" onclick="operation(<?php echo $item['id'];?>, <?php echo $misverify; ?>);"><?=$verify_arr[$misverify];?></a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -99,6 +145,29 @@ function adminAdd() {
             processData: false
         });
     }
+}
+
+function operation(id, status) {
+    $('.preloader').show(); 
+    $.post(_server_url + 'admin/Data/languageUpdate', {'id': id, 'status': status},
+        function (data) {
+            $('.preloader').hide(); 
+            if(data !== "FAIL") {
+                location.href =_server_url + 'admin/main/adminList?lang=' + lang_status;
+            }else {
+                Swal.fire({
+                    title: "<?php echo $failed;?>",
+                    text: "<?php echo $alert_content[6];?>",
+                    icon: "warning",
+                    customClass: {
+                        confirmButton: "btn btn-primary w-xs me-2 mt-2",
+                    },
+                    buttonsStyling: !1,
+                    showCloseButton: !0
+                });
+            }
+                
+        });
 }
 
 function validateForm() {

@@ -154,6 +154,38 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-3 text-lg-right">
+                                <label class="col-form-label"><?php echo $company_content[14];?> </label>
+                            </div>
+                            <div class="col-lg-5">
+                                <?php
+                                $active_arr = array(
+                                    0 => $active[2],
+                                    1 => $active[1],
+                                );?>
+                                <select class="select-active form-select"  onchange="updateLang()">
+                                    <?php if ($company_data == null) { ?>
+                                        <option value="100" selected="selected"><?php echo $active[0]; ?></option>
+                                        <?php
+                                        for($idx = sizeof($active_arr) - 1; $idx >= 0; $idx--){
+                                            echo '<option value="'.$idx.'">'.$active_arr[$idx].'</option>';
+                                        }?>
+                                        <?php
+                                    } else {
+                                        for($idx = sizeof($active_arr) - 1; $idx >= 0; $idx--){
+                                            if($company_data["offer_active"] == $idx)
+                                                echo '<option value="'.$idx.'" selected="selected">'.$active_arr[$idx].'</option>';
+                                            else
+                                                echo '<option value="'.$idx.'">'.$active_arr[$idx].'</option>';
+                                        }
+                                    }?>
+                                </select>
+                            </div>
+                            <div class="col-lg-5 push-xl-3">
+                                <span class="error-msg error-active"><?php echo $error_company[5];?></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3 text-lg-right">
                                 <label class="col-form-label"><?php echo $company_content[7];?></label>
                             </div>
                             <?php
@@ -360,6 +392,7 @@ function CompanyAdd() {
             formData.append('sms_sender', $('#sms_name').val());
             formData.append('email_sender', $('#email_name').val());
             formData.append('company_language', $('.select-lang').val());
+            formData.append('offer_active', $('.select-active').val());
             $('.preloader').show(); 
             $.ajax({
                 type: "POST",
@@ -442,7 +475,7 @@ function CompanyAdd() {
             formData.append('sms_sender', $('#sms_name').val());
             formData.append('email_sender', $('#email_name').val());
             formData.append('company_language', $('.select-lang').val());
-
+            formData.append('offer_active', $('.select-active').val());
             $('.preloader').show();  
 
             $.ajax({
@@ -452,8 +485,8 @@ function CompanyAdd() {
                         $('.preloader').hide();
                         var res = JSON.parse(data);
                         if (res.response === "SUCCESS") {
-                            alert();
-                            // location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
+                            //alert();
+                            location.href =_server_url + 'admin/main/companyList?lang=' + lang_status;
                         }
                         else {
                             
@@ -522,6 +555,11 @@ function validateForm() {
 
     if($(".select-lang").val() == 100) {
         $('span.error-lang').show();
+        return false
+    }
+
+    if($(".select-active").val() == 100) {
+        $('span.error-active').show();
         return false
     }
 

@@ -4,6 +4,7 @@ class Manager extends CI_Controller{
 
     protected $url_videos = './uploads/videos/';
     public $config_data = array();
+    public $lang_code = 'en';
 
     public function __construct(){
         parent::__construct();
@@ -15,9 +16,11 @@ class Manager extends CI_Controller{
         $this->load->model('front/VideoModel');
         $this->load->model('front/CompanyModel');
         $this->load->model('front/DeviceModel');
+        $this->load->model('front/OfferModel');
         $this->load->model('TimeModel');
         $this->load->helper('directory');
         $this->load->helper('url');
+        $this->load->library('email');
 
         $company = json_decode($this->session->company!=null ? $this->session->company: '', true);
         
@@ -26,6 +29,12 @@ class Manager extends CI_Controller{
             redirect($baseurl."/", 'refresh');
         }
         $this->config_data  =  $this->ConfigModel->get_all_config_data();
+        $host_array = explode(".", $_SERVER['HTTP_HOST']);
+        if (count($host_array) < 2) {
+            $this->lang_code = "en";
+        } else {
+            $this->lang_code = array_splice($host_array, -1)[0];
+        }
     }
 
     public function index() {
@@ -61,27 +70,24 @@ class Manager extends CI_Controller{
     }
 
     public function can_login(){
-        $email = $this->input->post('email');
-        $password = md5($this->input->post('password'));
-        // $password  = $this->input->post('password');
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
 
         $data = array(
-            'pass' => $password,
             'state' => 'fail',
             'company_id' => '',
-            'lang' => 0
         );
 
         $result = $this->LoginModel->can_login($email, $password);
+
         $update_data = array();
         if($result['status'] == 'success'){
             $data['state'] = "success";
             $data['company_id'] = $result['company_id'];
-            $data['lang'] = $result['company_lang'];
             $update_data['company_login_num'] = $result['company_login_num'] + 1;
             $update_data['company_login_time'] = $this->TimeModel->getting_datetime();
             $this->setCompanyInfo($result);
-            $this->CompanyModel->loginUpdate($update_data,$result['company_id']);
+            $this->CompanyModel->loginUpdate($update_data, $result['company_id']);
             
         }else if($result['status'] == 'block'){
             $data['state'] = 'block';
@@ -163,10 +169,11 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['menu'] = $this->lang->line('menu');
@@ -181,6 +188,7 @@ class Manager extends CI_Controller{
         $data['modal_head'] = $this->lang->line('modal_head');
         $data['no_data'] = $this->lang->line('no_data');
         $data['months'] = $this->lang->line('months');
+        $data['language'] = $this->lang->line('language');
 
         $data['warning'] = $this->lang->line('warning');
         $data['success'] = $this->lang->line('success');
@@ -249,17 +257,20 @@ class Manager extends CI_Controller{
         $data['curpage'] = $curpage;
 
         if($result["company_lang"] == 0) {
-            $lang = 'ee';
-        } else {
+            $lang = 'eu';
+        } else if ($result["company_lang"] == 1){
             $lang = 'en';
+        } else if ($result["company_lang"] == 2) {
+            $lang = 'fi';
         }
 
         if (isset($_GET['lang'])){
            $lang = $_GET['lang'];
         }else{
-           $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['menu'] = $this->lang->line('menu');
@@ -282,6 +293,7 @@ class Manager extends CI_Controller{
         $data['message'] = $this->lang->line('message');
         $data['error_case'] = $this->lang->line('error_case');
         $data['refresh'] = $this->lang->line('refresh');
+        $data['language'] = $this->lang->line('language');
 
         $data['company_id'] = $company_id;
         $data['result'] = $result;
@@ -318,7 +330,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
@@ -337,6 +349,7 @@ class Manager extends CI_Controller{
         $data['head_name'] = $this->lang->line('device_title');
         $data['device_table'] = $this->lang->line('device_table');
         $data['device_num'] = $this->lang->line('device_count');
+        $data['language'] = $this->lang->line('language');
 
         $data['company_id'] = $company_id;
         $data['result'] = $result;
@@ -359,9 +372,10 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['menu'] = $this->lang->line('menu');
@@ -410,10 +424,17 @@ class Manager extends CI_Controller{
         $this->checkLogin();
 
         $case = isset($_POST['car'])? $_POST['car']: "";
+        $customer_phone = $_POST['phone'];
+        // if (str_starts_with($customer_phone, "0")) {
+            $cond['customer_phone'] = $customer_phone;
+        // } else {
+            // $cond['customer_phone'] = "0".$customer_phone;
+        // }
+
 
         $cond['customer_name'] = isset($_POST['name'])? $_POST['name']: "";
         $cond['customer_email'] = isset($_POST['email'])? $_POST['email']: "";
-        $cond['customer_phone'] = isset($_POST['phone'])? $_POST['phone']: "";
+        
 		$cond['customer_company'] = isset($_POST['company'])? $_POST['company']: "";
         $cond['customer_case_number'] = $case;
 
@@ -436,7 +457,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         if($result1 && $result2){
@@ -473,7 +494,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         if($result1 && $result2){
@@ -500,17 +521,18 @@ class Manager extends CI_Controller{
             );
             if (count($videos) == 0) {
                 $result1 = $this->VideoModel->update($data);
-                
+          
                 $param['customer_name'] = $_POST['name'];
                 $param['customer_email'] = $_POST['email'];
                 $param['customer_phone'] = $_POST['phone_number'];
                 $param['customer_id'] = $video_data['video_customer_id'];
-
+    
                 $result2 = $this->CustomerModel->update($param);
             } else {
                 $result1 = false;
                 $result2 = false;
             }
+            
         }else{
             $result1 = false;
             $result2 = false;
@@ -628,22 +650,41 @@ class Manager extends CI_Controller{
         $status = $this->email->send();
         if ($status) {
             return true;
-
         } else {
             // echo $this->email->print_debugger();
             return false;
         }
     }
 
+    public function env_debug() {
+        echo "<h2>Loaded .env Variables</h2><pre>";
+
+        echo "=== getenv() values ===\n";
+        $keys = ['EMAIL_PROTOCOL', 'EMAIL_HOST', 'EMAIL_PORT', 'EMAIL_USER', 'EMAIL_PASS'];
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (getenv($key) ?: '❌ NOT SET') . "\n";
+        }
+
+        echo "\n=== \$_ENV values ===\n";
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (isset($_ENV[$key]) ? $_ENV[$key] : '❌ NOT SET') . "\n";
+        }
+
+        echo "\n=== \$_SERVER values ===\n";
+        foreach ($keys as $key) {
+            echo $key . ' = ' . (isset($_SERVER[$key]) ? $_SERVER[$key] : '❌ NOT SET') . "\n";
+        }
+
+        echo "</pre>";
+    }
+
     public function send_video(){
         $this->checkLogin();
-
-        $this->load->library('email');
 
         $rows = $this->VideoModel->getFind($_POST['video_id']);
 
         $config_data               =  $this->ConfigModel->get_all_config_data();
-        $config_data['video_url']  =  base_url().'client/'.$rows['video_serial'].'?lang=ee';
+        $config_data['video_url']  =  base_url().'client/'.$rows['video_serial'].'?lang='.$this->lang_code;
         
         $data['video_id']          =  $_POST['video_id'];
         $data['video_is_show']     =  2;
@@ -670,9 +711,14 @@ class Manager extends CI_Controller{
                 $sms_text = str_replace("{{client}}", $rows['customer_name'],$sms_text);
                 $sms_text = str_replace("{{car_number}}", $rows['video_case_number'],$sms_text); 
                 $sms_text = str_replace("{{url}}", $config_data['video_url'],$sms_text);
-                $country_code = "+372";
-                $mobile =    $_POST['phone'];
-                $mobile = ltrim($mobile,$country_code);
+                $country_code = "+358";
+                if (str_starts_with($_POST['phone'], "0")) {
+                    $mobile = (string)intval($_POST['phone']);
+                } else {
+                    $mobile =    $_POST['phone'];
+                }
+
+                $mobile = ltrim($mobile, $country_code);
                 $sms_data['message'] = $sms_text;
                 $sms_data['to'] = $country_code.$mobile;
                 $sms_data['from'] = $rows['sms_sender'];
@@ -686,13 +732,15 @@ class Manager extends CI_Controller{
                     $data['sms_time'] = $rows['sms_time'];
                 }
             }
-
+        } else {
             $status = true;
         }
 
+        // var_dump($sms_status['success']);
+        // exit();
+
         if($_POST['email_state'] == 1) {
             $cond['email'] = $_POST['email'];
-
             $status = $this->send_email($config_data, $rows, $_POST);
         } 
         $this->General->insert_new('vis_video_link', $cond);
@@ -702,28 +750,6 @@ class Manager extends CI_Controller{
             $res['status'] = "fail";
         
         echo json_encode($res);
-    }
-
-    public function env_debug() {
-        echo "<h2>Loaded .env Variables</h2><pre>";
-
-        echo "=== getenv() values ===\n";
-        $keys = ['EMAIL_PROTOCOL', 'EMAIL_HOST', 'EMAIL_PORT', 'EMAIL_USER', 'EMAIL_PASS'];
-        foreach ($keys as $key) {
-            echo $key . ' = ' . (getenv($key) ?: '❌ NOT SET') . "\n";
-        }
-
-        echo "\n=== \$_ENV values ===\n";
-        foreach ($keys as $key) {
-            echo $key . ' = ' . (isset($_ENV[$key]) ? $_ENV[$key] : '❌ NOT SET') . "\n";
-        }
-
-        echo "\n=== \$_SERVER values ===\n";
-        foreach ($keys as $key) {
-            echo $key . ' = ' . (isset($_SERVER[$key]) ? $_SERVER[$key] : '❌ NOT SET') . "\n";
-        }
-
-        echo "</pre>";
     }
 
     public function companyUpdate(){
@@ -777,7 +803,7 @@ class Manager extends CI_Controller{
         if (isset($_POST['lang'])){
             $lang = $_POST['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -790,10 +816,12 @@ class Manager extends CI_Controller{
 
         $data['link_log_data'] = $this->General->get_rows('vis_video_link', $res1);
         $data['video_data'] = $this->VideoModel->getFind($video_id);
+        $data['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
 
         $resp['counts'] = $this->General->get_counts('vis_video_log', $res);
 
         $resp['content'] = $this->load->view('front/video/log_table', $data, true);
+        $resp['offer_content'] = $this->load->view('front/video/offer_table', $data, true);
         $resp['log_content'] = $this->load->view('front/video/link_log_table', $data, true);
 
         echo json_encode($resp);
@@ -900,7 +928,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
         $this->lang->load('content',$lang);
@@ -944,7 +972,7 @@ class Manager extends CI_Controller{
         if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
@@ -992,7 +1020,7 @@ class Manager extends CI_Controller{
          if (isset($_GET['lang'])){
             $lang = $_GET['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
 
         $data['head_lang'] = $lang;
@@ -1090,9 +1118,10 @@ class Manager extends CI_Controller{
         if (isset($_POST['lang'])){
             $lang = $_POST['lang'];
         }else{
-            $lang = 'en';
+            $lang = $this->lang_code;
         }
         $data['head_lang'] = $lang;
+        $data['default_lang'] = $this->lang_code;
         $this->lang->load('content',$lang);
 
         $data['video_table'] = $this->lang->line('video_table');
@@ -1101,31 +1130,177 @@ class Manager extends CI_Controller{
        
 
         $data['video_data'] = $this->VideoModel->getFind($video_id);
+        $data['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
         $resp['v_content'] = $this->load->view('front/video/video_modal', $data, true);
         $resp['admin_content'] = $this->load->view('admin/video/video_modal_1', $data, true);
 
         echo json_encode($resp);
     }
 
-    // public function send_message($time, $id) {
-    //     $this->load->library('email');
+    // Offer Features
+    public function offer_valid_update() {
+        $this->checkLogin();
+        $cond['video_id'] = $this->input->post('video_id');
+        $updates['valid_date'] = $this->input->post('date');
+        $result = $this->General->update('vis_videos', $updates, $cond);
+        if($result){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+       
+        echo json_encode($resp);
+    }
+    public function offer_update() {
+        $this->checkLogin();
 
-    //     $row = $this->VideoModel->getFind($id);
-    //     $subject = $row['video_case_number']." accepted the repair offer.";
-    //     $msg = $row['video_case_number']." has accepted the repair offer ".$time;
-    //     $config = array(
-    //         'charset'=>'utf-8',
-    //         'wordwrap'=> TRUE,
-    //         'mailtype' => 'html',
-    //     );
+        $cond['id'] = $this->input->post('id');
+        $cond['video_id'] = $this->input->post('video_id');
+        $updates['description'] = $this->input->post('description');
+        $updates['quantity'] = $this->input->post('quantity');
+        $updates['price'] = $this->input->post('price');
+
+        $video_id = $this->input->post('video_id');
+
+        $data['update_time'] = date('Y-m-d H:i:s');
+        $data['status'] = 1;
+        $this->General->update('vis_videos', $data, array('video_id' => $video_id));
+        $result = $this->General->update('vis_offer', $updates, $cond);
+
+        if($result){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        echo json_encode($resp);
+    }
+
+    public function offer_vat() {
+        $this->checkLogin();
+
+        $cond['video_id'] = $this->input->post('video_id');
+        $update_vat = $this->input->post('vat_fee');
+        $result = $this->General->update('vis_videos', array('vis_fee' => $update_vat), $cond);
+        if($result){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($cond['video_id']);
+        echo json_encode($resp);
+    }
+
+    public function offer_add() {
+        $this->checkLogin();
+        
+        $offer['video_id'] = $this->input->post('video_id');
+        $offer['description'] = $this->input->post('description');
+        $offer['quantity'] = $this->input->post('quantity');
+        $offer['price'] = $this->input->post('price');
+
+        $video_id = $offer['video_id'];
+        $data = array();
+        if ($this->General->get_counts('vis_offer', array('video_id' => $video_id)) > 0) {
+            $data['status'] = 1;
+            $data['update_time'] = date('Y-m-d H:i:s');
+        } else {
+            $data['status'] = 1;
+            $data['offer_time'] = date('Y-m-d H:i:s');
+        }
+        $this->General->update('vis_videos', $data, array('video_id' => $video_id));
+        $result = $this->General->insert_new('vis_offer', $offer);
+
+        if($result != null){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_id'] = $result;
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        
+        echo json_encode($resp);
+
+    }
+
+    public function offer_delete() {
+        $this->checkLogin();
+        $cond['id'] = $this->input->post('id');
+        $video_id = $this->input->post('video_id');
+
+        $updates['update_time'] = date('Y-m-d H:i:s');
+        $this->General->update('vis_videos', $updates, array('video_id' => $video_id));
+        $result = $this->General->delete('vis_offer', $cond);
+
+        if($result != null){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        $resp['offer_data'] = $this->OfferModel->getOfferByVideoId($video_id);
+        
+        echo json_encode($resp);
+
+    }
+
+    public function offer_delete_all() {
+        $this->checkLogin();
+
+        $cond['video_id'] = $this->input->post('video_id');
+        $result = $this->General->delete('vis_offer', $cond);
+
+        $updates['status'] = 0;
+        $updates['update_time'] = null;
+        $updates['offer_time'] = null;
+        $updates['accept_time'] = null;
+        $updates['valid_date'] = null;
+        $this->General->update('vis_videos', $updates, $cond);
+
+        if($result != null){
+            $resp['status'] = "success";
+        } else {
+            $resp['status'] = "fail";
+        }
+        
+        echo json_encode($resp);
+    }
+
+    public function accept_offer() {
+        $cond['video_id'] = $this->input->post('video_id');
+        $updates['status'] = 2;
+        $updates['accept_time'] = date('Y-m-d H:i:s');
+
+        $result =  $this->General->update('vis_videos', $updates, $cond);
+        if($result != null){
+            $resp['status'] = "success";
+            $resp['time'] = date('d.m.Y H:i');
+             $this->send_message($resp['time'], $cond['video_id']);
+        } else {
+            $resp['status'] = "fail";
+        }
+        
+        echo json_encode($resp);
+    }
+
+    public function send_message($time, $id) {
+        $this->load->library('email');
+
+        $row = $this->VideoModel->getFind($id);
+        $subject = $row['video_case_number']." accepted the repair offer.";
+        $msg = $row['video_case_number']." has accepted the repair offer ".$time;
+        $config = array(
+            'charset'=>'utf-8',
+            'wordwrap'=> TRUE,
+            'mailtype' => 'html',
+        );
     
-    //     $this->email->initialize($config);
+        $this->email->initialize($config);
 
-    //     $this->email->from( $this->config_data['from_mail'], $row['email_sender']);
-    //     $this->email->to($row['company_email']);
-    //     $this->email->reply_to($row['company_email']);
-    //     $this->email->subject($subject);
-    //     $this->email->message($mesg);
-    //     $this->email->send();
-    // }
+        $this->email->from( $this->config_data['from_mail'], $row['email_sender']);
+        $this->email->to($row['company_email']);
+        $this->email->reply_to($row['company_email']);
+        $this->email->subject($subject);
+        $this->email->message($mesg);
+        $this->email->send();
+    }
 }

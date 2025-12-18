@@ -3,7 +3,7 @@
 <script src="<?=base_url();?>assets/libs/videojs/video.min.js"></script>
 <style type="text/css">
     input[readonly] {background-color: transparent;}
-    #video_detail_content input.fcs:focus{outline:none;border-color:inherit;}
+    .custom_modal input.fcs:focus{outline:none;border-color:inherit;}
 </style>
 
 <div class="table-responsive table-card">
