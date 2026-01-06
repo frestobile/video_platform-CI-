@@ -259,6 +259,7 @@
 	var show_logs = true;
 	var show_link_log = true;
 	var show_send_option = true;
+	var offer_status = parseInt(document.getElementById('offer_status').value);
 
 	function addNewVideo(obj, idx) {
 		$('#modal_back').css('display', 'block');
@@ -609,6 +610,7 @@
 
 	function view_link_logs() {
 		$('#send_btn').css('display','block');
+		
 		show_send_option = true;
 		show_logs = true;
 		if (show_link_log == true) {
@@ -631,8 +633,12 @@
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
-			$('#offer_buttons').css('display', 'block');
-			
+			if (offer_status == 1) {
+				$('#offer_buttons').css('display', 'block');
+			} else {
+				$('#offer_buttons').css('display', 'none');
+			}
+
 			show_link_log = true;
 		}
 		$('#offer_window').css('display', 'none');
@@ -665,7 +671,12 @@
 				$('#video_element').css('display','block');
 				$('#company_logo').css('display','none');
 				$('#video_link').css('display', 'block');
-				$('#offer_buttons').css('display', 'block');
+				if (offer_status == 1) {
+					$('#offer_buttons').css('display', 'block');
+				} else {
+					$('#offer_buttons').css('display', 'none');
+				}
+				
 				$('#offer_window').css('display', 'none');
 				$('#back_btn').css('display', 'none');
 				show_logs = true;
@@ -680,7 +691,11 @@
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
 			$('#back_btn').css('display', 'none');
-			$('#offer_buttons').css('display', 'block');
+			if (offer_status == 1) {
+				$('#offer_buttons').css('display', 'block');
+			} else {
+				$('#offer_buttons').css('display', 'none');
+			}
 			show_logs = true;
 			$('#send_btn').css('display','block');
 		} 
@@ -690,7 +705,11 @@
 			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
-			$('#offer_buttons').css('display', 'block');
+			if (offer_status == 1) {
+				$('#offer_buttons').css('display', 'block');
+			} else {
+				$('#offer_buttons').css('display', 'none');
+			}
 			$('#back_btn').css('display', 'none');
 			show_link_log = true;
 			$('#send_btn').css('display','block');
@@ -702,7 +721,11 @@
 			$('#video_element').css('display','block');
 			$('#company_logo').css('display','none');
 			$('#video_link').css('display', 'block');
-			$('#offer_buttons').css('display', 'block');
+			if (offer_status == 1) {
+				$('#offer_buttons').css('display', 'block');
+			} else {
+				$('#offer_buttons').css('display', 'none');
+			}
 			$('#back_btn').css('display', 'none');
 			show_send_option = true;
 			$('#send_btn').css('display','block');

@@ -197,7 +197,6 @@
                     }
                 });
             }
-
             function select_lang(id){
                 var lang = '';
                 var page_name = $('#page_name').val();
@@ -211,7 +210,7 @@
                     var res = JSON.parse(data);
                     if(res.status === 'success') {
                         if (id == 1) {
-                            lang = 'fi';
+                            lang = 'es';
                         } else if (id == 0){
                             lang = 'en';
                         } 

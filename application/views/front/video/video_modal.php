@@ -312,7 +312,6 @@ video {
                 <button class="btn video_btn btn-primary" id="ok_btn" onclick="video_operation()"><?php echo $video_table[15];?></button>
             </div>
         </div>
-        
     </div>
 </div>
 
@@ -327,6 +326,7 @@ video {
 </script>
 <script>
     var video_id = "<?php echo $video_data['video_id'];?>";
+    console.log("video id:", video_id);
     
     $(document).ready(function () {
         $('#video_log').css('display', 'none');
@@ -340,6 +340,7 @@ video {
                     $(".preloader").hide();
                     $(".preloader img").hide();
                     var response = JSON.parse(data);
+                    console.log("log count response:", response);
                     views = response.counts;
                     $('#views_num').html(views);
                     log_table_load(response.content);
@@ -428,7 +429,7 @@ video {
     }
 
     function init() {
-        let val = parseInt(document.getElementById('offer_active').value);
+        let val = parseInt(document.getElementById('offer_status').value);
         if (!val) document.getElementById('offer_buttons').style.display = 'none';
 	}
 

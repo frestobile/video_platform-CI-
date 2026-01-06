@@ -75,24 +75,24 @@
                             <div class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
                                 <?php if($head_lang == 'en'){ ?>
                                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[1];?></span>
+                                        <img src="<?=base_url();?>assets/images/flags/en.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[1];?></span>
                                     </button>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url();?>assets/images/flags/fi.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[2];?></span>
+                                        <img src="<?=base_url();?>assets/images/flags/es.png" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name"><?php echo $language[2];?></span>
                                     </button>
                                 <?php } ?>
                                 <div class="dropdown-menu dropdown-menu-end">
 
                                     <!-- item-->
                                     <a href="javascript:switch_langugage(0);" class="dropdown-item notify-item language py-2">
-                                        <img src="<?=base_url();?>assets/images/flags/us.png" alt="user-image" class="me-2 rounded-circle" height="18">
+                                        <img src="<?=base_url();?>assets/images/flags/en.png" alt="user-image" class="me-2 rounded-circle" height="18">
                                         <span class="align-middle"><?php echo $language[1];?></span>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:switch_langugage(1);" class="dropdown-item notify-item language">
-                                        <img src="<?=base_url();?>assets/images/flags/fi.png" alt="user-image" class="me-2 rounded-circle" height="18">
+                                        <img src="<?=base_url();?>assets/images/flags/es.png" alt="user-image" class="me-2 rounded-circle" height="18">
                                         <span class="align-middle"><?php echo $language[2];?></span>
                                     </a>
                                 </div>
