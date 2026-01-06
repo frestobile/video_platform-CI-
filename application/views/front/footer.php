@@ -210,7 +210,7 @@
                     var res = JSON.parse(data);
                     if(res.status === 'success') {
                         if (id == 1) {
-                            lang = 'es';
+                            lang = 'fi';
                         } else if (id == 0){
                             lang = 'en';
                         } 
